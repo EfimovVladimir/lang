@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(value = "/")
 public class MainController {
@@ -20,6 +22,13 @@ public class MainController {
   @ResponseBody
   public Section getSectionById(@PathVariable Integer id) {
     Section result = sectionService.getById(id);
+    return result;
+  }
+
+  @RequestMapping(value = "/sections", method = RequestMethod.GET)
+  @ResponseBody
+  public List<Section> getAllSections() {
+    List<Section> result = sectionService.findAll();
     return result;
   }
 
