@@ -1,0 +1,19 @@
+# General
+lib/
+
+# Gradle
+.gradle/
+build/
+
+# Java
+/.classpath
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Eclipse
+.metadata/
+.settings/
+.recommenders/
