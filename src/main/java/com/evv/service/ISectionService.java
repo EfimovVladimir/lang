@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ISectionService {
 
-  Section getById(Integer id);
-  List<Section> findAll();
-
+  Section getSectionById(Integer id);
+  List<Section> findAllSections();
+  void saveOrUpdateSection(Section object);
 }

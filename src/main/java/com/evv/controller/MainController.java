@@ -4,10 +4,7 @@ import com.evv.model.Section;
 import com.evv.service.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,15 +18,22 @@ public class MainController {
   @RequestMapping(value = "/section/{id}", method = RequestMethod.GET)
   @ResponseBody
   public Section getSectionById(@PathVariable Integer id) {
-    Section result = sectionService.getById(id);
+    Section result = sectionService.getSectionById(id);
     return result;
   }
 
   @RequestMapping(value = "/sections", method = RequestMethod.GET)
   @ResponseBody
   public List<Section> getAllSections() {
-    List<Section> result = sectionService.findAll();
+    List<Section> result = sectionService.findAllSections();
     return result;
+  }
+
+  @RequestMapping(value = "/save_section", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public void saveSection(@RequestBody Section section) {
+    sectionService.saveOrUpdateSection(section);
   }
 
 }
