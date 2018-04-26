@@ -16,6 +16,7 @@ public class MainController {
   private ISectionService sectionService;
 
   @RequestMapping(value = "/section/{id}", method = RequestMethod.GET)
+  @CrossOrigin
   @ResponseBody
   public Section getSectionById(@PathVariable Integer id) {
     Section result = sectionService.getSectionById(id);
@@ -23,6 +24,7 @@ public class MainController {
   }
 
   @RequestMapping(value = "/sections", method = RequestMethod.GET)
+  @CrossOrigin
   @ResponseBody
   public List<Section> getAllSections() {
     List<Section> result = sectionService.findAllSections();
