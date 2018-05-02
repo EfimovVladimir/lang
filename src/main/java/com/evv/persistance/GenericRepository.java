@@ -45,4 +45,9 @@ public class GenericRepository implements IGenericRepository {
     return criteria.list();
   }
 
+  @Override
+  public <T> void delete(T entity) {
+    getCurrentSession().delete(entity);
+  }
+
 }

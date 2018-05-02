@@ -20,10 +20,18 @@ export class SectionListComponent implements OnInit{
   getSectionList() : void {
     this.appHttpService.getSectionList().subscribe(
       (data) => {
-        console.log(data);
         this.sectionList = data;
       }
     );
   }
+
+  deleteSection(section) : void {
+    this.appHttpService.deleteSection(section).subscribe(
+      (data) => {
+        this.getSectionList();
+      }
+    );
+  }
+
 
 }

@@ -42,4 +42,10 @@ public class SectionService implements ISectionService{
     return getRepository().save(object);
   }
 
+  @Override
+  @Transactional
+  public void deleteSection(Section object) {
+    getRepository().delete(object);
+  }
+
 }

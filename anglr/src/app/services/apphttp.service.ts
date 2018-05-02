@@ -16,4 +16,8 @@ export class AppHttpService {
     return this.http.post('http://127.0.0.1:8080/lang/save_section', section);
   }
 
+  deleteSection(section): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/delete_section', section);
+  }
+
 }

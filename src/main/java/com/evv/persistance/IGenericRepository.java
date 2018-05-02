@@ -14,4 +14,6 @@ public interface IGenericRepository {
 
   <T> List<T> findAll(Class<T> clazz);
 
+  <T> void delete(T entity);
+
 }

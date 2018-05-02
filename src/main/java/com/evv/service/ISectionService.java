@@ -11,4 +11,5 @@ public interface ISectionService {
   List<Section> findAllSections();
   void saveOrUpdateSection(Section object);
   Integer save(Section object);
+  void deleteSection(Section object);
 }

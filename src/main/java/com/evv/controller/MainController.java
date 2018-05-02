@@ -39,4 +39,12 @@ public class MainController {
     return id;
   }
 
+  @RequestMapping(value = "/delete_section", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer deleteSection(@RequestBody Section section) {
+    sectionService.deleteSection(section);
+    return section.getId();
+  }
+
 }
