@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SectionListComponent } from "./components/section/sectionlist.component";
 import { SectionFormComponent} from "./components/section/sectionform.component"
 import { AppHttpService} from "./services/apphttp.service"
+import {InteractService} from "./services/interact.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { AppHttpService} from "./services/apphttp.service"
     HttpClientModule,
     FormsModule
   ],
-  providers: [AppHttpService],
+  providers: [AppHttpService, InteractService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

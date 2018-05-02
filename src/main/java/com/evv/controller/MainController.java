@@ -47,4 +47,12 @@ public class MainController {
     return section.getId();
   }
 
+  @RequestMapping(value = "/saveorupdate_section", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveOrUpdateSection(@RequestBody Section section) {
+    sectionService.saveOrUpdateSection(section);
+    return section.getId();
+  }
+
 }

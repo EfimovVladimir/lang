@@ -1,4 +1,5 @@
 <div>
+  <button (click)="clearSectionForm()">clear form</button>
   <form (ngSubmit)="executePostForm()" #sectionForm="ngForm">
     <ul>
       <li>
@@ -10,6 +11,6 @@
         <input type="text" [(ngModel)]="currentSection.info" id="sectionInfo" name="sectionInfo">
       </li>
     </ul>
-    <button type="submit">send form</button>
+    <button type="submit">save</button>
   </form>
 </div>

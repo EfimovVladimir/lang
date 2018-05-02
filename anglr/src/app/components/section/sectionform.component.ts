@@ -2,6 +2,8 @@ import {Component} from "@angular/core";
 import {Section} from "../../model/Section";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {AppHttpService} from "../../services/apphttp.service";
+import {InteractService} from "../../services/interact.service"
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'sectionform',
@@ -10,16 +12,24 @@ import {AppHttpService} from "../../services/apphttp.service";
 
 export class SectionFormComponent {
 
-  constructor(private http: HttpClient, private appService: AppHttpService) {}
-
   currentSection: Section = new Section();
+  subsSection: Subscription;
+
+  constructor(private appService: AppHttpService, private interactService: InteractService) {
+    this.subsSection = this.interactService.getObservableSection().subscribe(
+      data => {
+        this.currentSection = data;
+      }
+    )
+  }
 
   executePostForm() : void {
-    this.appService.saveSectionForm(this.currentSection)
+    this.appService.saveOrUpdateSectionForm(this.currentSection)
       .subscribe(
         data => {
-          this.currentSection.id = <number>data;
           console.log('saved section id: ' + data);
+          this.interactService.sendUpdateList(true);
+          this.clearSectionForm();
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {
@@ -29,6 +39,10 @@ export class SectionFormComponent {
           }
         }
       )
+  }
+
+  clearSectionForm() : void {
+    this.currentSection = new Section();
   }
 
 }

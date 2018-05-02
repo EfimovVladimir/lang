@@ -1,6 +1,6 @@
 <div>
   <table>
-    <tr *ngFor="let section of sectionList">
+    <tr *ngFor="let section of sectionList" (click)="selectCurrentSection(section)" >
       <td>{{section.id}}</td>
       <td>{{section.name}}</td>
       <td>{{section.info}}</td>
