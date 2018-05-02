@@ -1,0 +1,15 @@
+<div>
+  <form (ngSubmit)="executePostForm()" #sectionForm="ngForm">
+    <ul>
+      <li>
+        <label for="sectionName">Section Name</label>
+        <input type="text" [(ngModel)]="currentSection.name" id="sectionName" name="sectionName">
+      </li>
+      <li>
+        <label for="sectionInfo">Section Info</label>
+        <input type="text" [(ngModel)]="currentSection.info" id="sectionInfo" name="sectionInfo">
+      </li>
+    </ul>
+    <button type="submit">send form</button>
+  </form>
+</div>

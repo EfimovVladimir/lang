@@ -34,8 +34,9 @@ public class MainController {
   @RequestMapping(value = "/save_section", method = RequestMethod.POST)
   @CrossOrigin
   @ResponseBody
-  public void saveSection(@RequestBody Section section) {
-    sectionService.saveOrUpdateSection(section);
+  public Integer saveSection(@RequestBody Section section) {
+    Integer id = sectionService.save(section);
+    return id;
   }
 
 }

@@ -36,4 +36,10 @@ public class SectionService implements ISectionService{
     getRepository().saveOrUpdate(object);
   }
 
+  @Override
+  @Transactional
+  public Integer save(Section object) {
+    return getRepository().save(object);
+  }
+
 }

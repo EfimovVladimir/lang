@@ -12,4 +12,8 @@ export class AppHttpService {
     return this.http.get('http://127.0.0.1:8080/lang/sections');
   }
 
+  saveSectionForm(section): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/save_section', section);
+  }
+
 }

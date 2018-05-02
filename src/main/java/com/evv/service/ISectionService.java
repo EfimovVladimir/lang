@@ -10,4 +10,5 @@ public interface ISectionService {
   Section getSectionById(Integer id);
   List<Section> findAllSections();
   void saveOrUpdateSection(Section object);
+  Integer save(Section object);
 }
