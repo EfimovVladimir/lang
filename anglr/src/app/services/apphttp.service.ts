@@ -24,4 +24,8 @@ export class AppHttpService {
     return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_section', section);
   }
 
+  saveCardForm(cardForm): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/save_card', cardForm);
+  }
+
 }

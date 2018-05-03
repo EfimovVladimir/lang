@@ -1,11 +1,15 @@
 package com.evv.controller;
 
+import com.evv.model.Card;
 import com.evv.model.Section;
+import com.evv.service.ICardService;
 import com.evv.service.ISectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -14,6 +18,9 @@ public class MainController {
 
   @Autowired
   private ISectionService sectionService;
+
+  @Autowired
+  private ICardService cardService;
 
   @RequestMapping(value = "/section/{id}", method = RequestMethod.GET)
   @CrossOrigin
@@ -53,6 +60,20 @@ public class MainController {
   public Integer saveOrUpdateSection(@RequestBody Section section) {
     sectionService.saveOrUpdateSection(section);
     return section.getId();
+  }
+
+  @RequestMapping(value = "/save_card", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveCard(@RequestParam(value = "qAudioFile", required=false) MultipartFile fileQ,
+                          @RequestParam(value = "aAudioFile", required=false) MultipartFile fileA,
+                          @RequestParam(value = "cardImageFile", required=false) MultipartFile fileImg,
+                          @ModelAttribute Card card) throws IOException {
+    card.setqAudio((fileQ != null) ? fileQ.getBytes() : null);
+    card.setaAudio((fileA != null) ? fileA.getBytes() : null);
+    card.setCardImage((fileImg != null) ? fileImg.getBytes() : null);
+    Integer id = cardService.save(card);
+    return id;
   }
 
 }

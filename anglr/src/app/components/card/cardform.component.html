@@ -1,0 +1,41 @@
+<div>
+
+  <form (ngSubmit)="executeCardForm()" #cardForm="ngForm" class="form-style-1">
+    <ul>
+      <li>
+        <label for="cardQuestion">Card Name</label>
+        <input type="text" [(ngModel)]="currentCard.question" id="cardQuestion" name="cardQuestion" class="field-style">
+      </li>
+      <li>
+        <label for="cardQAudio">Question audio</label>
+        <input type="file" id="cardQAudio" name="cardQAudio" #qAudio (change)="changeQuestionFile(qAudio)" class="field-style">
+      </li>
+      <li>
+        <label for="cardQInfo">Question</label>
+        <input type="text" [(ngModel)]="currentCard.qInfo" id="cardQInfo" name="cardQInfo" class="field-style">
+      </li>
+      <li>
+        <label for="cardAAudio">Answer audio</label>
+        <input type="file" id="cardAAudio" name="cardAAudio" #aAudio (change)="changeAnswerFile(aAudio)" class="field-style">
+      </li>
+      <li>
+        <label for="cardAnswer">Answer</label>
+        <input type="text" [(ngModel)]="currentCard.answer" id="cardAnswer" name="cardAnswer" class="field-style">
+      </li>
+      <li>
+        <label for="cardAInfo">Answer Info</label>
+        <input type="text" [(ngModel)]="currentCard.aInfo" id="cardAInfo" name="cardAInfo" class="field-style">
+      </li>
+      <li>
+        <label for="cardImage">Card Image</label>
+        <input type="file" id="cardImage" name="cardImage" #cImage (change)="changeCardImage(cImage)" class="field-style">
+      </li>
+      <li>
+        <label for="sectionId">Section Id</label>
+        <input type="text" [(ngModel)]="currentCard.sectionId" id="sectionId" name="sectionId" class="field-style">
+      </li>
+    </ul>
+    <button type="submit" class="submit-style">save</button>
+  </form>
+
+</div>

@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
@@ -52,6 +53,14 @@ public class RootConfig extends WebMvcConfigurerAdapter {
     properties.put("hibernate.show_sql", env.getRequiredProperty("hibernate.show_sql"));
     properties.put("hibernate.dialect", env.getRequiredProperty("hibernate.dialect"));
     return properties;
+  }
+
+  @Bean(name="multipartResolver")
+  public CommonsMultipartResolver getCommonsMultipartResolver(){
+    CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+    commonsMultipartResolver.setMaxUploadSize(20971520); // 20 MB
+    commonsMultipartResolver.setMaxInMemorySize(1048576); // 1 MB
+    return commonsMultipartResolver;
   }
 
 }
