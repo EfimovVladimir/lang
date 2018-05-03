@@ -1,16 +1,18 @@
-<div>
-  <button (click)="clearSectionForm()">clear form</button>
-  <form (ngSubmit)="executePostForm()" #sectionForm="ngForm">
+<div *ngIf="isVisible">
+
+  <button (click)="closeSectionForm()">close form</button>
+  <form (ngSubmit)="executePostForm()" #sectionForm="ngForm" class="form-style-1">
     <ul>
       <li>
         <label for="sectionName">Section Name</label>
-        <input type="text" [(ngModel)]="currentSection.name" id="sectionName" name="sectionName">
+        <input type="text" [(ngModel)]="currentSection.name" id="sectionName" name="sectionName" class="field-style">
       </li>
       <li>
         <label for="sectionInfo">Section Info</label>
-        <input type="text" [(ngModel)]="currentSection.info" id="sectionInfo" name="sectionInfo">
+        <input type="text" [(ngModel)]="currentSection.info" id="sectionInfo" name="sectionInfo" class="field-style">
       </li>
     </ul>
-    <button type="submit">save</button>
+    <button type="submit" class="submit-style">save</button>
   </form>
+
 </div>

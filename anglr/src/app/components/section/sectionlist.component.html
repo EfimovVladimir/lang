@@ -1,10 +1,11 @@
 <div>
+  <button (click)="openNewSectionForm()">add</button>
   <table>
     <tr *ngFor="let section of sectionList" (click)="selectCurrentSection(section)" >
+      <td><button (click)="deleteSection(section)">del</button></td>
+      <td><button (click)="openSectionForm()">edit</button></td>
       <td>{{section.id}}</td>
       <td>{{section.name}}</td>
-      <td>{{section.info}}</td>
-      <td><button (click)="deleteSection(section)">delete</button></td>
     </tr>
   </table>
 </div>

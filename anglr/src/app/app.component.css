@@ -1,0 +1,26 @@
+.containerBlock {
+  border: 1px dotted #111e72;
+  padding: 10px;
+}
+
+.divInlineBlock {
+  display: inline-block;
+  border: 1px solid #720a37;
+}
+
+.divInlineBlockSize {
+  display: inline-block;
+  border: 1px solid #720a37;
+  height: 500px;
+  width: 700px;
+  vertical-align: top;
+}
+
+.inlineBlockLeft {
+  display: inline-block;
+  border: 1px solid #720a37;
+  height: 500px;
+  width: 300px;
+  vertical-align: top;
+}
+
