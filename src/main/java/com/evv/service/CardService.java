@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class CardService implements ICardService {
@@ -21,6 +22,12 @@ public class CardService implements ICardService {
   @Transactional
   public Integer save(Card object) {
     return getRepository().save(object);
+  }
+
+  @Override
+  @Transactional
+  public List<Card> findAllCards() {
+    return getRepository().findAll(Card.class);
   }
 
 }

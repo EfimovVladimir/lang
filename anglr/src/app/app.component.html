@@ -5,6 +5,7 @@
 
 <article class="containerBlock">
   <sectionlist class="inlineBlockLeft"></sectionlist>
-  <sectionform class="divInlineBlockSize"></sectionform>
+  <sectionform  *ngIf="isVisibleSectionForm" class="divInlineBlockSize"></sectionform>
+  <cardlist *ngIf="!isVisibleSectionForm" class="divInlineBlockSize"></cardlist>
   <cardform class="divInlineBlockSize"></cardform>
 </article>

@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SectionListComponent } from "./components/section/sectionlist.component";
 import { SectionFormComponent} from "./components/section/sectionform.component";
 import { CardFormComponent} from "./components/card/cardform.component";
+import { CardListComponent} from "./components/card/cardlist.component";
 import { AppHttpService } from "./services/apphttp.service";
 import { InteractService } from "./services/interact.service";
 
@@ -17,7 +18,8 @@ import { InteractService } from "./services/interact.service";
     AppComponent,
     SectionListComponent,
     SectionFormComponent,
-    CardFormComponent
+    CardFormComponent,
+    CardListComponent
   ],
   imports: [
     BrowserModule,

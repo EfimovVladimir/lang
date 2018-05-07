@@ -76,4 +76,12 @@ public class MainController {
     return id;
   }
 
+  @RequestMapping(value = "/cards", method = RequestMethod.GET)
+  @CrossOrigin
+  @ResponseBody
+  public List<Card> getAllCards() {
+    List<Card> result = cardService.findAllCards();
+    return result;
+  }
+
 }

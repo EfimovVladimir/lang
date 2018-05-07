@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {Section} from "../model/Section";
+import {Card} from "../model/Card";
 
 @Injectable()
 export class AppHttpService {
@@ -26,6 +27,10 @@ export class AppHttpService {
 
   saveCardForm(cardForm): Observable<number> {
     return this.http.post('http://127.0.0.1:8080/lang/save_card', cardForm);
+  }
+
+  getCardList(): Observable<Card[]>{
+    return this.http.get('http://127.0.0.1:8080/lang/cards');
   }
 
 }

@@ -15,18 +15,11 @@ export class SectionFormComponent {
 
   currentSection: Section = new Section();
   subsSection: Subscription;
-  subsIsVisible: Subscription;
-  isVisible = false;
 
   constructor(private appService: AppHttpService, private interactService: InteractService) {
     this.subsSection = this.interactService.getObservableSection().subscribe(
       data => {
         this.currentSection = (data == null)? new Section() : data;
-      }
-    )
-    this.subsIsVisible = this.interactService.getObservableSectFormVisbl().subscribe(
-      data => {
-        this.isVisible = <boolean>data;
       }
     )
   }
@@ -51,10 +44,6 @@ export class SectionFormComponent {
 
   clearSectionForm() : void {
     this.currentSection = new Section();
-  }
-
-  closeSectionForm() : void {
-    this.isVisible = false;
   }
 
 }

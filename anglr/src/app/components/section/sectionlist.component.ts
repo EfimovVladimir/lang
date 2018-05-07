@@ -7,7 +7,7 @@ import {Subscription} from "rxjs/Subscription";
 @Component({
   selector: 'sectionlist',
   templateUrl: './sectionlist.component.html',
-  styleUrls: ['../../css/list.component.css'],
+  styleUrls: ['../../css/list.component.css']
 })
 
 export class SectionListComponent implements OnInit{
@@ -46,12 +46,13 @@ export class SectionListComponent implements OnInit{
     );
   }
 
-  selectCurrentSection(section) : void {
-    this.interactService.sendSection(section);
+  selectCardsForSection() : void {
+    this.interactService.sendSectionFormVisible(false);
   }
 
-  openSectionForm() : void {
+  openSectionForm(section) : void {
     this.interactService.sendSectionFormVisible(true);
+    this.interactService.sendSection(section);
   }
 
   openNewSectionForm() : void {
