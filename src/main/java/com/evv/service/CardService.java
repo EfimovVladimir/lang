@@ -1,7 +1,11 @@
 package com.evv.service;
 
 import com.evv.model.Card;
+import com.evv.model.Section;
 import com.evv.persistance.IGenericRepository;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,14 @@ public class CardService implements ICardService {
   @Transactional
   public List<Card> findAllCards() {
     return getRepository().findAll(Card.class);
+  }
+
+  @Override
+  @Transactional
+  public List<Card> findAllSectionsCards(Section section) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(Card.class).
+        add(Restrictions.eq("section", section));
+    return getRepository().findByCriteria(criteria);
   }
 
   @Override

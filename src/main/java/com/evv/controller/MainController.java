@@ -84,6 +84,14 @@ public class MainController {
     return result;
   }
 
+  @RequestMapping(value = "/section_cards", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public List<Card> getAllSectionsCards(@RequestBody Section section) {
+    List<Card> result = cardService.findAllSectionsCards(section);
+    return result;
+  }
+
   @RequestMapping(value = "/delete_card", method = RequestMethod.POST)
   @CrossOrigin
   @ResponseBody

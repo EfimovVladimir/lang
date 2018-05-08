@@ -1,3 +1,5 @@
+import {Section} from "./Section";
+
 export class Card {
   id: number;
   question: string;
@@ -8,6 +10,7 @@ export class Card {
   aInfo: string;
   cardImage: File;
   sectionId: number;
+  section: Section = new Section();
 
   constructor(){ }
 }

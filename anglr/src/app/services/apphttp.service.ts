@@ -40,4 +40,8 @@ export class AppHttpService {
   saveOrUpdateCard(card): Observable<number> {
     return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_card', card);
   }
+
+  getCardListForSection(section): Observable<Card[]>{
+    return this.http.post('http://127.0.0.1:8080/lang/section_cards', section);
+  }
 }

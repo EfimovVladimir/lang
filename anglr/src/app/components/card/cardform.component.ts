@@ -5,6 +5,7 @@ import {AppHttpService} from "../../services/apphttp.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {InteractService} from "../../services/interact.service";
 import {Subscription} from "rxjs/Subscription";
+import {Section} from "../../model/Section";
 
 @Component({
   selector: 'cardform',
@@ -16,6 +17,7 @@ export class CardFormComponent {
 
   currentCard: Card = new Card();
   subsCard: Subscription;
+  subSection: Subscription;
 
   constructor(private appService: AppHttpService, private interactService: InteractService){
     this.interactService.getObservableCard().subscribe(
@@ -31,7 +33,8 @@ export class CardFormComponent {
     formData.append("qInfo", this.currentCard.qInfo);
     formData.append("answer", this.currentCard.answer);
     formData.append("aInfo", this.currentCard.aInfo);
-    formData.append("sectionId", this.currentCard.sectionId.toString());
+    // formData.append("section", JSON.stringify(this.currentCard.section));
+   formData.append("section.id", this.currentCard.section.id.toString());
     if(this.currentCard.qAudio !== undefined){
       formData.append("qAudioFile", this.currentCard.qAudio, this.currentCard.qAudio.name);
     }

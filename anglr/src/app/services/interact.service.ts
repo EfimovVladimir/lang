@@ -10,7 +10,6 @@ export class InteractService {
   private updateSectionList = new Subject<boolean>();
   private updateCardList = new Subject<boolean>();
   private section = new Subject<Section>();
-  private secFormVisbl = new Subject<boolean>();
   private card = new Subject<Card>();
 
   sendUpdateSectionList(flag: boolean){
@@ -29,10 +28,6 @@ export class InteractService {
     this.card.next(card);
   }
 
-  sendSectionFormVisible(flag: boolean){
-    this.secFormVisbl.next(flag);
-  }
-
   getObservableUpdateSectionList(): Observable<boolean>{
     return this.updateSectionList.asObservable();
   }
@@ -43,10 +38,6 @@ export class InteractService {
 
   getObservableSection(): Observable<Section>{
     return this.section.asObservable();
-  }
-
-  getObservableSectFormVisbl(): Observable<boolean>{
-    return this.secFormVisbl.asObservable();
   }
 
   getObservableCard(): Observable<Card>{

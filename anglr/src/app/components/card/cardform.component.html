@@ -3,7 +3,7 @@
   <form (ngSubmit)="executeCardForm()" #cardForm="ngForm" class="form-style-1">
     <ul>
       <li>
-        <label for="cardQuestion">Card Name</label>
+        <label for="cardQuestion">Question</label>
         <input type="text" [(ngModel)]="currentCard.question" id="cardQuestion" name="cardQuestion" class="field-style">
       </li>
       <li>
@@ -11,7 +11,7 @@
         <input type="file" id="cardQAudio" name="cardQAudio" #qAudio (change)="changeQuestionFile(qAudio)" class="field-style">
       </li>
       <li>
-        <label for="cardQInfo">Question</label>
+        <label for="cardQInfo">Question Info</label>
         <input type="text" [(ngModel)]="currentCard.qInfo" id="cardQInfo" name="cardQInfo" class="field-style">
       </li>
       <li>
@@ -31,8 +31,8 @@
         <input type="file" id="cardImage" name="cardImage" #cImage (change)="changeCardImage(cImage)" class="field-style">
       </li>
       <li>
-        <label for="sectionId">Section Id</label>
-        <input type="text" [(ngModel)]="currentCard.sectionId" id="sectionId" name="sectionId" class="field-style">
+        <label for="section">Section Id</label>
+        <input type="text" [(ngModel)]="currentCard.section.id" id="section" name="section" class="field-style" readonly>
       </li>
     </ul>
     <button type="submit" class="submit-style">save</button>

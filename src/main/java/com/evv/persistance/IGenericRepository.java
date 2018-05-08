@@ -1,5 +1,8 @@
 package com.evv.persistance;
 
+import org.hibernate.criterion.DetachedCriteria;
+
+import java.io.Serializable;
 import java.util.List;
 
 public interface IGenericRepository {
@@ -15,5 +18,7 @@ public interface IGenericRepository {
   <T> List<T> findAll(Class<T> clazz);
 
   <T> void delete(T entity);
+
+  <T> List<T> findByCriteria(DetachedCriteria criteria);
 
 }

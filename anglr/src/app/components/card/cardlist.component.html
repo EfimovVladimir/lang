@@ -1,4 +1,5 @@
 <div>
+  <button *ngIf="currentSection.id > 0" (click)="newCardForm()">new card</button>
   <table>
     <tr *ngFor="let card of cardList">
       <td><button (click)="deleteCard(card)">del</button></td>

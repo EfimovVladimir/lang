@@ -32,8 +32,9 @@ public class Card {
   @Column(name="CARD_IMAGE")
   byte[] cardImage;
 
-  @Column(name="SECTION_ID")
-  Integer sectionId;
+  @JoinColumn(updatable = false, name="SECTION_ID")
+  @ManyToOne(optional = false, fetch = FetchType.EAGER)
+  Section section;
 
   public Integer getId() {
     return id;
@@ -99,11 +100,11 @@ public class Card {
     this.cardImage = cardImage;
   }
 
-  public Integer getSectionId() {
-    return sectionId;
+  public Section getSection() {
+    return section;
   }
 
-  public void setSectionId(Integer sectionId) {
-    this.sectionId = sectionId;
+  public void setSection(Section section) {
+    this.section = section;
   }
 }

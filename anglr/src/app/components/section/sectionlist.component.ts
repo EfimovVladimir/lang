@@ -47,13 +47,15 @@ export class SectionListComponent implements OnInit{
     );
   }
 
-  openSectionForm(section) : void {
-    this.interactService.sendSectionFormVisible(true);
+  editSectionForm(section) : void {
     this.interactService.sendSection(section);
   }
 
-  openNewSectionForm() : void {
-    this.interactService.sendSectionFormVisible(true);
+  selectCardsForSection(section) : void {
+    this.interactService.sendSection(section);
+  }
+
+  newSectionForm() : void {
     this.interactService.sendSection(null);
   }
 

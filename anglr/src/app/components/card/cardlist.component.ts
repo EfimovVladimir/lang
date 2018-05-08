@@ -4,6 +4,7 @@ import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
 import {InteractService} from "../../services/interact.service";
 import {Subscription} from "rxjs/Subscription";
+import {Section} from "../../model/Section";
 
 @Component({
   selector: 'cardlist',
@@ -15,6 +16,7 @@ export class CardListComponent implements OnInit{
 
   cardList: Card[];
   subsUpdateList: Subscription;
+  currentSection: Section = new Section();
 
   ngOnInit(): void {
     this.getCardList();
@@ -24,10 +26,16 @@ export class CardListComponent implements OnInit{
     this.subsUpdateList = this.interactService.getObservableUpdateCardList().subscribe(
       flag => {
         if(flag){
-          this.getCardList();
+          this.getSectionCardList(this.currentSection);
         }
       }
-    )
+    );
+    this.interactService.getObservableSection().subscribe(
+      data => {
+        this.currentSection = data;
+        this.getSectionCardList(this.currentSection);
+      }
+    );
   }
 
   getCardList() : void {
@@ -36,6 +44,14 @@ export class CardListComponent implements OnInit{
         this.cardList = data;
       }
     );
+  }
+
+  getSectionCardList(section) : void {
+    this.appHttpService.getCardListForSection(section).subscribe(
+      (data) => {
+        this.cardList = data;
+      }
+    )
   }
 
   deleteCard(card) : void {
@@ -47,6 +63,12 @@ export class CardListComponent implements OnInit{
   }
 
   editCardForm(card) : void {
+    this.interactService.sendCard(card);
+  }
+
+  newCardForm() : void {
+    var card = new Card();
+    card.section = this.currentSection;
     this.interactService.sendCard(card);
   }
 

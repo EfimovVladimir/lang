@@ -1,10 +1,10 @@
 <div>
-  <button (click)="openNewSectionForm()">add</button>
+  <button (click)="newSectionForm()">new section</button>
   <table>
     <tr *ngFor="let section of sectionList" >
       <td><button *ngIf="editMode" (click)="deleteSection(section)">del</button></td>
-      <td><button *ngIf="editMode" (click)="openSectionForm(section)">edit</button></td>
-      <td><button *ngIf="!editMode" (click)="selectCardsForSection()">cards</button></td>
+      <td><button *ngIf="editMode" (click)="editSectionForm(section)">edit</button></td>
+      <td><button *ngIf="!editMode" (click)="selectCardsForSection(section)">cards</button></td>
       <td>{{section.id}}</td>
       <td>{{section.name}}</td>
     </tr>

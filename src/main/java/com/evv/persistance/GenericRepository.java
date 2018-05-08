@@ -3,6 +3,7 @@ package com.evv.persistance;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -48,6 +49,12 @@ public class GenericRepository implements IGenericRepository {
   @Override
   public <T> void delete(T entity) {
     getCurrentSession().delete(entity);
+  }
+
+  @Override
+  public <T> List<T> findByCriteria(DetachedCriteria criteria) {
+    Criteria executableCriteria = criteria.getExecutableCriteria(getCurrentSession());
+    return executableCriteria.list();
   }
 
 }
