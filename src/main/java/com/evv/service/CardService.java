@@ -30,4 +30,16 @@ public class CardService implements ICardService {
     return getRepository().findAll(Card.class);
   }
 
+  @Override
+  @Transactional
+  public void deleteCard(Card card) {
+    getRepository().delete(card);
+  }
+
+  @Override
+  @Transactional
+  public void saveOrUpdateCard(Card card) {
+    getRepository().saveOrUpdate(card);
+  }
+
 }

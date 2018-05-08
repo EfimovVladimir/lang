@@ -12,14 +12,18 @@ import { CardFormComponent} from "./components/card/cardform.component";
 import { CardListComponent} from "./components/card/cardlist.component";
 import { AppHttpService } from "./services/apphttp.service";
 import { InteractService } from "./services/interact.service";
+import {SectionEditComponent} from "./components/section/sectionedit.component";
+import {CardEditComponent} from "./components/card/cardedit.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     SectionListComponent,
     SectionFormComponent,
+    SectionEditComponent,
     CardFormComponent,
-    CardListComponent
+    CardListComponent,
+    CardEditComponent
   ],
   imports: [
     BrowserModule,
@@ -29,8 +33,12 @@ import { InteractService } from "./services/interact.service";
     FormsModule,
     RouterModule.forRoot([
         {
-          path: 'sectionForm',
-          component: SectionFormComponent
+          path: 'sectionedit',
+          component: SectionEditComponent
+        },
+        {
+          path: 'cardedit',
+          component: CardEditComponent
         }
     ])
   ],

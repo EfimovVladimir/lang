@@ -3,6 +3,8 @@ import {Component} from "@angular/core";
 import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {InteractService} from "../../services/interact.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'cardform',
@@ -13,9 +15,14 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class CardFormComponent {
 
   currentCard: Card = new Card();
+  subsCard: Subscription;
 
-  constructor(private appService: AppHttpService){
-
+  constructor(private appService: AppHttpService, private interactService: InteractService){
+    this.interactService.getObservableCard().subscribe(
+      data => {
+        this.currentCard = (data == null)? new Card() : data;
+      }
+    )
   }
 
   executeCardForm() : void {
@@ -39,8 +46,7 @@ export class CardFormComponent {
       .subscribe(
         data => {
           console.log('saved Card id: ' + data);
-          // this.interactService.sendUpdateList(true);
-          // this.clearSectionForm();
+          this.interactService.sendUpdateCardList(true);
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {

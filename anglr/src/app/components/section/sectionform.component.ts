@@ -29,7 +29,7 @@ export class SectionFormComponent {
       .subscribe(
         data => {
           console.log('saved section id: ' + data);
-          this.interactService.sendUpdateList(true);
+          this.interactService.sendUpdateSectionList(true);
           this.clearSectionForm();
         },
         (err: HttpErrorResponse) => {

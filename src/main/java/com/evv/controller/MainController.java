@@ -84,4 +84,26 @@ public class MainController {
     return result;
   }
 
+  @RequestMapping(value = "/delete_card", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer deleteCard(@RequestBody Card card) {
+    cardService.deleteCard(card);
+    return card.getId();
+  }
+
+  @RequestMapping(value = "/saveorupdate_card", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveOrUpdateCard(@RequestParam(value = "qAudioFile", required=false) MultipartFile fileQ,
+                                  @RequestParam(value = "aAudioFile", required=false) MultipartFile fileA,
+                                  @RequestParam(value = "cardImageFile", required=false) MultipartFile fileImg,
+                                  @ModelAttribute Card card) throws IOException {
+    card.setqAudio((fileQ != null) ? fileQ.getBytes() : null);
+    card.setaAudio((fileA != null) ? fileA.getBytes() : null);
+    card.setCardImage((fileImg != null) ? fileImg.getBytes() : null);
+    cardService.saveOrUpdateCard(card);
+    return card.getId();
+  }
+
 }

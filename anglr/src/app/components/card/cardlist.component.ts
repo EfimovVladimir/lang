@@ -2,6 +2,8 @@
 import {Component, OnInit} from "@angular/core";
 import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
+import {InteractService} from "../../services/interact.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'cardlist',
@@ -12,13 +14,20 @@ import {AppHttpService} from "../../services/apphttp.service";
 export class CardListComponent implements OnInit{
 
   cardList: Card[];
+  subsUpdateList: Subscription;
 
   ngOnInit(): void {
     this.getCardList();
   }
 
-  constructor(private appHttpService : AppHttpService){
-
+  constructor(private appHttpService : AppHttpService, private interactService: InteractService){
+    this.subsUpdateList = this.interactService.getObservableUpdateCardList().subscribe(
+      flag => {
+        if(flag){
+          this.getCardList();
+        }
+      }
+    )
   }
 
   getCardList() : void {
@@ -29,5 +38,16 @@ export class CardListComponent implements OnInit{
     );
   }
 
+  deleteCard(card) : void {
+    this.appHttpService.deleteCard(card).subscribe(
+      (data) => {
+        this.getCardList();
+      }
+    );
+  }
+
+  editCardForm(card) : void {
+    this.interactService.sendCard(card);
+  }
 
 }

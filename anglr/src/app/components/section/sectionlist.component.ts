@@ -14,9 +14,10 @@ export class SectionListComponent implements OnInit{
 
   sectionList: Section[];
   subsUpdateList: Subscription;
+  editMode = false;
 
   constructor(private appHttpService : AppHttpService, private interactService: InteractService) {
-    this.subsUpdateList = this.interactService.getObservableUpdateList().subscribe(
+    this.subsUpdateList = this.interactService.getObservableUpdateSectionList().subscribe(
       flag => {
         if(flag){
           this.getSectionList();
@@ -46,10 +47,6 @@ export class SectionListComponent implements OnInit{
     );
   }
 
-  selectCardsForSection() : void {
-    this.interactService.sendSectionFormVisible(false);
-  }
-
   openSectionForm(section) : void {
     this.interactService.sendSectionFormVisible(true);
     this.interactService.sendSection(section);
@@ -58,6 +55,10 @@ export class SectionListComponent implements OnInit{
   openNewSectionForm() : void {
     this.interactService.sendSectionFormVisible(true);
     this.interactService.sendSection(null);
+  }
+
+  setEditMode(flag : boolean){
+    this.editMode = flag;
   }
 
 }

@@ -2,9 +2,9 @@
   <button (click)="openNewSectionForm()">add</button>
   <table>
     <tr *ngFor="let section of sectionList" >
-      <td><button (click)="deleteSection(section)">del</button></td>
-      <td><button (click)="openSectionForm(section)">edit</button></td>
-      <td><button (click)="selectCardsForSection()">cards</button></td>
+      <td><button *ngIf="editMode" (click)="deleteSection(section)">del</button></td>
+      <td><button *ngIf="editMode" (click)="openSectionForm(section)">edit</button></td>
+      <td><button *ngIf="!editMode" (click)="selectCardsForSection()">cards</button></td>
       <td>{{section.id}}</td>
       <td>{{section.name}}</td>
     </tr>

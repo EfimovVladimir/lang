@@ -1,11 +1,9 @@
 
 <header class="containerBlock">
-
+  <a routerLink="/sectionedit">sections</a>
+  <a routerLink="/cardedit">cards</a>
 </header>
 
-<article class="containerBlock">
-  <sectionlist class="inlineBlockLeft"></sectionlist>
-  <sectionform  *ngIf="isVisibleSectionForm" class="divInlineBlockSize"></sectionform>
-  <cardlist *ngIf="!isVisibleSectionForm" class="divInlineBlockSize"></cardlist>
-  <cardform class="divInlineBlockSize"></cardform>
+<article>
+  <router-outlet></router-outlet>
 </article>
