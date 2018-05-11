@@ -1,11 +1,9 @@
 
-import {Component} from "@angular/core";
+import {Component, ElementRef, ViewChild} from "@angular/core";
 import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {InteractService} from "../../services/interact.service";
-import {Subscription} from "rxjs/Subscription";
-import {Section} from "../../model/Section";
 
 @Component({
   selector: 'cardform',
@@ -16,18 +14,19 @@ import {Section} from "../../model/Section";
 export class CardFormComponent {
 
   currentCard: Card = new Card();
-  subsCard: Subscription;
-  subSection: Subscription;
+  @ViewChild("qMp3", {read: ElementRef}) currentQMp3: ElementRef;
+  editMode = false;
 
   constructor(private appService: AppHttpService, private interactService: InteractService){
     this.interactService.getObservableCard().subscribe(
       data => {
         this.currentCard = (data == null)? new Card() : data;
+        this.currentQMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentCard.qAudio;
       }
     )
   }
 
-  executeCardForm() : void {
+  saveCardForm() : void {
     var formData: FormData = new FormData();
     formData.append("question", this.currentCard.question);
     formData.append("qInfo", this.currentCard.qInfo);
@@ -63,7 +62,12 @@ export class CardFormComponent {
 
   changeQuestionFile(fileInputElement : HTMLInputElement){
     this.currentCard.qAudio = fileInputElement.files[0];
-    console.log(fileInputElement.name)
+    console.log(fileInputElement.name);
+    var reader:FileReader = new FileReader();
+    reader.onloadend = (e) => {
+      this.currentQMp3.nativeElement.src = reader.result;
+    };
+    reader.readAsDataURL(this.currentCard.qAudio);
   }
 
   changeAnswerFile(fileInputElement : HTMLInputElement){

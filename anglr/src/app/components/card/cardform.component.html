@@ -1,6 +1,6 @@
 <div>
 
-  <form (ngSubmit)="executeCardForm()" #cardForm="ngForm" class="form-style-1">
+  <form (ngSubmit)="saveCardForm()" #cardForm="ngForm" class="form-style-1">
     <ul>
       <li>
         <label for="cardQuestion">Question</label>
@@ -9,6 +9,11 @@
       <li>
         <label for="cardQAudio">Question audio</label>
         <input type="file" id="cardQAudio" name="cardQAudio" #qAudio (change)="changeQuestionFile(qAudio)" class="field-style">
+      </li>
+      <li>
+        <audio #qMp3 controls class="inlineBlock">
+          <source src="" type="audio/mpeg">
+        </audio>
       </li>
       <li>
         <label for="cardQInfo">Question Info</label>
