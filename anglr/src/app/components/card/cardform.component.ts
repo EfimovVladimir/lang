@@ -28,23 +28,26 @@ export class CardFormComponent {
 
   saveCardForm() : void {
     var formData: FormData = new FormData();
+    if(this.currentCard.id != null){
+      formData.append("id", this.currentCard.id.toString());
+    }
     formData.append("question", this.currentCard.question);
     formData.append("qInfo", this.currentCard.qInfo);
     formData.append("answer", this.currentCard.answer);
     formData.append("aInfo", this.currentCard.aInfo);
     // formData.append("section", JSON.stringify(this.currentCard.section));
    formData.append("section.id", this.currentCard.section.id.toString());
-    if(this.currentCard.qAudio !== undefined){
+    if(this.currentCard.qAudio !== undefined && this.currentCard.qAudio != null){
       formData.append("qAudioFile", this.currentCard.qAudio, this.currentCard.qAudio.name);
     }
-    if(this.currentCard.aAudio !== undefined){
+    if(this.currentCard.aAudio !== undefined && this.currentCard.aAudio != null){
       formData.append("aAudioFile", this.currentCard.aAudio, this.currentCard.aAudio.name);
     }
-    if(this.currentCard.cardImage !== undefined){
+    if(this.currentCard.cardImage !== undefined && this.currentCard.cardImage != null){
       formData.append("cardImageFile", this.currentCard.cardImage, this.currentCard.cardImage.name);
     }
 
-    this.appService.saveCardForm(formData)
+    this.appService.saveOrUpdateCard(formData)
       .subscribe(
         data => {
           console.log('saved Card id: ' + data);
@@ -66,6 +69,7 @@ export class CardFormComponent {
     var reader:FileReader = new FileReader();
     reader.onloadend = (e) => {
       this.currentQMp3.nativeElement.src = reader.result;
+      this.currentQMp3.nativeElement.play();
     };
     reader.readAsDataURL(this.currentCard.qAudio);
   }
