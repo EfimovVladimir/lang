@@ -1,0 +1,17 @@
+<div>
+
+  <form (ngSubmit)="executePostForm()" #tagForm="ngForm" class="form-style-1">
+    <ul>
+      <li>
+        <label for="tagName">Tag Name</label>
+        <input type="text" [(ngModel)]="currentTag.name" id="tagName" name="tagName" class="field-style">
+      </li>
+      <li>
+        <label for="tagInfo">Tag Info</label>
+        <input type="text" [(ngModel)]="currentTag.info" id="tagInfo" name="tagInfo" class="field-style">
+      </li>
+    </ul>
+    <button type="submit" class="submit-style">save</button>
+  </form>
+
+</div>

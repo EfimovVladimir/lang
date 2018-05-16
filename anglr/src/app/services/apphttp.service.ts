@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/c
 import {Observable} from "rxjs/Observable";
 import {Section} from "../model/Section";
 import {Card} from "../model/Card";
+import {Tag} from "../model/Tag";
 
 @Injectable()
 export class AppHttpService {
@@ -43,5 +44,21 @@ export class AppHttpService {
 
   getCardListForSection(section): Observable<Card[]>{
     return this.http.post('http://127.0.0.1:8080/lang/section_cards', section);
+  }
+
+  getTagList(): Observable<Tag[]>{
+    return this.http.get('http://127.0.0.1:8080/lang/tags');
+  }
+
+  saveTagForm(tag): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/save_tag', tag);
+  }
+
+  deleteTag(tag): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/delete_tag', tag);
+  }
+
+  saveOrUpdateTagForm(tag): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_tag', tag);
   }
 }

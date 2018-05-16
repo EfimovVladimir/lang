@@ -14,6 +14,9 @@ import { AppHttpService } from "./services/apphttp.service";
 import { InteractService } from "./services/interact.service";
 import {SectionEditComponent} from "./components/section/sectionedit.component";
 import {CardEditComponent} from "./components/card/cardedit.component";
+import {TagFormComponent} from "./components/tag/tagform.component";
+import {TagListComponent} from "./components/tag/taglist.component";
+import {TagEditComponent} from "./components/tag/tagedit.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import {CardEditComponent} from "./components/card/cardedit.component";
     SectionEditComponent,
     CardFormComponent,
     CardListComponent,
-    CardEditComponent
+    CardEditComponent,
+    TagFormComponent,
+    TagListComponent,
+    TagEditComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +45,10 @@ import {CardEditComponent} from "./components/card/cardedit.component";
         {
           path: 'cardedit',
           component: CardEditComponent
+        },
+        {
+          path: 'tagedit',
+          component: TagEditComponent
         }
     ])
   ],

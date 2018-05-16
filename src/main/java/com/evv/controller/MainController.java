@@ -2,8 +2,10 @@ package com.evv.controller;
 
 import com.evv.model.Card;
 import com.evv.model.Section;
+import com.evv.model.Tag;
 import com.evv.service.ICardService;
 import com.evv.service.ISectionService;
+import com.evv.service.ITagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,9 @@ public class MainController {
 
   @Autowired
   private ICardService cardService;
+
+  @Autowired
+  private ITagService tagService;
 
   @RequestMapping(value = "/section/{id}", method = RequestMethod.GET)
   @CrossOrigin
@@ -112,6 +117,46 @@ public class MainController {
     card.setCardImage((fileImg != null) ? fileImg.getBytes() : null);
     cardService.saveOrUpdateCard(card);
     return card.getId();
+  }
+
+  @RequestMapping(value = "/tag/{id}", method = RequestMethod.GET)
+  @CrossOrigin
+  @ResponseBody
+  public Tag getTagById(@PathVariable Integer id) {
+    Tag result = tagService.getTagById(id);
+    return result;
+  }
+
+  @RequestMapping(value = "/tags", method = RequestMethod.GET)
+  @CrossOrigin
+  @ResponseBody
+  public List<Tag> getAllTags() {
+    List<Tag> result = tagService.findAllTags();
+    return result;
+  }
+
+  @RequestMapping(value = "/save_tag", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveTag(@RequestBody Tag tag) {
+    Integer id = tagService.save(tag);
+    return id;
+  }
+
+  @RequestMapping(value = "/delete_tag", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer deleteTag(@RequestBody Tag tag) {
+    tagService.deleteTag(tag);
+    return tag.getId();
+  }
+
+  @RequestMapping(value = "/saveorupdate_tag", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveOrUpdateTag(@RequestBody Tag tag) {
+    tagService.saveOrUpdateTag(tag);
+    return tag.getId();
   }
 
 }

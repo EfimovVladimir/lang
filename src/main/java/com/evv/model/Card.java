@@ -1,6 +1,7 @@
 package com.evv.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -35,6 +36,13 @@ public class Card {
   @JoinColumn(updatable = false, name="SECTION_ID")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   Section section;
+
+  @JoinTable(name = "CARD_TAG",
+      joinColumns = @JoinColumn(name = "ID_CARD"),
+      inverseJoinColumns = @JoinColumn(name = "ID_TAG")
+  )
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  List<Tag> tags;
 
   public Integer getId() {
     return id;
@@ -106,5 +114,13 @@ public class Card {
 
   public void setSection(Section section) {
     this.section = section;
+  }
+
+  public List<Tag> getTags() {
+    return tags;
+  }
+
+  public void setTags(List<Tag> tags) {
+    this.tags = tags;
   }
 }

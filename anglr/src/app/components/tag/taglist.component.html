@@ -1,0 +1,12 @@
+<div>
+  <button (click)="newTagForm()">new tag</button>
+  <table>
+    <tr *ngFor="let cardtag of tagList" >
+      <td><button *ngIf="editMode" (click)="deleteTag(section)">del</button></td>
+      <td><button *ngIf="editMode" (click)="editTagForm(section)">edit</button></td>
+      <td><button *ngIf="!editMode" (click)="selectCardsForTag(section)">cards</button></td>
+      <td>{{cardtag.id}}</td>
+      <td>{{cardtag.name}}</td>
+    </tr>
+  </table>
+</div>

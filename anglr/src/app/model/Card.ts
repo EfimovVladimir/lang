@@ -1,4 +1,5 @@
 import {Section} from "./Section";
+import {Tag} from "./Tag";
 
 export class Card {
   id: number;
@@ -11,6 +12,7 @@ export class Card {
   cardImage: File;
   sectionId: number;
   section: Section = new Section();
+  tags: Tag[];
 
   constructor(){ }
 }
