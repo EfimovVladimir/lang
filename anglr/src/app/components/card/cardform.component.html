@@ -40,6 +40,12 @@
         <input type="text" [(ngModel)]="currentCard.section.id" id="section" name="section" class="field-style" readonly>
       </li>
     </ul>
+    <div class="containerBlock">
+      <div *ngFor="let cardtag of currentCard.tags" class="divInlineBlock">
+        <div class="divInlineBlock">{{cardtag.name}}</div>
+        <button class="divInlineBlock" (click)="deleteTagFromCard(cardtag)">X</button>
+      </div>
+    </div>
     <button type="submit" class="submit-style">save</button>
   </form>
 

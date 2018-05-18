@@ -1,6 +1,10 @@
 package com.evv.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table
@@ -16,6 +20,10 @@ public class Tag {
 
   @Column
   String info;
+
+  @JsonManagedReference
+  @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
+  Set<Card> cards = new HashSet<Card>();
 
   public Integer getId() {
     return id;
@@ -39,5 +47,13 @@ public class Tag {
 
   public void setInfo(String info) {
     this.info = info;
+  }
+
+  public Set<Card> getCards() {
+    return cards;
+  }
+
+  public void setCards(Set<Card> cards) {
+    this.cards = cards;
   }
 }

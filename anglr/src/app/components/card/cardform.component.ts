@@ -4,11 +4,12 @@ import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {InteractService} from "../../services/interact.service";
+import {Tag} from "../../model/Tag";
 
 @Component({
   selector: 'cardform',
   templateUrl: './cardform.component.html',
-  styleUrls: ['../../css/form.component.css'],
+  styleUrls: ['../../css/form.component.css', '../../app.component.css'],
 })
 
 export class CardFormComponent {
@@ -23,7 +24,12 @@ export class CardFormComponent {
         this.currentCard = (data == null)? new Card() : data;
         this.currentQMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentCard.qAudio;
       }
-    )
+    );
+    this.interactService.getObservableTag().subscribe(
+      data => {
+        this.addTagToCard(data);
+      }
+    );
   }
 
   saveCardForm() : void {
@@ -35,8 +41,7 @@ export class CardFormComponent {
     formData.append("qInfo", this.currentCard.qInfo);
     formData.append("answer", this.currentCard.answer);
     formData.append("aInfo", this.currentCard.aInfo);
-    // formData.append("section", JSON.stringify(this.currentCard.section));
-   formData.append("section.id", this.currentCard.section.id.toString());
+    formData.append("section.id", this.currentCard.section.id.toString());
     if(this.currentCard.qAudio !== undefined && this.currentCard.qAudio != null){
       formData.append("qAudioFile", this.currentCard.qAudio, this.currentCard.qAudio.name);
     }
@@ -46,6 +51,12 @@ export class CardFormComponent {
     if(this.currentCard.cardImage !== undefined && this.currentCard.cardImage != null){
       formData.append("cardImageFile", this.currentCard.cardImage, this.currentCard.cardImage.name);
     }
+    if(this.currentCard.tags != null && this.currentCard.tags.length > 0){
+      for(var i = 0; i < this.currentCard.tags.length; i++){
+        formData.append("tags["+ i +"].id", this.currentCard.tags[i].id.toString());
+      }
+    }
+    //JSON.stringify(this.currentCard.tags));
 
     this.appService.saveOrUpdateCard(formData)
       .subscribe(
@@ -76,12 +87,38 @@ export class CardFormComponent {
 
   changeAnswerFile(fileInputElement : HTMLInputElement){
     this.currentCard.aAudio = fileInputElement.files[0];
-    console.log(fileInputElement.name)
+    console.log(fileInputElement.name);
   }
 
   changeCardImage(fileInputElement : HTMLInputElement){
     this.currentCard.cardImage = fileInputElement.files[0];
-    console.log(fileInputElement.name)
+    console.log(fileInputElement.name);
+  }
+
+  deleteTagFromCard(cardtag){
+    var index = 0;
+    for(var i = 0; i < this.currentCard.tags[i].id; i++){
+      if(this.currentCard.tags[i].id == cardtag.id) {
+        index = i;
+        break;
+      }
+    };
+    this.currentCard.tags.splice(index, 1);
+  }
+
+  addTagToCard(cardtag){
+    console.log(cardtag);
+    var isInList = false;
+    for(var i = 0; i < this.currentCard.tags.length; i++){
+      console.log(i + ' - ' + this.currentCard.tags[i].id);
+      if(this.currentCard.tags[i].id == cardtag.id) {
+        isInList = true;
+        break;
+      }
+    }
+    if(cardtag.id > 0 && !isInList){
+      this.currentCard.tags.push(cardtag);
+    }
   }
 
 }

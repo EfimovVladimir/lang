@@ -51,7 +51,7 @@ export class TagListComponent implements OnInit{
     this.interactService.sendTag(tag);
   }
 
-  selectCardsForTag(tag) : void {
+  addTagToCard(tag) : void {
     this.interactService.sendTag(tag);
   }
 

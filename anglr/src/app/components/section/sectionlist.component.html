@@ -1,5 +1,5 @@
 <div>
-  <button (click)="newSectionForm()">new section</button>
+  <button *ngIf="editMode" (click)="newSectionForm()">new section</button>
   <table>
     <tr *ngFor="let section of sectionList" >
       <td><button *ngIf="editMode" (click)="deleteSection(section)">del</button></td>

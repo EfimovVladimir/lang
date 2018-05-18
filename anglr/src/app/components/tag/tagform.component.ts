@@ -17,7 +17,7 @@ export class TagFormComponent {
   subsTag: Subscription;
 
   constructor(private appService: AppHttpService, private interactService: InteractService){
-    this.subsTag = this.interactService.getObservableSection().subscribe(
+    this.subsTag = this.interactService.getObservableTag().subscribe(
       data => {
         this.currentTag = (data == null)? new Tag() : data;
       }
@@ -26,7 +26,7 @@ export class TagFormComponent {
 
 
   executePostForm() : void {
-    this.appService.saveOrUpdateSectionForm(this.currentTag)
+    this.appService.saveOrUpdateTagForm(this.currentTag)
       .subscribe(
         data => {
           console.log('saved tag id: ' + data);

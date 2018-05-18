@@ -1,7 +1,11 @@
 package com.evv.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -35,14 +39,15 @@ public class Card {
 
   @JoinColumn(updatable = false, name="SECTION_ID")
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
-  Section section;
+  Section section = new Section();
 
+  @JsonBackReference
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "CARD_TAG",
       joinColumns = @JoinColumn(name = "ID_CARD"),
       inverseJoinColumns = @JoinColumn(name = "ID_TAG")
   )
-  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  List<Tag> tags;
+  Set<Tag> tags = new HashSet<Tag>();
 
   public Integer getId() {
     return id;
@@ -116,11 +121,11 @@ public class Card {
     this.section = section;
   }
 
-  public List<Tag> getTags() {
+  public Set<Tag> getTags() {
     return tags;
   }
 
-  public void setTags(List<Tag> tags) {
+  public void setTags(Set<Tag> tags) {
     this.tags = tags;
   }
 }
