@@ -38,8 +38,11 @@ public class CardService implements ICardService {
   @Transactional
   public List<Card> findAllSectionsCards(Section section) {
     DetachedCriteria criteria = DetachedCriteria.forClass(Card.class).
-        add(Restrictions.eq("section", section));
+      add(Restrictions.eq("section", section));
+    criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     return getRepository().findByCriteria(criteria);
+//    String hsql = "from Card card where card.section = ?";
+//    return getRepository().findByQuery(hsql, section);
   }
 
   @Override

@@ -3,13 +3,14 @@ package com.evv.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table
-public class Card {
+public class Card implements Serializable {
 
   @Id
   @GeneratedValue

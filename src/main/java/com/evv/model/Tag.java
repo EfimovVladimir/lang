@@ -3,12 +3,13 @@ package com.evv.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table
-public class Tag {
+public class Tag implements Serializable {
 
   @Id
   @GeneratedValue

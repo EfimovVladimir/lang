@@ -21,4 +21,6 @@ public interface IGenericRepository {
 
   <T> List<T> findByCriteria(DetachedCriteria criteria);
 
+  <T> List<T> findByQuery(String query, Object... params);
+
 }

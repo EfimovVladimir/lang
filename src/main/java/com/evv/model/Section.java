@@ -1,10 +1,11 @@
 package com.evv.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table
-public class Section {
+public class Section implements Serializable {
 
   @Id
   @GeneratedValue

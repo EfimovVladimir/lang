@@ -1,6 +1,7 @@
 package com.evv.persistance;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
@@ -54,7 +55,20 @@ public class GenericRepository implements IGenericRepository {
   @Override
   public <T> List<T> findByCriteria(DetachedCriteria criteria) {
     Criteria executableCriteria = criteria.getExecutableCriteria(getCurrentSession());
+//    executableCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     return executableCriteria.list();
   }
+
+  @Override
+  public <T> List<T> findByQuery(String queryString, Object... params) {
+    Query query = getCurrentSession().createQuery(queryString);
+    if (params != null) {
+      for (int i = 0; i < params.length; i++) {
+        query.setParameter(i, params[i]);
+      }
+    }
+    return query.list();
+  }
+
 
 }
