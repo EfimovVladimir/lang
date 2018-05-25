@@ -1,11 +1,11 @@
 package com.evv.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -22,9 +22,9 @@ public class Tag implements Serializable {
   @Column
   String info;
 
-  @JsonManagedReference
+  @JsonBackReference
   @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
-  Set<Card> cards = new HashSet<Card>();
+  List<Card> cards = new ArrayList<Card>();
 
   public Integer getId() {
     return id;
@@ -50,11 +50,11 @@ public class Tag implements Serializable {
     this.info = info;
   }
 
-  public Set<Card> getCards() {
+  public List<Card> getCards() {
     return cards;
   }
 
-  public void setCards(Set<Card> cards) {
+  public void setCards(List<Card> cards) {
     this.cards = cards;
   }
 }

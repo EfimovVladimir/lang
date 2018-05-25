@@ -107,7 +107,10 @@ export class CardFormComponent {
   }
 
   addTagToCard(cardtag){
-    console.log(cardtag);
+    console.log(this.currentCard);
+    if(this.currentCard.tags == null){
+      this.currentCard.tags = new Array();
+    }
     var isInList = false;
     for(var i = 0; i < this.currentCard.tags.length; i++){
       console.log(i + ' - ' + this.currentCard.tags[i].id);

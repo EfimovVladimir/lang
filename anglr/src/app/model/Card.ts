@@ -12,7 +12,7 @@ export class Card {
   cardImage: File;
   sectionId: number;
   section: Section = new Section();
-  tags: Tag[];
+  tags: Tag[] = [];
 
   constructor(){ }
 }
