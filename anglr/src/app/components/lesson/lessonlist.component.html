@@ -1,0 +1,12 @@
+<div>
+  <button *ngIf="editMode" (click)="newLessonForm()">new lesson</button>
+  <table>
+    <tr *ngFor="let lesson of lessonList" >
+      <td><button *ngIf="editMode" (click)="deleteLesson(lesson)">del</button></td>
+      <td><button *ngIf="editMode" (click)="editLessonForm(lesson)">edit</button></td>
+      <td><button *ngIf="!editMode" (click)="selectCardsForLesson(lesson)">cards</button></td>
+      <td>{{lesson.id}}</td>
+      <td>{{lesson.info}}</td>
+    </tr>
+  </table>
+</div>

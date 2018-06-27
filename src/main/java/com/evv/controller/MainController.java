@@ -1,9 +1,11 @@
 package com.evv.controller;
 
 import com.evv.model.Card;
+import com.evv.model.Lesson;
 import com.evv.model.Section;
 import com.evv.model.Tag;
 import com.evv.service.ICardService;
+import com.evv.service.ILessonService;
 import com.evv.service.ISectionService;
 import com.evv.service.ITagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class MainController {
 
   @Autowired
   private ICardService cardService;
+
+  @Autowired
+  private ILessonService lessonService;
 
   @Autowired
   private ITagService tagService;
@@ -156,6 +161,38 @@ public class MainController {
   public Integer saveOrUpdateTag(@RequestBody Tag tag) {
     tagService.saveOrUpdateTag(tag);
     return tag.getId();
+  }
+
+  @RequestMapping(value = "/lessons", method = RequestMethod.GET)
+  @CrossOrigin
+  @ResponseBody
+  public List<Lesson> getAllLessons() {
+    List<Lesson> result = lessonService.findAllLessons();
+    return result;
+  }
+
+  @RequestMapping(value = "/save_lesson", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveLesson(@RequestBody Lesson lesson) {
+    Integer id = lessonService.save(lesson);
+    return id;
+  }
+
+  @RequestMapping(value = "/delete_lesson", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer deleteLesson(@RequestBody Lesson lesson) {
+    lessonService.deleteLesson(lesson);
+    return lesson.getId();
+  }
+
+  @RequestMapping(value = "/saveorupdate_lesson", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveOrUpdateLesson(@RequestBody Lesson lesson) {
+    lessonService.saveOrUpdateLesson(lesson);
+    return lesson.getId();
   }
 
 }

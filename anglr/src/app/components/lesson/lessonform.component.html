@@ -1,0 +1,21 @@
+<div>
+
+  <form (ngSubmit)="executePostForm()" #cardForm="ngForm" class="form-style-1">
+    <ul>
+      <li>
+        <label for="lessonInfo">Lesson info</label>
+        <input type="text" [(ngModel)]="currentLesson.info" id="lessonInfo" name="lessonInfo" class="field-style">
+      </li>
+      <li>
+        <label for="lessonSymb">Count of symbols for success</label>
+        <input type="number" [(ngModel)]="currentLesson.symbols" id="lessonSymb" name="lessonSymb" class="field-style">
+      </li>
+      <li>
+        <label for="lessonField">Question Field</label>
+        <input type="number" [(ngModel)]="currentLesson.questionField" id="lessonField" name="lessonField" class="field-style">
+      </li>
+    </ul>
+    <button type="submit" class="submit-style">save</button>
+  </form>
+
+</div>

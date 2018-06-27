@@ -17,6 +17,9 @@ import {CardEditComponent} from "./components/card/cardedit.component";
 import {TagFormComponent} from "./components/tag/tagform.component";
 import {TagListComponent} from "./components/tag/taglist.component";
 import {TagEditComponent} from "./components/tag/tagedit.component";
+import {LessonFormComponent} from "./components/lesson/lessonform.component";
+import {LessonListComponent} from "./components/lesson/lessonlist.component";
+import {LessonEditComponent} from "./components/lesson/lessonedit.component";
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import {TagEditComponent} from "./components/tag/tagedit.component";
     CardEditComponent,
     TagFormComponent,
     TagListComponent,
-    TagEditComponent
+    TagEditComponent,
+    LessonFormComponent,
+    LessonListComponent,
+    LessonEditComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,10 @@ import {TagEditComponent} from "./components/tag/tagedit.component";
         {
           path: 'tagedit',
           component: TagEditComponent
+        },
+        {
+          path: 'lessonedit',
+          component: LessonEditComponent
         }
     ])
   ],
