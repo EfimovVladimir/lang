@@ -5,6 +5,7 @@ import {Section} from "../model/Section";
 import {Card} from "../model/Card";
 import {Tag} from "../model/Tag";
 import {Lesson} from "../model/Lesson";
+import {LessonCard} from "../model/LessonCard";
 
 @Injectable()
 export class InteractService {
@@ -13,10 +14,13 @@ export class InteractService {
   private updateTagList = new Subject<boolean>();
   private updateCardList = new Subject<boolean>();
   private updateLessonList = new Subject<boolean>();
+  private updateLessonCardList = new Subject<boolean>();
+  private saveLessonCard = new Subject<LessonCard>();
   private section = new Subject<Section>();
   private card = new Subject<Card>();
   private cardtag = new Subject<Tag>();
   private lesson = new Subject<Lesson>();
+  private lessonCard = new Subject<LessonCard>();
 
   sendUpdateSectionList(flag: boolean){
     this.updateSectionList.next(flag);
@@ -32,6 +36,14 @@ export class InteractService {
 
   sendUpdateLessonList(flag: boolean){
     this.updateLessonList.next(flag);
+  }
+
+  sendUpdateLessonCardList(flag: boolean){
+    this.updateLessonCardList.next(flag);
+  }
+
+  sendSaveLessonCard(lessonCard: LessonCard){
+    this.saveLessonCard.next(lessonCard);
   }
 
   sendSection(section: Section){
@@ -50,6 +62,10 @@ export class InteractService {
     this.lesson.next(lesson);
   }
 
+  sendLessonCard(lessonCard: LessonCard){
+    this.lessonCard.next(lessonCard);
+  }
+
   getObservableUpdateSectionList(): Observable<boolean>{
     return this.updateSectionList.asObservable();
   }
@@ -66,6 +82,10 @@ export class InteractService {
     return this.updateLessonList.asObservable();
   }
 
+  getObservableUpdateLessonCardList(): Observable<boolean>{
+    return this.updateLessonCardList.asObservable();
+  }
+
   getObservableSection(): Observable<Section>{
     return this.section.asObservable();
   }
@@ -80,6 +100,14 @@ export class InteractService {
 
   getObservableLesson(): Observable<Lesson>{
     return this.lesson.asObservable();
+  }
+
+  getOservableLessonCard(): Observable<LessonCard>{
+    return this.lessonCard.asObservable();
+  }
+
+  getObservableSaveLessonCard(): Observable<LessonCard>{
+    return this.saveLessonCard.asObservable();
   }
 
 }

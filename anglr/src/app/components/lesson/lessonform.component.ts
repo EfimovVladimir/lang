@@ -28,7 +28,7 @@ export class LessonFormComponent {
     this.appService.saveOrUpdateLessonForm(this.currentLesson)
       .subscribe(
         data => {
-          console.log('saved lesson id: ' + data);
+          console.log('saved idLesson id: ' + data);
           this.interactService.sendUpdateLessonList(true);
           this.clearLessonForm();
         },

@@ -1,0 +1,27 @@
+<div>
+  <button *ngIf="editMode" (click)="newLessonCardForm()">new lesson</button>
+  <table>
+    <thead>
+    <tr>
+      <td *ngIf="editMode">del</td>
+      <td *ngIf="editMode">edit</td>
+      <td *ngIf="!editMode">cards</td>
+      <td>lesson id</td>
+      <td>card id</td>
+      <td>target</td>
+      <td>success</td>
+      <td>failed</td>
+    </tr>
+    </thead>
+    <tr *ngFor="let lessonCard of lessonCardList" >
+      <td><button *ngIf="editMode" (click)="deleteLessonCard(lessonCard)">del</button></td>
+      <td><button *ngIf="editMode" (click)="editLessonCardForm(lessonCard)">edit</button></td>
+      <td><button *ngIf="!editMode" (click)="selectCardsForLesson(lessonCard)">cards</button></td>
+      <td>{{lessonCard.lessonCardId.idLesson}}</td>
+      <td>{{lessonCard.lessonCardId.idCard}}</td>
+      <td>{{lessonCard.targetCount}}</td>
+      <td>{{lessonCard.successCount}}</td>
+      <td>{{lessonCard.failedCount}}</td>
+    </tr>
+  </table>
+</div>

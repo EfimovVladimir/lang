@@ -5,6 +5,7 @@ import {Section} from "../model/Section";
 import {Card} from "../model/Card";
 import {Tag} from "../model/Tag";
 import {Lesson} from "../model/Lesson";
+import {LessonCard} from "../model/LessonCard";
 
 @Injectable()
 export class AppHttpService {
@@ -77,5 +78,22 @@ export class AppHttpService {
 
   saveOrUpdateLessonForm(lesson): Observable<number> {
     return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_lesson', lesson);
+  }
+
+  getLessonCardList(): Observable<LessonCard[]>{
+    return this.http.get('http://127.0.0.1:8080/lang/lessoncards');
+  }
+
+  saveLessonCardForm(lessonCard): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/save_lessoncard', lessonCard);
+  }
+
+  deleteLessonCard(lessonCard): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/delete_lessoncard', lessonCard);
+  }
+
+  saveOrUpdateLessonCardForm(lessonCard): Observable<number> {
+    console.log("send" + lessonCard);
+    return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_lessoncard', lessonCard);
   }
 }

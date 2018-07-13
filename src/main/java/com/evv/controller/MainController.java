@@ -1,9 +1,6 @@
 package com.evv.controller;
 
-import com.evv.model.Card;
-import com.evv.model.Lesson;
-import com.evv.model.Section;
-import com.evv.model.Tag;
+import com.evv.model.*;
 import com.evv.service.ICardService;
 import com.evv.service.ILessonService;
 import com.evv.service.ISectionService;
@@ -193,6 +190,30 @@ public class MainController {
   public Integer saveOrUpdateLesson(@RequestBody Lesson lesson) {
     lessonService.saveOrUpdateLesson(lesson);
     return lesson.getId();
+  }
+
+  @RequestMapping(value = "/lessoncards", method = RequestMethod.GET)
+  @CrossOrigin
+  @ResponseBody
+  public List<LessonCard> getAllLessonCards() {
+    List<LessonCard> result = lessonService.findAllLessonCard();
+    return result;
+  }
+
+  @RequestMapping(value = "/saveorupdate_lessoncard", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer saveOrUpdateLessonCard(@RequestBody LessonCard lessonCard) {
+    lessonService.saveOrUpdateLessonCard(lessonCard);
+    return lessonCard.getLessonCardId().getIdCard();
+  }
+
+  @RequestMapping(value = "/delete_lessoncard", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Integer deleteLessonCard(@RequestBody LessonCard lessonCard) {
+    lessonService.deleteLessonCard(lessonCard);
+    return lessonCard.getLessonCardId().getIdCard();
   }
 
 }

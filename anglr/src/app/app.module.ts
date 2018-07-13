@@ -20,6 +20,8 @@ import {TagEditComponent} from "./components/tag/tagedit.component";
 import {LessonFormComponent} from "./components/lesson/lessonform.component";
 import {LessonListComponent} from "./components/lesson/lessonlist.component";
 import {LessonEditComponent} from "./components/lesson/lessonedit.component";
+import {LessonCardListComponent} from "./components/lessoncard/lessoncardlist.component";
+import {CurrentStateHeaderComponent} from "./components/state/currentstateheader.component";
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {LessonEditComponent} from "./components/lesson/lessonedit.component";
     TagEditComponent,
     LessonFormComponent,
     LessonListComponent,
-    LessonEditComponent
+    LessonEditComponent,
+    LessonCardListComponent,
+    CurrentStateHeaderComponent
   ],
   imports: [
     BrowserModule,

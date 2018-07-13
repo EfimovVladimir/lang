@@ -55,6 +55,10 @@ export class LessonListComponent implements OnInit{
     this.interactService.sendLesson(lesson);
   }
 
+  setCurrentLesson(lesson) : void {
+    this.interactService.sendLesson(lesson);
+  }
+
   selectCardsForLesson(lesson) : void {
     this.interactService.sendLesson(lesson);
   }

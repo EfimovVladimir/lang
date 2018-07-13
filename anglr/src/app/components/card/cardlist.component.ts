@@ -5,6 +5,7 @@ import {AppHttpService} from "../../services/apphttp.service";
 import {InteractService} from "../../services/interact.service";
 import {Subscription} from "rxjs/Subscription";
 import {Section} from "../../model/Section";
+import {LessonCard} from "../../model/LessonCard";
 
 @Component({
   selector: 'cardlist',
@@ -17,6 +18,7 @@ export class CardListComponent implements OnInit{
   cardList: Card[];
   subsUpdateList: Subscription;
   currentSection: Section = new Section();
+  targetCount: number = 5;
 
   ngOnInit(): void {
     this.getCardList();
@@ -64,6 +66,15 @@ export class CardListComponent implements OnInit{
 
   editCardForm(card) : void {
     this.interactService.sendCard(card);
+  }
+
+  addToLesson(card) : void {
+    var lessonCard = new LessonCard();
+    lessonCard.lessonCardId.idCard = card.id;
+    lessonCard.targetCount = this.targetCount;
+    lessonCard.successCount = 0;
+    lessonCard.failedCount = 0;
+    this.interactService.sendSaveLessonCard(lessonCard);
   }
 
   newCardForm() : void {

@@ -1,6 +1,7 @@
 package com.evv.service;
 
 import com.evv.model.Lesson;
+import com.evv.model.LessonCard;
 import com.evv.persistance.IGenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,23 @@ public class LessonService implements ILessonService{
   @Transactional
   public void saveOrUpdateLesson(Lesson lesson) {
     getRepository().saveOrUpdate(lesson);
+  }
+
+  @Override
+  @Transactional
+  public List<LessonCard> findAllLessonCard() {
+    return getRepository().findAll(LessonCard.class);
+  }
+
+  @Override
+  @Transactional
+  public void saveOrUpdateLessonCard(LessonCard lessonCard) {
+    getRepository().saveOrUpdate(lessonCard);
+  }
+
+  @Override
+  @Transactional
+  public void deleteLessonCard(LessonCard lessonCard) {
+    getRepository().delete(lessonCard);
   }
 }

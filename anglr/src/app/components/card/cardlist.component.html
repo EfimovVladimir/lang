@@ -1,10 +1,13 @@
 <div>
   <h4>Cards:</h4>
   <button *ngIf="currentSection.id > 0" (click)="newCardForm()">new card</button>
+  <label for="targetCount">Target count for LessonCard </label>
+  <input type="number" [(ngModel)]="targetCount" id="targetCount" name="targetCount">
   <table>
     <tr *ngFor="let card of cardList">
       <td><button (click)="deleteCard(card)">del</button></td>
       <td><button (click)="editCardForm(card)">edit</button></td>
+      <td><button (click)="addToLesson(card)">toLesson</button></td>
       <td>{{card.id}}</td>
       <td>{{card.question}}</td>
       <td>{{card.answer}}</td>

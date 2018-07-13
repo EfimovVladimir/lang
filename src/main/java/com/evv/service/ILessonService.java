@@ -1,6 +1,7 @@
 package com.evv.service;
 
 import com.evv.model.Lesson;
+import com.evv.model.LessonCard;
 
 import java.util.List;
 
@@ -10,5 +11,8 @@ public interface ILessonService {
   List<Lesson> findAllLessons();
   void deleteLesson(Lesson lesson);
   void saveOrUpdateLesson(Lesson lesson);
+  List<LessonCard> findAllLessonCard();
+  void saveOrUpdateLessonCard(LessonCard lessonCard);
+  void deleteLessonCard(LessonCard lessonCard);
 
 }
