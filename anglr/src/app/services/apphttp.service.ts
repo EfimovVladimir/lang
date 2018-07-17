@@ -89,11 +89,11 @@ export class AppHttpService {
   }
 
   deleteLessonCard(lessonCard): Observable<number> {
+    console.log("send" + lessonCard);
     return this.http.post('http://127.0.0.1:8080/lang/delete_lessoncard', lessonCard);
   }
 
   saveOrUpdateLessonCardForm(lessonCard): Observable<number> {
-    console.log("send" + lessonCard);
     return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_lessoncard', lessonCard);
   }
 }

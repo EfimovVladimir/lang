@@ -1,5 +1,4 @@
 <div>
-  <button *ngIf="editMode" (click)="newLessonCardForm()">new lesson</button>
   <table>
     <thead>
     <tr>
@@ -14,9 +13,9 @@
     </tr>
     </thead>
     <tr *ngFor="let lessonCard of lessonCardList" >
-      <td><button *ngIf="editMode" (click)="deleteLessonCard(lessonCard)">del</button></td>
-      <td><button *ngIf="editMode" (click)="editLessonCardForm(lessonCard)">edit</button></td>
-      <td><button *ngIf="!editMode" (click)="selectCardsForLesson(lessonCard)">cards</button></td>
+      <td *ngIf="editMode"><button (click)="deleteLessonCard(lessonCard)">del</button></td>
+      <td *ngIf="editMode"><button (click)="editLessonCardForm(lessonCard)">edit</button></td>
+      <td *ngIf="!editMode"><button (click)="selectCardsForLesson(lessonCard)">cards</button></td>
       <td>{{lessonCard.lessonCardId.idLesson}}</td>
       <td>{{lessonCard.lessonCardId.idCard}}</td>
       <td>{{lessonCard.targetCount}}</td>

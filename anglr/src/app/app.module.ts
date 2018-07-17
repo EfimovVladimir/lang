@@ -22,6 +22,11 @@ import {LessonListComponent} from "./components/lesson/lessonlist.component";
 import {LessonEditComponent} from "./components/lesson/lessonedit.component";
 import {LessonCardListComponent} from "./components/lessoncard/lessoncardlist.component";
 import {CurrentStateHeaderComponent} from "./components/state/currentstateheader.component";
+import {LessonCardFormComponent} from "./components/lessoncard/lessoncardform.component";
+import {LessonCardEditComponent} from "./components/lessoncard/lessoncardedit.component";
+import {CardViewComponent} from "./components/card/cardview.component";
+import {CardQuestionComponent} from "./components/card/cardquestion.component";
+import {CardListForLessonComponent} from "./components/lesson/lesson.cardlist.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +44,12 @@ import {CurrentStateHeaderComponent} from "./components/state/currentstateheader
     LessonListComponent,
     LessonEditComponent,
     LessonCardListComponent,
-    CurrentStateHeaderComponent
+    LessonCardFormComponent,
+    LessonCardEditComponent,
+    CurrentStateHeaderComponent,
+    CardViewComponent,
+    CardQuestionComponent,
+    CardListForLessonComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +73,10 @@ import {CurrentStateHeaderComponent} from "./components/state/currentstateheader
         {
           path: 'lessonedit',
           component: LessonEditComponent
+        },
+        {
+          path: 'lessonCardEdit',
+          component: LessonCardEditComponent
         }
     ])
   ],

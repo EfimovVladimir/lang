@@ -6,7 +6,7 @@ import {Subscription} from "rxjs/Subscription";
 import {LessonCard} from "../../model/LessonCard";
 
 @Component({
-  selector: 'lessoncardlist',
+  selector: 'lessonCardList',
   templateUrl: './lessoncardlist.component.html',
   styleUrls: ['../../css/list.component.css']
 })
@@ -39,17 +39,15 @@ export class LessonCardListComponent implements OnInit{
     );
   }
 
-  deleteLessonCard(section) : void {
-    // this.appHttpService.deleteLesson(section).subscribe(
+  deleteLessonCard(lessonCard) : void {
+    // this.appHttpService.deleteLessonCard(lessonCard).subscribe(
     //   (data) => {
     //     this.getLessonCardList();
-    //     this.interactService.sendLesson(new Lesson);
+    //     this.interactService.sendLessonCard(new LessonCard);
     //   }
     // );
-  }
-
-  newLessonCardForm() : void {
-    this.interactService.sendLessonCard(null);
+    this.interactService.sendDeleteLessonCard(lessonCard);
+    this.interactService.sendLessonCard(new LessonCard);
   }
 
   editLessonCardForm(lessonCard) : void {

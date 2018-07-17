@@ -1,0 +1,29 @@
+<div>
+
+  <form (ngSubmit)="executePostForm()" #cardForm="ngForm" class="form-style-1">
+    <ul>
+      <li>
+        <label for="lessonId">Lesson Id</label>
+        <input type="text" [(ngModel)]="currentLessonCard.lessonCardId.idLesson" id="lessonID" name="lessonId" class="field-style" disabled>
+      </li>
+      <li>
+        <label for="cardId">Card Id</label>
+        <input type="text" [(ngModel)]="currentLessonCard.lessonCardId.idCard" id="cardId" name="cardId" class="field-style" disabled>
+      </li>
+      <li>
+        <label for="tCount">Target Count</label>
+        <input type="number" [(ngModel)]="currentLessonCard.targetCount" id="tCount" name="tCount" class="field-style">
+      </li>
+      <li>
+        <label for="sCount">Success Count</label>
+        <input type="number" [(ngModel)]="currentLessonCard.successCount" id="sCount" name="sCount" class="field-style">
+      </li>
+      <li>
+        <label for="fCount">Failed Count</label>
+        <input type="number" [(ngModel)]="currentLessonCard.failedCount" id="fCount" name="fCount" class="field-style">
+      </li>
+    </ul>
+    <button type="submit" class="submit-style">save</button>
+  </form>
+
+</div>
