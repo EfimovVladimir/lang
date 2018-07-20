@@ -7,7 +7,8 @@ import {Subscription} from "rxjs/Subscription";
 @Component({
   selector: 'sectionlist',
   templateUrl: './sectionlist.component.html',
-  styleUrls: ['../../css/list.component.css']
+  styleUrls: ['../../css/list.component.css',
+              '../../css/ui.element.css']
 })
 
 export class SectionListComponent implements OnInit{

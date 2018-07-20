@@ -205,7 +205,7 @@ public class MainController {
   @ResponseBody
   public Integer saveOrUpdateLessonCard(@RequestBody LessonCard lessonCard) {
     lessonService.saveOrUpdateLessonCard(lessonCard);
-    return lessonCard.getLessonCardId().getIdCard();
+    return 5;//lessonCard.getLessonCardId().getIdCard();
   }
 
   @RequestMapping(value = "/delete_lessoncard", method = RequestMethod.POST)
@@ -213,7 +213,15 @@ public class MainController {
   @ResponseBody
   public Integer deleteLessonCard(@RequestBody LessonCard lessonCard) {
     lessonService.deleteLessonCard(lessonCard);
-    return lessonCard.getLessonCardId().getIdCard();
+    return 5;//lessonCard.getLessonCardId().getIdCard();
+  }
+
+  @RequestMapping(value = "/cards_forlesson", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public List<Card> getAllCardsForLesson(@RequestBody Lesson lesson) {
+    List<Card> result = cardService.findAllCardsForLesson(lesson);
+    return result;
   }
 
 }

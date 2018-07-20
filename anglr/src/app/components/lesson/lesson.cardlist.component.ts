@@ -12,7 +12,8 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'cardListForLesson',
   templateUrl: './lesson.cardlist.component.html',
-  styleUrls: ['../../css/list.component.css']
+  styleUrls: ['../../css/list.component.css',
+              '../../css/ui.element.css']
 })
 
 export class CardListForLessonComponent implements OnInit{
@@ -24,66 +25,42 @@ export class CardListForLessonComponent implements OnInit{
   targetCount: number = 5;
 
   ngOnInit(): void {
-    this.getCardList();
+    this.getCardsForLesson(null);
   }
 
   constructor(private appHttpService : AppHttpService,
               private interactService: InteractService,
               private router: Router){
-    this.subsUpdateList = this.interactService.getObservableUpdateCardList().subscribe(
-      flag => {
-        if(flag){
-          this.getSectionCardList(this.currentSection);
-        }
-      }
-    );
-    this.interactService.getObservableSection().subscribe(
+    this.subsUpdateList = this.interactService.getObservableCardsForLesson().subscribe(
       data => {
-        this.currentSection = data;
-        this.getSectionCardList(this.currentSection);
+        this.currentLesson = (data == null) ? null : data;
+        this.getCardsForLesson(this.currentLesson);
       }
     );
   }
 
-  getCardList() : void {
-    this.appHttpService.getCardList().subscribe(
-      (data) => {
-        this.cardList = data;
-      }
-    );
-  }
-
-  getSectionCardList(section) : void {
-    this.appHttpService.getCardListForSection(section).subscribe(
-      (data) => {
-        this.cardList = data;
-      }
-    )
+  getCardsForLesson(lesson) : void {
+    if(lesson != null) {
+      this.appHttpService.getCardListForLesson(lesson).subscribe(
+        (data) => {
+          this.cardList = data;
+        }
+      )
+    }
+    else {
+      this.cardList = new Array();
+    }
   }
 
   deleteCardFromLesson(card) : void {
-    // this.appHttpService.deleteCard(card).subscribe(
-    //   (data) => {
-    //     this.getCardList();
-    //   }
-    // );
     var lessonCard = new LessonCard();
-    lessonCard.lessonCardId.idCard = card.id;
+    lessonCard.lessonCardId.card = card;
     this.interactService.sendDeleteLessonCard(lessonCard);
   }
 
   editCardForm(card) : void {
     this.interactService.sendCard(card);
     this.router.navigateByUrl('/cardedit');
-  }
-
-  addToLesson(card) : void {
-    var lessonCard = new LessonCard();
-    lessonCard.lessonCardId.idCard = card.id;
-    lessonCard.targetCount = this.targetCount;
-    lessonCard.successCount = 0;
-    lessonCard.failedCount = 0;
-    this.interactService.sendSaveLessonCard(lessonCard);
   }
 
   newCardForm() : void {

@@ -15,6 +15,7 @@ export class InteractService {
   private updateCardList = new Subject<boolean>();
   private updateLessonList = new Subject<boolean>();
   private updateLessonCardList = new Subject<boolean>();
+  private updateCardsForLesson = new Subject<Lesson>();
   private saveLessonCard = new Subject<LessonCard>();
   private deleteLessonCard = new Subject<LessonCard>();
   private section = new Subject<Section>();
@@ -41,6 +42,10 @@ export class InteractService {
 
   sendUpdateLessonCardList(flag: boolean){
     this.updateLessonCardList.next(flag);
+  }
+
+  sendUpdateCardsForLesson(lesson: Lesson){
+    this.updateCardsForLesson.next(lesson);
   }
 
   sendSaveLessonCard(lessonCard: LessonCard){
@@ -117,6 +122,10 @@ export class InteractService {
 
   getObservableDeleteLessonCard(): Observable<LessonCard>{
     return this.deleteLessonCard.asObservable();
+  }
+
+  getObservableCardsForLesson(): Observable<Lesson> {
+    return this.updateCardsForLesson.asObservable();
   }
 
 }

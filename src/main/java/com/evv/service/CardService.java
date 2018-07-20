@@ -1,11 +1,16 @@
 package com.evv.service;
 
 import com.evv.model.Card;
+import com.evv.model.Lesson;
+import com.evv.model.LessonCard;
 import com.evv.model.Section;
 import com.evv.persistance.IGenericRepository;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +48,15 @@ public class CardService implements ICardService {
     return getRepository().findByCriteria(criteria);
 //    String hsql = "from Card card where card.section = ?";
 //    return getRepository().findByQuery(hsql, section);
+  }
+
+  @Override
+  @Transactional
+  public List<Card> findAllCardsForLesson(Lesson lesson) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(LessonCard.class);
+    criteria.add(Restrictions.eq("id.lesson", lesson))
+        .setProjection(Projections.property("id.card"));
+    return getRepository().findByCriteria(criteria);
   }
 
   @Override

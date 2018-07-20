@@ -10,7 +10,8 @@ import {LessonCard} from "../../model/LessonCard";
 @Component({
   selector: 'cardlist',
   templateUrl: './cardlist.component.html',
-  styleUrls: ['../../css/list.component.css']
+  styleUrls: ['../../css/list.component.css',
+              '../../css/ui.element.css']
 })
 
 export class CardListComponent implements OnInit{
@@ -70,7 +71,7 @@ export class CardListComponent implements OnInit{
 
   addToLesson(card) : void {
     var lessonCard = new LessonCard();
-    lessonCard.lessonCardId.idCard = card.id;
+    lessonCard.lessonCardId.card = card;
     lessonCard.targetCount = this.targetCount;
     lessonCard.successCount = 0;
     lessonCard.failedCount = 0;

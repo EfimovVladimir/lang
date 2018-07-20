@@ -3,6 +3,10 @@ package com.evv.service;
 import com.evv.model.Lesson;
 import com.evv.model.LessonCard;
 import com.evv.persistance.IGenericRepository;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

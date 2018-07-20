@@ -1,5 +1,7 @@
 package com.evv.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -41,7 +43,7 @@ public class Card implements Serializable {
   @ManyToOne(optional = false, fetch = FetchType.EAGER)
   Section section = new Section();
 
-  @JsonManagedReference
+  @JsonIgnoreProperties("cards")
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "CARD_TAG",
       joinColumns = @JoinColumn(name = "ID_CARD"),

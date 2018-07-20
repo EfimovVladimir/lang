@@ -1,0 +1,48 @@
+button.listButton {
+  background-size: 100% 100%;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+}
+
+button.buttonAdd {
+  background-image: url(../pic/add32.png);
+}
+
+button.buttonAddDoc {
+  background-image: url(../pic/adddoc32.png);
+}
+
+button.buttonDelete {
+  background-image: url(../pic/delete32.png);
+}
+
+button.buttonEdit {
+  background-image: url(../pic/edit32.png);
+}
+
+button.buttonEditBig {
+  background-image: url(../pic/editbig32.png);
+}
+
+button.buttonListInfo {
+  background-image: url(../pic/listinfo32.png);
+}
+
+button.buttonListBook {
+  background-image: url(../pic/listbook32.png);
+}
+
+button.buttonListDoc {
+  background-image: url(../pic/listdoc32.png);
+}
+
+button.buttonCheck {
+  background-image: url(../pic/check32.png);
+}
+
+
+
+
+

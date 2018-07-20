@@ -6,6 +6,7 @@ import {Card} from "../model/Card";
 import {Tag} from "../model/Tag";
 import {Lesson} from "../model/Lesson";
 import {LessonCard} from "../model/LessonCard";
+import {LessonCardId} from "../model/LessonCardId";
 
 @Injectable()
 export class AppHttpService {
@@ -94,6 +95,11 @@ export class AppHttpService {
   }
 
   saveOrUpdateLessonCardForm(lessonCard): Observable<number> {
+    console.log(lessonCard);
     return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_lessoncard', lessonCard);
+  }
+
+  getCardListForLesson(lesson): Observable<Card[]> {
+    return this.http.post("http://127.0.0.1:8080/lang/cards_forlesson", lesson);
   }
 }

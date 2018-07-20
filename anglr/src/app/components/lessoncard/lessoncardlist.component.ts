@@ -8,7 +8,8 @@ import {LessonCard} from "../../model/LessonCard";
 @Component({
   selector: 'lessonCardList',
   templateUrl: './lessoncardlist.component.html',
-  styleUrls: ['../../css/list.component.css']
+  styleUrls: ['../../css/list.component.css',
+              '../../css/ui.element.css']
 })
 
 export class LessonCardListComponent implements OnInit{

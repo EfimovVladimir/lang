@@ -50,4 +50,5 @@ public class LessonCard implements Serializable{
   public void setTargetCount(Integer targetCount) {
     this.targetCount = targetCount;
   }
+
 }

@@ -7,7 +7,8 @@ import {Subscription} from "rxjs/Subscription";
 @Component({
   selector: 'lessonlist',
   templateUrl: './lessonlist.component.html',
-  styleUrls: ['../../css/list.component.css']
+  styleUrls: ['../../css/list.component.css',
+              '../../css/ui.element.css']
 })
 
 export class LessonListComponent implements OnInit{
@@ -53,10 +54,12 @@ export class LessonListComponent implements OnInit{
 
   editLessonForm(lesson) : void {
     this.interactService.sendLesson(lesson);
+    this.interactService.sendUpdateCardsForLesson(lesson);
   }
 
   setCurrentLesson(lesson) : void {
     this.interactService.sendLesson(lesson);
+    this.interactService.sendUpdateCardsForLesson(lesson);
   }
 
   selectCardsForLesson(lesson) : void {

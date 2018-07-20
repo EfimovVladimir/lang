@@ -1,6 +1,9 @@
 package com.evv.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,7 +25,7 @@ public class Tag implements Serializable {
   @Column
   String info;
 
-  @JsonBackReference
+  @JsonIgnoreProperties("tags")
   @ManyToMany(mappedBy = "tags", fetch = FetchType.EAGER)
   List<Card> cards = new ArrayList<Card>();
 

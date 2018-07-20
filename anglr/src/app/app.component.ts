@@ -48,7 +48,7 @@ export class AppComponent {
   }
 
   saveOrUpdateLessonCard(lessonCard : LessonCard) : void {
-    lessonCard.lessonCardId.idLesson = this.currentState.lesson.id;
+    lessonCard.lessonCardId.lesson = this.currentState.lesson;
     this.appService.saveOrUpdateLessonCardForm(lessonCard).subscribe(
       data => {
         console.log('saved LessonCard idCard=: ' + data);
@@ -64,8 +64,8 @@ export class AppComponent {
   }
 
   deleteLessonCard(lessonCard : LessonCard) : void {
-    if(lessonCard.lessonCardId.idLesson == null){
-      lessonCard.lessonCardId.idLesson = this.currentState.lesson.id;
+    if(lessonCard.lessonCardId.lesson == null){
+      lessonCard.lessonCardId.lesson = this.currentState.lesson;
     }
     this.appService.deleteLessonCard(lessonCard).subscribe(
       data => {

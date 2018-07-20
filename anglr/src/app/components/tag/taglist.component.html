@@ -2,9 +2,9 @@
   <button *ngIf="editMode" (click)="newTagForm()">new tag</button>
   <table>
     <tr *ngFor="let cardtag of tagList" >
-      <td><button *ngIf="editMode" (click)="deleteTag(cardtag)">del</button></td>
-      <td><button *ngIf="editMode" (click)="editTagForm(cardtag)">edit</button></td>
-      <td><button *ngIf="!editMode" (click)="addTagToCard(cardtag)">to card</button></td>
+      <td><button *ngIf="editMode" (click)="deleteTag(cardtag)" class="listButton buttonDelete"></button></td>
+      <td><button *ngIf="editMode" (click)="editTagForm(cardtag)" class="listButton buttonEdit"></button></td>
+      <td><button *ngIf="!editMode" (click)="addTagToCard(cardtag)" class="listButton buttonAdd" title="add to Card"></button></td>
       <td>{{cardtag.id}}</td>
       <td>{{cardtag.name}}</td>
     </tr>
