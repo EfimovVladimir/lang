@@ -1,14 +1,20 @@
 package com.evv.model;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "LESSON_CARD")
+@IdClass(LessonCardId.class)
 public class LessonCard implements Serializable{
 
-  @EmbeddedId
-  LessonCardId lessonCardId;
+  @Id
+  Lesson lesson;
+
+  @Id
+  Card card;
 
   @Column(name = "SUCCESS_COUNT")
   Integer successCount;
@@ -19,13 +25,8 @@ public class LessonCard implements Serializable{
   @Column(name = "TARGET_COUNT")
   Integer targetCount;
 
-  public LessonCardId getLessonCardId() {
-    return lessonCardId;
-  }
-
-  public void setLessonCardId(LessonCardId lessonCardId) {
-    this.lessonCardId = lessonCardId;
-  }
+  @Formula("TARGET_COUNT - SUCCESS_COUNT")
+  private Integer deltaSuccess;
 
   public Integer getSuccessCount() {
     return successCount;
@@ -51,4 +52,19 @@ public class LessonCard implements Serializable{
     this.targetCount = targetCount;
   }
 
+  public Lesson getLesson() {
+    return lesson;
+  }
+
+  public void setLesson(Lesson lesson) {
+    this.lesson = lesson;
+  }
+
+  public Card getCard() {
+    return card;
+  }
+
+  public void setCard(Card card) {
+    this.card = card;
+  }
 }

@@ -16,8 +16,8 @@
       <td *ngIf="editMode"><button (click)="deleteLessonCard(lessonCard)" class="listButton buttonDelete"></button></td>
       <td *ngIf="editMode"><button (click)="editLessonCardForm(lessonCard)" class="listButton buttonEdit"></button></td>
       <td *ngIf="!editMode"><button (click)="selectCardsForLesson(lessonCard)">cards</button></td>
-      <td>{{lessonCard.lessonCardId.lesson.id}}</td>
-      <td>{{lessonCard.lessonCardId.card.id}}</td>
+      <td>{{lessonCard.lesson.id}}</td>
+      <td>{{lessonCard.card.id}}</td>
       <td>{{lessonCard.targetCount}}</td>
       <td>{{lessonCard.successCount}}</td>
       <td>{{lessonCard.failedCount}}</td>

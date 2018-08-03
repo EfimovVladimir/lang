@@ -3,6 +3,7 @@ package com.evv.service;
 import com.evv.model.Lesson;
 import com.evv.model.LessonCard;
 import com.evv.persistance.IGenericRepository;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -63,5 +64,24 @@ public class LessonService implements ILessonService{
   @Transactional
   public void deleteLessonCard(LessonCard lessonCard) {
     getRepository().delete(lessonCard);
+  }
+
+  @Override
+  @Transactional
+  public List<LessonCard> findAllLessonCardsForLesson(Lesson lesson) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(LessonCard.class);
+    criteria.add(Restrictions.eq("id.lesson", lesson));
+    criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+    return getRepository().findByCriteria(criteria);
+  }
+
+  @Override
+  @Transactional
+  public List<LessonCard> findAllLessonCardsToStartLesson(Lesson lesson) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(LessonCard.class);
+    criteria.add(Restrictions.eq("id.lesson", lesson));
+    criteria.add(Restrictions.sqlRestriction("TARGET_COUNT > SUCCESS_COUNT"));
+    //.add(Restrictions.gt("deltaSuccess", 0)
+    return getRepository().findByCriteria(criteria);
   }
 }

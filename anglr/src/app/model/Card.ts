@@ -3,7 +3,7 @@ import {Tag} from "./Tag";
 
 export class Card {
   id: number;
-  question: string;
+  question: string = "";
   qAudio: File;
   qInfo: string;
   answer: string;

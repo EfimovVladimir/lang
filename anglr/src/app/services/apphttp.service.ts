@@ -7,6 +7,7 @@ import {Tag} from "../model/Tag";
 import {Lesson} from "../model/Lesson";
 import {LessonCard} from "../model/LessonCard";
 import {LessonCardId} from "../model/LessonCardId";
+import {CardFilter} from "../model/CardFilter";
 
 @Injectable()
 export class AppHttpService {
@@ -101,5 +102,17 @@ export class AppHttpService {
 
   getCardListForLesson(lesson): Observable<Card[]> {
     return this.http.post("http://127.0.0.1:8080/lang/cards_forlesson", lesson);
+  }
+
+  getLessonCardListForLesson(lesson): Observable<LessonCard[]> {
+    return this.http.post("http://127.0.0.1:8080/lang/lessoncards_forlesson", lesson);
+  }
+
+  getLessonCardListToStartLesson(lesson): Observable<LessonCard[]> {
+    return this.http.post("http://127.0.0.1:8080/lang/lessoncards_startlesson", lesson);
+  }
+
+  getCardsByFilter(cardFilter : CardFilter) : Observable<Card[]> {
+    return this.http.post("http://127.0.0.1:8080/lang/cards_byfilter", cardFilter);
   }
 }

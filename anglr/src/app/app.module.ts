@@ -27,6 +27,7 @@ import {LessonCardEditComponent} from "./components/lessoncard/lessoncardedit.co
 import {CardViewComponent} from "./components/card/cardview.component";
 import {CardQuestionComponent} from "./components/card/cardquestion.component";
 import {CardListForLessonComponent} from "./components/lesson/lesson.cardlist.component";
+import {StateService} from "./services/state.service";
 
 @NgModule({
   declarations: [
@@ -77,10 +78,14 @@ import {CardListForLessonComponent} from "./components/lesson/lesson.cardlist.co
         {
           path: 'lessonCardEdit',
           component: LessonCardEditComponent
+        },
+        {
+          path: 'cardQuestion',
+          component: CardQuestionComponent
         }
     ])
   ],
-  providers: [AppHttpService, InteractService],
+  providers: [AppHttpService, InteractService, StateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,7 +16,8 @@ public class GenericRepository implements IGenericRepository {
   @Autowired
   private SessionFactory sessionFactory;
 
-  protected final Session getCurrentSession() {
+  @Override
+  public final Session getCurrentSession() {
     return sessionFactory.getCurrentSession();
   }
 
@@ -60,6 +61,15 @@ public class GenericRepository implements IGenericRepository {
   }
 
   @Override
+  public <T> List<T> findByCriteria(DetachedCriteria criteria, int first, int count) {
+    Criteria executableCriteria = criteria.getExecutableCriteria(getCurrentSession());
+//    executableCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+    executableCriteria.setFirstResult(first);
+    executableCriteria.setMaxResults(count);
+    return executableCriteria.list();
+  }
+
+  @Override
   public <T> List<T> findByQuery(String queryString, Object... params) {
     Query query = getCurrentSession().createQuery(queryString);
     if (params != null) {
@@ -69,6 +79,5 @@ public class GenericRepository implements IGenericRepository {
     }
     return query.list();
   }
-
 
 }

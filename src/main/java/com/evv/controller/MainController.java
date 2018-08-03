@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 @RestController
@@ -75,6 +76,7 @@ public class MainController {
                           @RequestParam(value = "aAudioFile", required=false) MultipartFile fileA,
                           @RequestParam(value = "cardImageFile", required=false) MultipartFile fileImg,
                           @ModelAttribute Card card) throws IOException {
+    card = convertCard(card);
     card.setqAudio((fileQ != null) ? fileQ.getBytes() : null);
     card.setaAudio((fileA != null) ? fileA.getBytes() : null);
     card.setCardImage((fileImg != null) ? fileImg.getBytes() : null);
@@ -113,6 +115,7 @@ public class MainController {
                                   @RequestParam(value = "aAudioFile", required=false) MultipartFile fileA,
                                   @RequestParam(value = "cardImageFile", required=false) MultipartFile fileImg,
                                   @ModelAttribute Card card) throws IOException {
+    card = convertCard(card);
     card.setqAudio((fileQ != null) ? fileQ.getBytes() : null);
     card.setaAudio((fileA != null) ? fileA.getBytes() : null);
     card.setCardImage((fileImg != null) ? fileImg.getBytes() : null);
@@ -222,6 +225,42 @@ public class MainController {
   public List<Card> getAllCardsForLesson(@RequestBody Lesson lesson) {
     List<Card> result = cardService.findAllCardsForLesson(lesson);
     return result;
+  }
+
+  @RequestMapping(value = "/lessoncards_forlesson", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public List<LessonCard> getAllLessonCardsForLesson(@RequestBody Lesson lesson) {
+    List<LessonCard> result = lessonService.findAllLessonCardsForLesson(lesson);
+    return result;
+  }
+
+  @RequestMapping(value = "/lessoncards_startlesson", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public List<LessonCard> getAllLessonCardsToStartLesson(@RequestBody Lesson lesson) {
+    List<LessonCard> result = lessonService.findAllLessonCardsToStartLesson(lesson);
+    return result;
+  }
+
+  @RequestMapping(value = "/cards_byfilter", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public List<Card> getCardsByFilter(@RequestBody CardFilter cardFilter) {
+    List<Card> result = cardService.findCardsByFilter(cardFilter);
+    return result;
+  }
+
+  public String convertLatin1ToUtf8(String str){
+    return new String(str.getBytes(Charset.forName("ISO-8859-1")), Charset.forName("UTF-8"));
+  }
+
+  public Card convertCard(Card card){
+    card.setaInfo(convertLatin1ToUtf8(card.getaInfo()));
+    card.setqInfo(convertLatin1ToUtf8(card.getqInfo()));
+    card.setAnswer(convertLatin1ToUtf8(card.getAnswer()));
+    card.setQuestion(convertLatin1ToUtf8(card.getQuestion()));
+    return card;
   }
 
 }

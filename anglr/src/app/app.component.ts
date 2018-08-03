@@ -17,11 +17,7 @@ export class AppComponent {
   title = 'app';
 
   currentState: CurrentState = new CurrentState();
-  lessonCardforSave: LessonCard = new LessonCard();
-  lessonCardforDelete: LessonCard = new LessonCard();
   subsLesson: Subscription;
-  subsSaveLessonCard: Subscription;
-  subsDeleteLessonCard: Subscription;
   @ViewChild(CurrentStateHeaderComponent) stateHeader: CurrentStateHeaderComponent;
 
   constructor(private appService: AppHttpService, private interactService: InteractService) {
@@ -31,55 +27,6 @@ export class AppComponent {
         this.stateHeader.currentLesson = this.currentState.lesson;
       }
     );
-
-    this.subsSaveLessonCard = this.interactService.getObservableSaveLessonCard().subscribe(
-      data => {
-        this.lessonCardforSave = (data == null)? new LessonCard() : data;
-        this.saveOrUpdateLessonCard(this.lessonCardforSave)
-      }
-    )
-
-    this.subsDeleteLessonCard = this.interactService.getObservableDeleteLessonCard().subscribe(
-      data => {
-        this.lessonCardforDelete = (data == null)? new LessonCard() : data;
-        this.deleteLessonCard(this.lessonCardforDelete)
-      }
-    )
-  }
-
-  saveOrUpdateLessonCard(lessonCard : LessonCard) : void {
-    lessonCard.lessonCardId.lesson = this.currentState.lesson;
-    this.appService.saveOrUpdateLessonCardForm(lessonCard).subscribe(
-      data => {
-        console.log('saved LessonCard idCard=: ' + data);
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          console.log('An error occurred:', err.error.message);
-        } else {
-          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-        }
-      }
-    )
-  }
-
-  deleteLessonCard(lessonCard : LessonCard) : void {
-    if(lessonCard.lessonCardId.lesson == null){
-      lessonCard.lessonCardId.lesson = this.currentState.lesson;
-    }
-    this.appService.deleteLessonCard(lessonCard).subscribe(
-      data => {
-        console.log('deleted LessonCard idCard=: ' + data);
-        this.interactService.sendUpdateLessonCardList(true);
-      },
-      (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          console.log('An error occurred:', err.error.message);
-        } else {
-          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
-        }
-      }
-    )
   }
 
 }

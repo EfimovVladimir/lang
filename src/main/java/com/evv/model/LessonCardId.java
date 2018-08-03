@@ -3,7 +3,6 @@ package com.evv.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Embeddable
 public class LessonCardId implements Serializable{
 
   @JoinColumn(updatable = false, name="ID_LESSON")

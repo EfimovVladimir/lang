@@ -3,6 +3,7 @@ import {Lesson} from "../../model/Lesson";
 import {AppHttpService} from "../../services/apphttp.service";
 import {InteractService} from "../../services/interact.service";
 import {Subscription} from "rxjs/Subscription";
+import {StateService} from "../../services/state.service";
 
 @Component({
   selector: 'lessonlist',
@@ -17,7 +18,9 @@ export class LessonListComponent implements OnInit{
   subsUpdateList: Subscription;
   editMode = false;
 
-  constructor(private appHttpService : AppHttpService, private interactService: InteractService) {
+  constructor(private appHttpService : AppHttpService,
+              private interactService: InteractService,
+              private stateService: StateService) {
     this.subsUpdateList = this.interactService.getObservableUpdateLessonList().subscribe(
       flag => {
         if(flag){
@@ -58,6 +61,7 @@ export class LessonListComponent implements OnInit{
   }
 
   setCurrentLesson(lesson) : void {
+    this.stateService.setCurrentLesson(lesson);
     this.interactService.sendLesson(lesson);
     this.interactService.sendUpdateCardsForLesson(lesson);
   }

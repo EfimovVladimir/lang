@@ -1,9 +1,8 @@
 package com.evv.service;
 
-import com.evv.model.Card;
-import com.evv.model.Lesson;
-import com.evv.model.Section;
+import com.evv.model.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ICardService {
@@ -14,4 +13,5 @@ public interface ICardService {
   List<Card> findAllCardsForLesson(Lesson lesson);
   void deleteCard(Card card);
   void saveOrUpdateCard(Card card);
+  List<Card> findCardsByFilter(CardFilter cardFilter);
 }

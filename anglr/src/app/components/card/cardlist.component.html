@@ -1,6 +1,14 @@
 <div>
   <h4>Cards:</h4>
-  <button *ngIf="currentSection.id > 0" (click)="newCardForm()">new card</button>
+  <div>
+    section: {{getStateSectionId()}}
+  </div>
+  <div>
+    <label for="filterQuestion">question:</label>
+    <input [(ngModel)]="currentCardFilter.question" id="filterQuestion" name="filterQuestion">
+    <button (click)="getCardListByFilter()">search</button>
+  </div>
+  <button *ngIf="isSectionSelected()" (click)="newCardForm()">new card</button>
   <label for="targetCount">Target count for LessonCard </label>
   <input type="number" [(ngModel)]="targetCount" id="targetCount" name="targetCount">
   <table>
@@ -8,9 +16,10 @@
       <td><button (click)="deleteCard(card)" class="listButton buttonDelete"></button></td>
       <td><button (click)="editCardForm(card)" class="listButton buttonEdit"></button></td>
       <td><button (click)="addToLesson(card)" class="listButton buttonAdd" title="add to Lesson"></button></td>
+      <td>{{card.section.id}}</td>
       <td>{{card.id}}</td>
-      <td>{{card.question}}</td>
-      <td>{{card.answer}}</td>
+      <td>{{card.question.substr(0, 30)}}</td>
+      <td>{{card.answer.substr(0, 30)}}</td>
     </tr>
   </table>
 </div>

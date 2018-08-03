@@ -1,11 +1,14 @@
 package com.evv.persistance;
 
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 
 import java.io.Serializable;
 import java.util.List;
 
 public interface IGenericRepository {
+
+  Session getCurrentSession();
 
   <T> T get(Class<T> c, Integer id);
 
@@ -20,6 +23,8 @@ public interface IGenericRepository {
   <T> void delete(T entity);
 
   <T> List<T> findByCriteria(DetachedCriteria criteria);
+
+  <T> List<T> findByCriteria(DetachedCriteria criteria, int first, int count);
 
   <T> List<T> findByQuery(String query, Object... params);
 

@@ -9,13 +9,13 @@ public class Lesson implements Serializable {
 
   @Id
   @GeneratedValue
-  @Column
+  @Column(name = "ID")
   Integer id;
 
-  @Column
+  @Column(name = "INFO")
   String info;
 
-  @Column
+  @Column(name = "SYMBOLS")
   Integer symbols;
 
   @Column(name = "QUESTION_FIELD")

@@ -8,6 +8,8 @@ import {Section} from "../../model/Section";
 import {LessonCard} from "../../model/LessonCard";
 import {Lesson} from "../../model/Lesson";
 import {Router} from "@angular/router";
+import {StateService} from "../../services/state.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'cardListForLesson',
@@ -18,48 +20,57 @@ import {Router} from "@angular/router";
 
 export class CardListForLessonComponent implements OnInit{
 
-  cardList: Card[];
+  lessonCardList: LessonCard[];
   subsUpdateList: Subscription;
   currentSection: Section = new Section();
-  currentLesson: Lesson = new Lesson();
   targetCount: number = 5;
 
   ngOnInit(): void {
-    this.getCardsForLesson(null);
+    this.getCardsForLesson(this.getStateLesson());
   }
 
   constructor(private appHttpService : AppHttpService,
               private interactService: InteractService,
-              private router: Router){
+              private router: Router,
+              private stateService: StateService){
     this.subsUpdateList = this.interactService.getObservableCardsForLesson().subscribe(
       data => {
-        this.currentLesson = (data == null) ? null : data;
-        this.getCardsForLesson(this.currentLesson);
+        this.getCardsForLesson(this.getStateLesson());
       }
     );
   }
 
   getCardsForLesson(lesson) : void {
     if(lesson != null) {
-      this.appHttpService.getCardListForLesson(lesson).subscribe(
+      this.appHttpService.getLessonCardListForLesson(lesson).subscribe(
         (data) => {
-          this.cardList = data;
+          this.lessonCardList = data;
         }
       )
     }
     else {
-      this.cardList = new Array();
+      this.lessonCardList = new Array();
     }
   }
 
-  deleteCardFromLesson(card) : void {
-    var lessonCard = new LessonCard();
-    lessonCard.lessonCardId.card = card;
-    this.interactService.sendDeleteLessonCard(lessonCard);
+  deleteCardFromLesson(lessonCard : LessonCard) : void {
+    this.appHttpService.deleteLessonCard(lessonCard).subscribe(
+      data => {
+        console.log('deleted LessonCard idCard=: ' + data);
+        this.interactService.sendUpdateLessonCardList(true);
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          console.log('An error occurred:', err.error.message);
+        } else {
+          console.log(`Backend returned code ${err.status}, body was: ${err.error}`);
+        }
+      }
+    )
   }
 
-  editCardForm(card) : void {
-    this.interactService.sendCard(card);
+  editCardForm(lessonCard : LessonCard) : void {
+    this.interactService.sendCard(lessonCard.lessonCardId.card);
     this.router.navigateByUrl('/cardedit');
   }
 
@@ -69,4 +80,21 @@ export class CardListForLessonComponent implements OnInit{
     this.interactService.sendCard(card);
   }
 
+  toLearnAgain(lessonCard : LessonCard) : void {
+    lessonCard.successCount = 0;
+    lessonCard.failedCount = 0;
+    this.appHttpService.saveOrUpdateLessonCardForm(lessonCard).subscribe(
+      (data) => {
+          console.log('saved idLesson id: ' + data);
+      }
+    )
+  }
+
+  startLesson() : void {
+    this.router.navigateByUrl('/cardQuestion');
+  }
+
+  getStateLesson() : Lesson {
+    return this.stateService.getCurrentLesson();
+  }
 }

@@ -1,4 +1,12 @@
 tr:hover td{
-  background: #ede3db;
+  background: rgba(136, 228, 248, 0.50);
   /*font-weight: bold;*/
+}
+
+.learnt {
+  background: rgba(24, 231, 71, 0.38);
+}
+
+.learning {
+  background: rgba(244, 242, 21, 0.3);
 }

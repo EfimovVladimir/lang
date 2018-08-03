@@ -41,14 +41,11 @@ export class LessonCardListComponent implements OnInit{
   }
 
   deleteLessonCard(lessonCard) : void {
-    // this.appHttpService.deleteLessonCard(lessonCard).subscribe(
-    //   (data) => {
-    //     this.getLessonCardList();
-    //     this.interactService.sendLessonCard(new LessonCard);
-    //   }
-    // );
-    this.interactService.sendDeleteLessonCard(lessonCard);
-    this.interactService.sendLessonCard(new LessonCard);
+    this.appHttpService.deleteLessonCard(lessonCard).subscribe(
+      (data) => {
+        this.getLessonCardList();
+      }
+    );
   }
 
   editLessonCardForm(lessonCard) : void {

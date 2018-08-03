@@ -42,7 +42,11 @@ button.buttonCheck {
   background-image: url(../pic/check32.png);
 }
 
+body {
+  font-size: 100%;
+}
 
-
-
+textarea {
+  font-size: 1.4em;
+}
 

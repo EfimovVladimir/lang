@@ -3,6 +3,7 @@ import {Section} from "../../model/Section";
 import {AppHttpService} from "../../services/apphttp.service";
 import {InteractService} from "../../services/interact.service";
 import {Subscription} from "rxjs/Subscription";
+import {StateService} from "../../services/state.service";
 
 @Component({
   selector: 'sectionlist',
@@ -17,7 +18,9 @@ export class SectionListComponent implements OnInit{
   subsUpdateList: Subscription;
   editMode = false;
 
-  constructor(private appHttpService : AppHttpService, private interactService: InteractService) {
+  constructor(private appHttpService : AppHttpService,
+              private interactService: InteractService,
+              private stateService: StateService) {
     this.subsUpdateList = this.interactService.getObservableUpdateSectionList().subscribe(
       flag => {
         if(flag){
@@ -43,7 +46,6 @@ export class SectionListComponent implements OnInit{
     this.appHttpService.deleteSection(section).subscribe(
       (data) => {
         this.getSectionList();
-        this.interactService.sendSection(new Section);
       }
     );
   }
@@ -53,7 +55,8 @@ export class SectionListComponent implements OnInit{
   }
 
   selectCardsForSection(section) : void {
-    this.interactService.sendSection(section);
+    this.stateService.setCurrentSection(section);
+    this.interactService.sendUpdateCardList(true);
   }
 
   newSectionForm() : void {
