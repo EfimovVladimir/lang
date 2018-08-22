@@ -1,14 +1,22 @@
-<div>
-  <div> failed: {{currentLessonCard.failedCount}} success: {{currentLessonCard.successCount}} target: {{currentLessonCard.targetCount}}</div>
-  <div>
-    <audio #engMp3 controls class="inlineBlock">
-      <source src="" type="audio/mpeg">
-    </audio>
-    <button (click)="excutePlay(engMp3)">play</button>
+<div class="question-container">
+  <div class="question-header">failed: {{currentLessonCard.failedCount}} success: {{currentLessonCard.successCount}} target: {{currentLessonCard.targetCount}}</div>
+  <div class="col-left">
+    <div (click)="showContext()" class="context-link">{{isShowContext?'Hide':'Show'}} context</div>
+    <div *ngIf="isShowContext">{{currentLessonCard.card.qInfo}}</div>
   </div>
-  <div>{{currentLessonCard.lessonCardId.card.qInfo}}</div>
-  <div><textarea rows="5" cols="50" readonly>{{currentLessonCard.lessonCardId.card.question}}</textarea></div>
-  <div *ngIf="currentStatus.length > 0">{{currentLessonCard.lessonCardId.card.answer}}</div>
-  <div><textarea rows="5" cols="50" #answerId [(ngModel)]="currentAnswer" (keydown.control)="answerKeyHandler($event)"></textarea></div>
-  <div>{{currentStatus}} <button (click)="nextCard()">next</button></div>
+  <div class="question-main">
+    <div>
+      <audio #engMp3 controls >
+        <source src="" type="audio/mpeg">
+      </audio>
+      <!--<button (click)="excutePlay(engMp3)">play</button>-->
+    </div>
+    <div><span class="question-text">{{currentLessonCard.card.question}}</span></div>
+    <div *ngIf="currentStatus.length > 0"><span class="question-text">{{currentLessonCard.card.answer}}</span></div>
+    <div><textarea rows="5" cols="50" #answerId [(ngModel)]="currentAnswer" (keydown.control)="answerKeyHandler($event)"></textarea></div>
+    <div><button class="next-button" (click)="nextCard()">next</button>{{currentStatus}}</div>
+  </div>
+  <div class="question-footer">
+
+  </div>
 </div>

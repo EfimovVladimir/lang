@@ -11,7 +11,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 @Component({
   selector: 'cardQuestion',
   templateUrl: './cardquestion.component.html',
-  styleUrls: ['../../css/ui.element.css']
+  styleUrls: ['../../css/ui.element.css', '../../css/question.css']
 })
 
 export class CardQuestionComponent implements AfterViewInit, OnInit {
@@ -20,6 +20,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
   currentStatus: string = '';
   currentLessonCard: LessonCard = new LessonCard();
   currentAnswer: String = "";
+  isShowContext: boolean = false;
   @ViewChild("answerId", {read: ElementRef}) answerElement: ElementRef;
   @ViewChild("engMp3", {read: ElementRef}) currentEngMp3: ElementRef;
   lessonCardList: LessonCard[];
@@ -66,7 +67,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     }
     console.log('this.currentIndex=' + this.currentIndex);
     this.currentLessonCard = this.lessonCardList[this.currentIndex];
-    this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.lessonCardId.card.qAudio;
+    this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.qAudio;
     this.currentEngMp3.nativeElement.play();
     this.answerElement.nativeElement.focus();
   }
@@ -81,7 +82,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     }
     let answerStr = this.currentAnswer.toLowerCase().trim();
     let symbolsA = answerStr.split(""); // разбиваем на массив символов
-    let symbolsQ = this.currentLessonCard.lessonCardId.card.answer.toLowerCase().trim().split("");
+    let symbolsQ = this.currentLessonCard.card.answer.toLowerCase().trim().split("");
     let i: number = 0;
     let result: boolean = false;
     for(i=0; i < symbolsA.length && i < symbolsQ.length; i++){
@@ -99,7 +100,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
   }
 
   getAnswerSymbols() : string[] {
-    if(this.currentLessonCard.lessonCardId.lesson.questionField == 1){
+    if(this.currentLessonCard.lesson.questionField == 1){
       return this.currentAnswer.toLowerCase().trim().split("");
     }
     return this.currentAnswer.toLowerCase().trim().split("");
@@ -141,7 +142,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
       tmp = array[i];
       array[i] = array[randomIndex];
       array[randomIndex] = tmp;
-      console.log('[' + i + ']=' + array[i].lessonCardId.card.id);
+      console.log('[' + i + ']=' + array[i].card.id);
     }
     return array;
   }
@@ -164,6 +165,10 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
           }
         }
       )
+  }
+
+  showContext() : void {
+    this.isShowContext = !this.isShowContext;
   }
 
 }
