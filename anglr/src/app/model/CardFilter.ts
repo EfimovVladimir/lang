@@ -6,6 +6,9 @@ export class CardFilter {
   tagIds: number[] = [];
   sectionId: number;
   orderBy: string = "asc";
+  fromPage: number;
+  toPage: number;
+  sizePage: number;
 
   constructor(){ }
 }

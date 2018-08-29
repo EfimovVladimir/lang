@@ -1,11 +1,10 @@
 package com.evv.service;
 
+import com.evv.criteria.CardCriteria;
 import com.evv.model.*;
 import com.evv.persistance.IGenericRepository;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.*;
-import org.hibernate.sql.JoinType;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +16,9 @@ public class CardService implements ICardService {
 
   @Autowired
   private IGenericRepository repository;
+
+  @Autowired
+  private CardCriteria cardCriteria;
 
   public IGenericRepository getRepository() {
     return repository;
@@ -70,26 +72,24 @@ public class CardService implements ICardService {
   @Override
   @Transactional
   public List<Card> findCardsByFilter(CardFilter cardFilter) {
-//    DetachedCriteria criteria = DetachedCriteria.forClass(LessonCard.class);
-//    criteria.createAlias("card", "crd");
-//    if(!cardFilter.getQuestion().isEmpty()){
-//      criteria.add(Restrictions.like("crd.question", cardFilter.getQuestion(), MatchMode.START));
-//    }
-//    if(cardFilter.getSectionId() > 0){
-//      criteria.add(Restrictions.eq("crd.section.id", cardFilter.getSectionId()));
-//    }
-//    criteria.setProjection(Projections.property("card"));
+    Order order = Order.asc("question").ignoreCase();
+    DetachedCriteria criteria = cardCriteria.getCriteria(cardFilter);
+    criteria.addOrder(order);
+    return getRepository().findByCriteria(criteria);
+  }
 
-    DetachedCriteria criteria = DetachedCriteria.forClass(Card.class);
-    if(!cardFilter.getQuestion().isEmpty()){
-      criteria.add(Restrictions.like("question", cardFilter.getQuestion(), MatchMode.START));
-    }
-    if(cardFilter.getSectionId() > 0){
-      criteria.add(Restrictions.eq("section.id", cardFilter.getSectionId()));
-    }
-    criteria.addOrder(Order.asc("question").ignoreCase());
-    criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-    return getRepository().findByCriteria(criteria, 0, 12);
+  @Override
+  @Transactional
+  public List<Card> findRangeCardsByFilter(CardFilter cardFilter, int from, int sizePage) {
+    Order order = Order.asc("question").ignoreCase();
+    DetachedCriteria filter = cardCriteria.getCriteria(cardFilter);
+    return getRepository().findPageEntitiesByCriteria(filter, Card.class, order, from, sizePage);
+  }
+
+  @Override
+  @Transactional
+  public long rowCountCardsByFilter(CardFilter cardFilter) {
+    return getRepository().countRows(cardCriteria.getCriteria(cardFilter));
   }
 
 }

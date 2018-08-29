@@ -1,31 +1,35 @@
 
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
 import {InteractService} from "../../services/interact.service";
 import {Subscription} from "rxjs/Subscription";
-import {Section} from "../../model/Section";
 import {LessonCard} from "../../model/LessonCard";
 import {StateService} from "../../services/state.service";
 import {CardFilter} from "../../model/CardFilter";
 import {HttpErrorResponse} from "@angular/common/http";
+import {PagerComponent} from "../pager/pager.component";
+import {OnPaging} from "../pager/OnPaging";
 
 @Component({
   selector: 'cardlist',
   templateUrl: './cardlist.component.html',
   styleUrls: ['../../css/list.component.css',
-              '../../css/ui.element.css']
+              '../../css/ui.element.css',
+              `../../css/pager.component.css`]
 })
 
-export class CardListComponent implements OnInit{
+export class CardListComponent implements OnInit, OnPaging{
 
   cardList: Card[];
   subsUpdateList: Subscription;
   targetCount: number = 5;
   currentCardFilter: CardFilter = new CardFilter();
+  @ViewChild(PagerComponent) pagerComponent: PagerComponent;
 
   ngOnInit(): void {
-    this.getCardList();
+    this.pagerComponent.parentComponent = this;
+    this.setInitPage();
   }
 
   constructor(private appHttpService : AppHttpService,
@@ -34,42 +38,31 @@ export class CardListComponent implements OnInit{
     this.subsUpdateList = this.interactService.getObservableUpdateCardList().subscribe(
       flag => {
         if(flag){
-          this.getSectionCardList(this.stateService.getCurrentSection());
+          this.stateService.getCardFilter().sectionId = this.stateService.getCurrentSection().id;
+          this.setInitPage();
         }
       }
     );
   }
 
-  getCardList() : void {
-    this.appHttpService.getCardList().subscribe(
+  getCardListByFilter() : void {
+    this.setInitPage();
+  }
+
+  getRangeCardListByFilter(from: number, to: number, sizeP: number) : void {
+    this.currentCardFilter.sectionId =
+      this.stateService.getCurrentSection() == null ? 0 : this.stateService.getCurrentSection().id;
+    this.appHttpService.getRangeCardsByFilter(this.currentCardFilter, from, to, sizeP).subscribe(
       (data) => {
         this.cardList = data;
       }
     );
   }
 
-  getSectionCardList(section : Section) : void {
-    this.stateService.getCardFilter().sectionId = section.id;
-    this.appHttpService.getCardsByFilter(this.stateService.getCardFilter()).subscribe(
-      (data) => {
-        this.cardList = data;
-      }
-    )
-  }
-
-  getCardListByFilter() : void {
-    this.currentCardFilter.sectionId = this.stateService.getCurrentSection().id;
-    this.appHttpService.getCardsByFilter(this.currentCardFilter).subscribe(
-      (data) => {
-        this.cardList = data;
-      }
-    )
-  }
-
   deleteCard(card) : void {
     this.appHttpService.deleteCard(card).subscribe(
       (data) => {
-        this.getCardList();
+        this.setInitPage();
       }
     );
   }
@@ -96,14 +89,16 @@ export class CardListComponent implements OnInit{
   }
 
   isSectionSelected() : boolean {
-    return this.stateService.getCurrentSection() != null
+    return this.stateService.getCurrentSection() != null;
   }
 
-  getStateSectionId() : number {
+  getStateSectionId() : string {
+    var result = " ";
     if(this.stateService.getCurrentSection() != null){
-      return this.stateService.getCurrentSection().id;
+      result = result + " " + this.stateService.getCurrentSection().id + " " +
+        this.stateService.getCurrentSection().name;
     }
-    return 0;
+    return result;
   }
 
   saveOrUpdateLessonCard(lessonCard : LessonCard) : void {
@@ -119,6 +114,22 @@ export class CardListComponent implements OnInit{
         }
       }
     )
+  }
+
+  setInitPage(){
+    this.currentCardFilter.sectionId =
+      this.stateService.getCurrentSection() == null ? 0 : this.stateService.getCurrentSection().id;
+    this.appHttpService.getRowCountCardsByFilter(this.currentCardFilter).subscribe(
+      (data) => {
+        var size = (data == null)? 0 : data;
+        this.pagerComponent.buildPager(size,1);
+        this.setRangeList(this.pagerComponent.getStartIndex(), this.pagerComponent.getEndIndex(), this.pagerComponent.getPageSize());
+      }
+    );
+  }
+
+  setRangeList(start, end, sizePage){
+    this.getRangeCardListByFilter(start, end, sizePage);
   }
 
 }

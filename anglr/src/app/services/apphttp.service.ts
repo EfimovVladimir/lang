@@ -115,4 +115,15 @@ export class AppHttpService {
   getCardsByFilter(cardFilter : CardFilter) : Observable<Card[]> {
     return this.http.post("http://127.0.0.1:8080/lang/cards_byfilter", cardFilter);
   }
+
+  getRangeCardsByFilter(cardFilter : CardFilter, from: number, to: number, sizeP: number) : Observable<Card[]> {
+    cardFilter.fromPage = from;
+    cardFilter.toPage = to;
+    cardFilter.sizePage = sizeP;
+    return this.http.post("http://127.0.0.1:8080/lang/range_cards_byfilter", cardFilter);
+  }
+
+  getRowCountCardsByFilter(cardFilter : CardFilter) : Observable<number> {
+    return this.http.post("http://127.0.0.1:8080/lang/count_cards_byfilter", cardFilter);
+  }
 }

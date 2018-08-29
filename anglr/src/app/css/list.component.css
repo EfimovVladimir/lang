@@ -10,3 +10,16 @@ tr:hover td{
 .learning {
   background: rgba(244, 242, 21, 0.3);
 }
+
+.listPageBlockSize {
+  display: inline-block;
+  height: 320px;
+  width: 650px;
+  vertical-align: top;
+}
+
+.pagerBlockSize {
+  display: inline-block;
+  height: 40px;
+  width: 650px;
+}

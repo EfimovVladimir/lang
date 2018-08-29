@@ -1,13 +1,18 @@
 package com.evv.persistance;
 
+import com.evv.model.Card;
+import com.evv.model.IdBean;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.*;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -56,17 +61,36 @@ public class GenericRepository implements IGenericRepository {
   @Override
   public <T> List<T> findByCriteria(DetachedCriteria criteria) {
     Criteria executableCriteria = criteria.getExecutableCriteria(getCurrentSession());
-//    executableCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+    executableCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     return executableCriteria.list();
   }
 
   @Override
-  public <T> List<T> findByCriteria(DetachedCriteria criteria, int first, int count) {
-    Criteria executableCriteria = criteria.getExecutableCriteria(getCurrentSession());
-//    executableCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-    executableCriteria.setFirstResult(first);
-    executableCriteria.setMaxResults(count);
-    return executableCriteria.list();
+  public <T> List<T> findPageEntitiesByCriteria(DetachedCriteria criteria, Class<T> clazz, Order order, int first, int count) {
+    List<Integer>  ids = findPageIdsByCriteria(criteria, order, first, count);
+    Criteria execCriteria = getCurrentSession().createCriteria(clazz);
+    execCriteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//    criteria.add(Subqueries.propertyIn("id", filterCriteria));
+    execCriteria.add(Restrictions.in(Projections.id().toString(), ids));
+    execCriteria.addOrder(order);
+    return execCriteria.list();
+  }
+
+  private List<Integer> findPageIdsByCriteria(DetachedCriteria criteria, Order order, int first, int count) {
+    Criteria filterCriteria = criteria.getExecutableCriteria(getCurrentSession());
+    filterCriteria.setProjection(Projections.projectionList()
+        .add(Projections.groupProperty(Projections.id().toString()), "id")
+        .add(Projections.min(order.getPropertyName())));
+    filterCriteria.addOrder(order);
+    filterCriteria.setMaxResults(count);
+    filterCriteria.setFirstResult(first);
+    filterCriteria.setResultTransformer(Transformers.aliasToBean(IdBean.class));
+    List<IdBean> idCards = filterCriteria.list();
+    List<Integer> ids = new ArrayList<>();
+    for(IdBean card : idCards){
+      ids.add(card.getId());
+    }
+    return ids;
   }
 
   @Override
@@ -80,4 +104,16 @@ public class GenericRepository implements IGenericRepository {
     return query.list();
   }
 
+  @Override
+  public <T> T findByCriteriaSingle(DetachedCriteria criteria) {
+    Criteria executableCriteria = criteria.getExecutableCriteria(getCurrentSession());
+    List<T> objects = executableCriteria.list();
+    return objects.isEmpty()? null : objects.get(0);
+  }
+
+  @Override
+  public long countRows(DetachedCriteria criteria) {
+    criteria.setProjection(Projections.rowCount());
+    return this.<Long>findByCriteriaSingle(criteria).longValue();
+  }
 }

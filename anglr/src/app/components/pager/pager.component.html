@@ -1,0 +1,19 @@
+<div class="pagerBlockSize">
+  <ul *ngIf="_pager.pages && _pager.pages.length" class="pagination">
+    <li [ngClass]="{disabled:_pager.currentPage === 1}">
+      <a (click)="setPage(1)">First</a>
+    </li>
+    <li [ngClass]="{disabled:_pager.currentPage === 1}">
+      <a (click)="setPage(_pager.currentPage - 1)">Previous</a>
+    </li>
+    <li *ngFor="let page of _pager.pages" [ngClass]="{active:_pager.currentPage === page}">
+      <a (click)="setPage(page)">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:_pager.currentPage === _pager.totalPages}">
+      <a (click)="setPage(_pager.currentPage + 1)">Next</a>
+    </li>
+    <li [ngClass]="{disabled:_pager.currentPage === _pager.totalPages}">
+      <a (click)="setPage(_pager.totalPages)">Last</a>
+    </li>
+  </ul>
+</div>

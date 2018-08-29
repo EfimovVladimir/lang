@@ -28,6 +28,8 @@ import {CardViewComponent} from "./components/card/cardview.component";
 import {CardQuestionComponent} from "./components/card/cardquestion.component";
 import {CardListForLessonComponent} from "./components/lesson/lesson.cardlist.component";
 import {StateService} from "./services/state.service";
+import {PagerService} from "./services/pager.service";
+import {PagerComponent} from "./components/pager/pager.component";
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import {StateService} from "./services/state.service";
     CurrentStateHeaderComponent,
     CardViewComponent,
     CardQuestionComponent,
-    CardListForLessonComponent
+    CardListForLessonComponent,
+    PagerComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,7 @@ import {StateService} from "./services/state.service";
         }
     ])
   ],
-  providers: [AppHttpService, InteractService, StateService],
+  providers: [AppHttpService, InteractService, StateService, PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

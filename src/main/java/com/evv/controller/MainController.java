@@ -251,6 +251,22 @@ public class MainController {
     return result;
   }
 
+  @RequestMapping(value = "/range_cards_byfilter", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public List<Card> getRangeCardsByFilter(@RequestBody CardFilter cardFilter) {
+    List<Card> result = cardService.findRangeCardsByFilter(cardFilter, cardFilter.getFromPage(), cardFilter.getSizePage());
+    return result;
+  }
+
+  @RequestMapping(value = "/count_cards_byfilter", method = RequestMethod.POST)
+  @CrossOrigin
+  @ResponseBody
+  public Long getCountCardsByFilter(@RequestBody CardFilter cardFilter) {
+    Long result = cardService.rowCountCardsByFilter(cardFilter);
+    return result;
+  }
+
   public String convertLatin1ToUtf8(String str){
     return new String(str.getBytes(Charset.forName("ISO-8859-1")), Charset.forName("UTF-8"));
   }

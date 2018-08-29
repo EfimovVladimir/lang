@@ -14,6 +14,12 @@ public class CardFilter implements Serializable{
 
   String orderBy = "asc";
 
+  int fromPage;
+
+  int toPage;
+
+  int sizePage;
+
   public String getAnswer() {
     return answer;
   }
@@ -52,5 +58,29 @@ public class CardFilter implements Serializable{
 
   public void setOrderBy(String orderBy) {
     this.orderBy = orderBy;
+  }
+
+  public int getFromPage() {
+    return fromPage;
+  }
+
+  public void setFromPage(int fromPage) {
+    this.fromPage = fromPage;
+  }
+
+  public int getToPage() {
+    return toPage;
+  }
+
+  public void setToPage(int toPage) {
+    this.toPage = toPage;
+  }
+
+  public int getSizePage() {
+    return sizePage;
+  }
+
+  public void setSizePage(int sizePage) {
+    this.sizePage = sizePage;
   }
 }
