@@ -11,10 +11,20 @@
       </audio>
       <!--<button (click)="excutePlay(engMp3)">play</button>-->
     </div>
-    <div><span class="question-text">{{currentLessonCard.card.question}}</span></div>
-    <div *ngIf="currentStatus.length > 0"><span class="question-text">{{currentLessonCard.card.answer}}</span></div>
+    <div *ngIf="currentLessonCard.lesson.questionField == 0"><span class="question-text">{{currentLessonCard.card.question}}</span></div>
+    <div *ngIf="currentLessonCard.lesson.questionField == 1"><span class="question-text">{{currentLessonCard.card.answer}}</span></div>
+    <div [style.visibility]="(currentStatus.length == 0) ? 'hidden' : 'visible' ">
+      <span *ngIf="currentLessonCard.lesson.questionField == 0" class="question-text">{{currentLessonCard.card.answer}}</span>
+      <span *ngIf="currentLessonCard.lesson.questionField == 1" class="question-text">{{currentLessonCard.card.question}}</span>
+    </div>
     <div><textarea rows="5" cols="50" #answerId [(ngModel)]="currentAnswer" (keydown.control)="answerKeyHandler($event)"></textarea></div>
-    <div><button class="next-button" (click)="nextCard()">next</button>{{currentStatus}}</div>
+    <div>
+      <button *ngIf="currentStatus.length == 0" class="next-button" (click)="checkCard()">check</button>
+      <button *ngIf="currentStatus.length > 0" class="next-button" (click)="nextCard()">next</button>
+      <div *ngIf="currentStatus.length > 0"
+           [ngClass]="{'success-status': currentStatus == 'SUCCESS',
+                       'failed-status': currentStatus == 'FAILED' }">{{currentStatus}}</div>
+    </div>
   </div>
   <div class="question-footer">
 

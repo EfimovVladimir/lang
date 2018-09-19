@@ -10,10 +10,11 @@
         <label for="lessonSymb">Count of symbols for success</label>
         <input type="number" [(ngModel)]="currentLesson.symbols" id="lessonSymb" name="lessonSymb" class="field-style">
       </li>
-      <li>
-        <label for="lessonField">Question Field</label>
-        <input type="number" [(ngModel)]="currentLesson.questionField" id="lessonField" name="lessonField" class="field-style">
-      </li>
+      <div class="rvrsContainer">
+        <div class="rvrsfield">ask '{{getAskField()}}' field</div>
+        <div class="reverse" (click)="changeLessonField()"></div>
+        <div class="rvrsfield">check '{{getCheckField()}}' field</div>
+      </div>
     </ul>
     <button type="submit" class="submit-style">save</button>
   </form>

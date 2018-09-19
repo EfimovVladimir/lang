@@ -1,5 +1,8 @@
 <div>
-  <button *ngIf="editMode" (click)="newLessonForm()">new lesson</button>
+  <div>
+    <span class="captionText">Lessons:</span>
+    <button *ngIf="editMode" class="form-button" (click)="newLessonForm()">new lesson</button>
+  </div>
   <table>
     <tr *ngFor="let lesson of lessonList" >
       <td><button *ngIf="editMode" (click)="deleteLesson(lesson)" class="listButton buttonDelete"></button></td>

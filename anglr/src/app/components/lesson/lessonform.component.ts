@@ -4,6 +4,7 @@ import {AppHttpService} from "../../services/apphttp.service";
 import {Lesson} from "../../model/Lesson";
 import {Subscription} from "rxjs/Subscription";
 import {InteractService} from "../../services/interact.service";
+import {StateService} from "../../services/state.service";
 
 @Component({
   selector: 'lessonform',
@@ -16,12 +17,15 @@ export class LessonFormComponent {
   currentLesson: Lesson = new Lesson();
   subsLesson: Subscription;
 
-  constructor(private appService: AppHttpService, private interactService: InteractService) {
+  constructor(private appService: AppHttpService,
+              private interactService: InteractService,
+              private stateService: StateService) {
     this.subsLesson = this.interactService.getObservableLesson().subscribe(
       data => {
         this.currentLesson = (data == null)? new Lesson() : data;
       }
     )
+    this.currentLesson = stateService.getCurrentLesson();
   }
 
   executePostForm() : void {
@@ -31,6 +35,7 @@ export class LessonFormComponent {
           console.log('saved idLesson id: ' + data);
           this.interactService.sendUpdateLessonList(true);
           this.clearLessonForm();
+          this.stateService.setDisplayLessonForm(false);
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {
@@ -46,4 +51,15 @@ export class LessonFormComponent {
     this.currentLesson = new Lesson();
   }
 
+  changeLessonField() {
+    this.currentLesson.questionField = (this.currentLesson.questionField == 0) ? 1 : 0;
+  }
+
+  getAskField() : string {
+    return (this.currentLesson.questionField == 0) ? 'question' : 'answer';
+  }
+
+  getCheckField() : string {
+    return (this.currentLesson.questionField == 0) ? 'answer' : 'question';
+  }
 }

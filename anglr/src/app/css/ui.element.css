@@ -50,3 +50,38 @@ textarea {
   font-size: 1.4em;
 }
 
+.captionText {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 29px;
+  font-weight: 500;
+  color: #3c3c3c;
+  margin: 15px;
+}
+
+.captionButton {
+  margin-left: 50%;
+}
+
+.form-button {
+  min-width: 100px;
+  padding: 4px 15px;
+  white-space: normal;
+  max-width: 50%;
+  color: #999;
+  border: 2px solid #ccc;
+  border-radius: 100px;
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  line-height: 20px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.col30 {
+  width: 200px;
+  padding: 3px;
+}
+

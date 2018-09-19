@@ -52,22 +52,30 @@ export class LessonListComponent implements OnInit{
   }
 
   newLessonForm() : void {
+    this.stateService.setCurrentLesson(new Lesson());
+    this.stateService.setDisplayLessonForm(true);
     this.interactService.sendLesson(null);
   }
 
   editLessonForm(lesson) : void {
+    this.stateService.setCurrentLesson(lesson);
+    this.stateService.setDisplayLessonForm(true);
     this.interactService.sendLesson(lesson);
     this.interactService.sendUpdateCardsForLesson(lesson);
   }
 
   setCurrentLesson(lesson) : void {
     this.stateService.setCurrentLesson(lesson);
+    this.stateService.setDisplayLessonForm(false);
     this.interactService.sendLesson(lesson);
     this.interactService.sendUpdateCardsForLesson(lesson);
   }
 
   selectCardsForLesson(lesson) : void {
+    this.stateService.setCurrentLesson(lesson);
+    this.stateService.setDisplayLessonForm(false);
     this.interactService.sendLesson(lesson);
+    this.interactService.sendUpdateCardsForLesson(lesson);
   }
 
   setEditMode(flag : boolean){

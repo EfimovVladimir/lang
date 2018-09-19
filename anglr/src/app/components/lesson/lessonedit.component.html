@@ -1,5 +1,5 @@
 <div class="containerBlock">
   <lessonlist class="inlineBlockLeft"></lessonlist>
-  <lessonform  class="divInlineBlockSize"></lessonform>
-  <cardListForLesson class="divInlineBlockSize"></cardListForLesson>
+  <lessonform *ngIf="isDisplayLessonForm()" class="divInlineBlockSize"></lessonform>
+  <cardListForLesson *ngIf="!isDisplayLessonForm()" class="divInlineBlockSize"></cardListForLesson>
 </div>

@@ -75,3 +75,15 @@
   text-decoration: underline;
   color: rgb(28, 207, 246);
 }
+
+.success-status {
+  color: rgb(24, 231, 71);
+  margin-left: 100px;
+  display: inline-block;
+}
+
+.failed-status {
+  color: rgb(184, 11, 0);
+  margin-left: 100px;
+  display: inline-block;
+}

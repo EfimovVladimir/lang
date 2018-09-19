@@ -67,7 +67,12 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     }
     console.log('this.currentIndex=' + this.currentIndex);
     this.currentLessonCard = this.lessonCardList[this.currentIndex];
-    this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.qAudio;
+    if(this.currentLessonCard.lesson.questionField == 0){
+      this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.qAudio;
+    }
+    else {
+      this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.aAudio;
+    }
     this.currentEngMp3.nativeElement.play();
     this.answerElement.nativeElement.focus();
   }
@@ -82,7 +87,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     }
     let answerStr = this.currentAnswer.toLowerCase().trim();
     let symbolsA = answerStr.split(""); // разбиваем на массив символов
-    let symbolsQ = this.currentLessonCard.card.answer.toLowerCase().trim().split("");
+    let symbolsQ = this.getSymbolsAnswer();
     let i: number = 0;
     let result: boolean = false;
     for(i=0; i < symbolsA.length && i < symbolsQ.length; i++){
@@ -96,6 +101,15 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
       this.successCard();
     }else{
       this.failCard();
+    }
+  }
+
+  getSymbolsAnswer(){
+    if(this.currentLessonCard.lesson.questionField == 0) {
+      return this.currentLessonCard.card.answer.toLowerCase().trim().split("");
+    }
+    else{
+      return this.currentLessonCard.card.question.toLowerCase().trim().split("");
     }
   }
 

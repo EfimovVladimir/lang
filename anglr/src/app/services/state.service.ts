@@ -12,6 +12,7 @@ export class StateService {
   private currentCard: Card;
   private currentSection: Section;
   private cardFilter: CardFilter = new CardFilter();
+  private displayLessonForm: boolean = false;
 
   constructor(){ }
 
@@ -40,12 +41,19 @@ export class StateService {
     this.currentSection = section;
   }
 
-
   getCardFilter(): CardFilter {
     return this.cardFilter;
   }
 
   setCardFilter(value: CardFilter) {
     this.cardFilter = value;
+  }
+
+  setDisplayLessonForm(value: boolean) {
+    this.displayLessonForm = value;
+  }
+
+  isDisplayLessonForm() {
+    return this.displayLessonForm;
   }
 }

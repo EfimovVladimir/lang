@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {LessonListComponent} from "./lessonlist.component";
+import {StateService} from "../../services/state.service";
 
 @Component({
   selector: 'lessonedit',
@@ -15,4 +16,11 @@ export class LessonEditComponent implements OnInit{
     this.lessonList.setEditMode(true);
   }
 
+  constructor(private stateService: StateService) {
+
+  }
+
+  isDisplayLessonForm() {
+    return this.stateService.isDisplayLessonForm();
+  }
 }
