@@ -1,16 +1,16 @@
 <div>
   <div>
     <span class="captionText">Cards:</span>
-    <button class="form-button captionButton" (click)="startLesson()">start lesson</button>
+    <button class="form-button" (click)="startLesson()">start lesson</button>
   </div>
   <table>
     <tr *ngFor="let lessonCard of lessonCardList">
       <td><button (click)="deleteCardFromLesson(lessonCard)" class="listButton buttonDelete"></button></td>
-      <td [ngClass]="{'learnt': lessonCard.successCount >= lessonCard.targetCount,
-                    'learning': lessonCard.successCount < lessonCard.targetCount }">{{lessonCard.card.id}}</td>
+      <td>{{lessonCard.card.id}}</td>
       <td class="col30">{{lessonCard.card.question.substr(0, 30)}}</td>
       <td class="col30">{{lessonCard.card.answer.substr(0, 30)}}</td>
-      <td>{{lessonCard.successCount}} of {{lessonCard.targetCount}}</td>
+      <td [ngClass]="{'learnt': lessonCard.successCount >= lessonCard.targetCount,
+                    'learning': lessonCard.successCount < lessonCard.targetCount }">{{lessonCard.successCount}} of {{lessonCard.targetCount}}</td>
       <td *ngIf="lessonCard.successCount >= lessonCard.targetCount"><button (click)="toLearnAgain(lessonCard)" class="listButton buttonCheck" title="to Learn Again"></button></td>
     </tr>
   </table>

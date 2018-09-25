@@ -10,6 +10,7 @@ import {CardFilter} from "../../model/CardFilter";
 import {HttpErrorResponse} from "@angular/common/http";
 import {PagerComponent} from "../pager/pager.component";
 import {OnPaging} from "../pager/OnPaging";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'cardlist',
@@ -33,6 +34,7 @@ export class CardListComponent implements OnInit, OnPaging{
   }
 
   constructor(private appHttpService : AppHttpService,
+              private router: Router,
               private interactService: InteractService,
               private stateService: StateService){
     this.subsUpdateList = this.interactService.getObservableUpdateCardList().subscribe(
@@ -68,7 +70,10 @@ export class CardListComponent implements OnInit, OnPaging{
   }
 
   editCardForm(card) : void {
+    this.stateService.setCurrentCard(card);
+    //this.stateService.setDisplayCardForm(true);
     this.interactService.sendCard(card);
+    this.router.navigateByUrl('/cardComponent');
   }
 
   addToLesson(card) : void {
@@ -85,7 +90,10 @@ export class CardListComponent implements OnInit, OnPaging{
   newCardForm() : void {
     var card = new Card();
     card.section = this.stateService.getCurrentSection();
+    // this.stateService.setDisplayCardForm(true);
+    this.stateService.setCurrentCard(card);
     this.interactService.sendCard(card);
+    this.router.navigateByUrl('/cardComponent');
   }
 
   isSectionSelected() : boolean {

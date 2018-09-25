@@ -30,6 +30,7 @@ import {CardListForLessonComponent} from "./components/lesson/lesson.cardlist.co
 import {StateService} from "./services/state.service";
 import {PagerService} from "./services/pager.service";
 import {PagerComponent} from "./components/pager/pager.component";
+import {CardComponent} from "./components/card/card.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {PagerComponent} from "./components/pager/pager.component";
     CardViewComponent,
     CardQuestionComponent,
     CardListForLessonComponent,
-    PagerComponent
+    PagerComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +87,10 @@ import {PagerComponent} from "./components/pager/pager.component";
         {
           path: 'cardQuestion',
           component: CardQuestionComponent
+        },
+        {
+          path: 'cardComponent',
+          component: CardComponent
         }
     ])
   ],

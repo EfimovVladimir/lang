@@ -10,16 +10,15 @@
 
 .divInlineBlockSize {
   display: inline-block;
-  border: 1px solid #720a37;
-  height: 500px;
-  width: 700px;
+  /*border: 1px dotted #ccc;*/
+  height: 700px;
+  width: 1000px;
   vertical-align: top;
 }
 
 .inlineBlockLeft {
   display: inline-block;
-  border: 1px solid #720a37;
-  height: 500px;
+  /*border: 1px dotted #ccc;*/
   width: 350px;
   vertical-align: top;
 }

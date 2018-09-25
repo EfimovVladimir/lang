@@ -63,12 +63,47 @@ textarea {
   margin-left: 50%;
 }
 
+.fieldBorder {
+  width: 320px;
+  margin-right: 10px;
+}
+
+.searchContainer {
+  min-height: 45px;
+  width: 700px;
+}
+
+.targetCountContainer {
+  min-height: 45px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 700px;
+}
+
+.targetField {
+  width: 40px;
+}
+
+.blueBorder {
+  border: 1px solid #B0CFE0;
+}
+
+.searchContainer>input {
+  font-size: 1.2em;
+  color: #7a7a7a;
+}
+
+.targetCountContainer>input {
+  font-size: 1.2em;
+  color: #7a7a7a;
+}
+
 .form-button {
   min-width: 100px;
   padding: 4px 15px;
   white-space: normal;
   max-width: 50%;
-  color: #999;
+  color: #7a7a7a;
   border: 2px solid #ccc;
   border-radius: 100px;
   background: transparent;
@@ -79,9 +114,41 @@ textarea {
   font-weight: 700;
   font-size: 15px;
 }
+.form-button:hover {
+  color: #720a37;
+}
 
 .col30 {
-  width: 200px;
+  width: 300px;
   padding: 3px;
 }
 
+.col50 {
+  width: 500px;
+  padding: 3px;
+}
+
+.state-text {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 29px;
+  font-weight: 500;
+  color: #3c3c3c;
+  margin: 10px 10px 0px 0px;
+}
+
+.state-caption {
+  min-width: 100px;
+  padding: 4px 15px;
+  white-space: normal;
+  max-width: 50%;
+  color: #999;
+  border: 2px solid #ccc;
+  border-radius: 100px;
+  background: transparent;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 20px;
+  font-weight: 700;
+  font-size: 15px;
+}

@@ -16,10 +16,18 @@ tr:hover td{
   height: 320px;
   width: 650px;
   vertical-align: top;
+  margin-left: 20px;
 }
 
-.pagerBlockSize {
-  display: inline-block;
-  height: 40px;
-  width: 650px;
+
+table {
+  border-spacing: 0;
 }
+
+td {
+  padding: 5px 5px;
+  text-align: center;
+  border-bottom: 1px solid #88E4F8;
+  transition: all 0.5s linear;
+}
+

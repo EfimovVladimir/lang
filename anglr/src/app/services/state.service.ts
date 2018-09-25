@@ -8,14 +8,14 @@ import {CardFilter} from "../model/CardFilter";
 @Injectable()
 export class StateService {
 
-  private currentLesson : Lesson;
-  private currentCard: Card;
-  private currentSection: Section;
+  private currentLesson : Lesson = new Lesson();
+  private currentCard: Card = new Card();
+  private currentSection: Section = new Section();
   private cardFilter: CardFilter = new CardFilter();
   private displayLessonForm: boolean = false;
+  private displayCardForm: boolean = false;
 
   constructor(){ }
-
 
   getCurrentLesson(): Lesson {
     return this.currentLesson;
@@ -55,5 +55,13 @@ export class StateService {
 
   isDisplayLessonForm() {
     return this.displayLessonForm;
+  }
+
+  setDisplayCardForm(value: boolean){
+    this.displayCardForm = value;
+  }
+
+  isDisplayCardForm() {
+    return this.displayCardForm;
   }
 }

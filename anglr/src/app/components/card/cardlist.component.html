@@ -1,16 +1,17 @@
 <div>
-  <h4>Cards:</h4>
   <div>
-    section: {{getStateSectionId()}}
+    <span class="captionText">Cards:</span>
+    <button *ngIf="isSectionSelected()" class="form-button" (click)="newCardForm()">new card</button>
   </div>
-  <div>
-    <label for="filterQuestion">question:</label>
-    <input [(ngModel)]="currentCardFilter.question" id="filterQuestion" name="filterQuestion">
-    <button (click)="getCardListByFilter()">search</button>
+  <div class="searchContainer blueBorder">
+    <label for="filterQuestion" class="captionText">Question:</label>
+    <input [(ngModel)]="currentCardFilter.question" id="filterQuestion" name="filterQuestion" class="fieldBorder blueBorder">
+    <button (click)="getCardListByFilter()" class="form-button">search</button>
   </div>
-  <button *ngIf="isSectionSelected()" (click)="newCardForm()">new card</button>
-  <label for="targetCount">Target count for LessonCard </label>
-  <input type="number" [(ngModel)]="targetCount" id="targetCount" name="targetCount">
+  <div class="targetCountContainer blueBorder">
+    <label for="targetCount" class="captionText">Target count for Lesson Card:</label>
+    <input type="number" [(ngModel)]="targetCount" id="targetCount" name="targetCount" class="targetField blueBorder">
+  </div>
   <div class="listPageBlockSize">
     <table>
       <tr *ngFor="let card of cardList">
@@ -19,8 +20,8 @@
         <td><button (click)="addToLesson(card)" class="listButton buttonAdd" title="add to Lesson"></button></td>
         <td>{{card.section.id}}</td>
         <td>{{card.id}}</td>
-        <td>{{card.question.substr(0, 30)}}</td>
-        <td>{{card.answer.substr(0, 30)}}</td>
+        <td class="col30">{{card.question.substr(0, 30)}}</td>
+        <td class="col50">{{card.answer.substr(0, 50)}}</td>
       </tr>
     </table>
   </div>

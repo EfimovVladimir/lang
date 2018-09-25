@@ -1,28 +1,36 @@
 
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import {HttpErrorResponse} from "@angular/common/http";
 import {Card} from "../../model/Card";
 import {AppHttpService} from "../../services/apphttp.service";
-import {HttpErrorResponse} from "@angular/common/http";
 import {InteractService} from "../../services/interact.service";
-import {Tag} from "../../model/Tag";
 import {StateService} from "../../services/state.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'cardform',
-  templateUrl: './cardform.component.html',
-  styleUrls: ['../../css/form.component.css',
-              '../../app.component.css'],
+  selector: 'cardcomponent',
+  templateUrl: './card.component.html',
+  styleUrls: ['../../css/card.css',
+              '../../app.component.css',
+              '../../css/ui.element.css'],
 })
 
-export class CardFormComponent implements OnInit{
+export class CardComponent implements OnInit {
 
   currentCard: Card = new Card();
   @ViewChild("qMp3", {read: ElementRef}) currentQMp3: ElementRef;
+  @ViewChild("aMp3", {read: ElementRef}) currentAMp3: ElementRef;
   editMode = false;
+  isShowFieldQInfo: boolean = false;
+  isShowFieldAAudio: boolean = false;
+  isShowFieldAInfo: boolean = false;
+  isShowFieldImage: boolean = false;
 
   constructor(private appService: AppHttpService,
+              private router: Router,
               private interactService: InteractService,
               private stateService: StateService){
+
     this.interactService.getObservableCard().subscribe(
       data => {
         this.currentCard = (data == null)? new Card() : data;
@@ -35,12 +43,12 @@ export class CardFormComponent implements OnInit{
       }
     );
   }
+
   ngOnInit(): void {
     this.currentCard = this.stateService.getCurrentCard();
     this.currentQMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentCard.qAudio;
     this.currentCard.section = this.stateService.getCurrentSection();
   }
-
 
   saveCardForm() : void {
     var formData: FormData = new FormData();
@@ -73,7 +81,7 @@ export class CardFormComponent implements OnInit{
         data => {
           console.log('saved Card id: ' + data);
           this.interactService.sendUpdateCardList(true);
-          this.stateService.setDisplayCardForm(false);
+          this.router.navigateByUrl('/cardedit');
         },
         (err: HttpErrorResponse) => {
           if (err.error instanceof Error) {
@@ -87,7 +95,6 @@ export class CardFormComponent implements OnInit{
 
   changeQuestionFile(fileInputElement : HTMLInputElement){
     this.currentCard.qAudio = fileInputElement.files[0];
-    console.log(fileInputElement.name);
     var reader:FileReader = new FileReader();
     reader.onloadend = (e) => {
       this.currentQMp3.nativeElement.src = reader.result;
@@ -98,7 +105,12 @@ export class CardFormComponent implements OnInit{
 
   changeAnswerFile(fileInputElement : HTMLInputElement){
     this.currentCard.aAudio = fileInputElement.files[0];
-    console.log(fileInputElement.name);
+    var reader:FileReader = new FileReader();
+    reader.onloadend = (e) => {
+      this.currentAMp3.nativeElement.src = reader.result;
+      this.currentAMp3.nativeElement.play();
+    };
+    reader.readAsDataURL(this.currentCard.aAudio);
   }
 
   changeCardImage(fileInputElement : HTMLInputElement){
@@ -140,6 +152,28 @@ export class CardFormComponent implements OnInit{
   }
 
   closeCardForm() {
-    this.stateService.setDisplayCardForm(false);
+    this.router.navigateByUrl('/cardedit');
+  }
+
+  newCardForm() : void {
+    this.currentCard = new Card();
+    this.currentCard.section = this.stateService.getCurrentSection();
+    this.stateService.setCurrentCard(this.currentCard);
+  }
+
+  showQInfoField() : void {
+    this.isShowFieldQInfo = !this.isShowFieldQInfo;
+  }
+
+  showAInfoField() : void {
+    this.isShowFieldAInfo = !this.isShowFieldAInfo;
+  }
+
+  showAAudioField() : void {
+    this.isShowFieldAAudio = !this.isShowFieldAAudio;
+  }
+
+  showImageField() : void {
+    this.isShowFieldImage = !this.isShowFieldImage;
   }
 }

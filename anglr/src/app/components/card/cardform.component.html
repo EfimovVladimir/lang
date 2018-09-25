@@ -1,6 +1,7 @@
 <div>
 
   <form (ngSubmit)="saveCardForm()" #cardForm="ngForm" class="form-style-1">
+    <div class="closeForm" (click)="closeCardForm()"></div>
     <ul>
       <li>
         <label for="cardQuestion">Question</label>

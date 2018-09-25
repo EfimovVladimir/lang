@@ -56,6 +56,7 @@ export class SectionListComponent implements OnInit{
 
   selectCardsForSection(section) : void {
     this.stateService.setCurrentSection(section);
+    this.interactService.sendSection(section);
     this.interactService.sendUpdateCardList(true);
   }
 

@@ -1,0 +1,98 @@
+.closeImage {
+  display: inline-block;
+  background-size: 100% 100%;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  background-image: url(../pic/delete32.png);
+}
+
+.marginLeft {
+  margin-left: 12px;
+}
+
+.marginNewCard {
+  display: inline;
+  margin-left: 85%;
+}
+
+.bottomAlign {
+  vertical-align: bottom;
+}
+
+.marginTags {
+  margin: 3px;
+}
+
+.hideElement {
+  visibility: hidden;
+}
+
+.visElement {
+  visibility: visible;
+}
+
+.fieldContainer {
+  display: block;
+}
+
+.field {
+  border: 1px solid #B0CFE0;
+}
+
+.fieldTextArea {
+  min-height: 120px;
+  width:100%;
+  padding: 0;
+}
+
+.fieldFile {
+  min-height: 35px;
+  width: 100%;
+}
+
+.inputFile {
+  vertical-align: top;
+  padding: 20px;
+}
+
+audio {
+  padding: 5px;
+}
+
+.cardContainer {
+  display: inline-block;
+  border: 1px dotted #ccc;
+  width: 1000px;
+  vertical-align: top;
+}
+
+.card-button {
+  margin: 20px 20px 20px 45%;
+}
+
+label {
+  display: inline-block;
+  font-size: 20px;
+  line-height: 29px;
+  font-weight: 500;
+  color: #3c3c3c;
+  margin: 10px 10px 0px 0px;
+}
+
+.cardTags {
+  padding: 10px;
+  border-bottom: 1px solid #B0CFE0;
+}
+
+.show-link {
+  color: #b9b9b9;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.show-link:hover {
+  text-decoration: underline;
+  color: rgb(28, 207, 246);
+}

@@ -1,7 +1,7 @@
 .form-style-1{
   max-width: 650px;
   background: #FAFAFA;
-  padding: 30px;
+  padding: 20px 30px 20px 30px;
   /*margin: 50px auto;*/
   box-shadow: 1px 1px 25px rgba(0, 0, 0, 0.35);
   border-radius: 10px;
@@ -99,6 +99,17 @@
   background-color: transparent;
   background-image: url(../pic/change26.png);
   margin-right: 10px;
+}
+
+.closeForm {
+  display: inline-block;
+  background-size: 100% 100%;
+  cursor:pointer;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  background-image: url(../pic/delete32.png);
+  margin-left: 98%;
 }
 
 .rvrsfield {

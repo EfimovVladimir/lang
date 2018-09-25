@@ -1,0 +1,59 @@
+<div class="inlineBlockLeft">
+  <span class="captionText">Card tags:</span>
+  <taglist></taglist>
+</div>
+<div class="cardContainer">
+  <button class="form-button marginNewCard" (click)="newCardForm()">new card</button>
+  <div class="closeImage marginLeft" (click)="closeCardForm()"></div>
+  <div class="fieldContainer">
+    <label for="cardQuestion">Question:</label>
+    <textarea [(ngModel)]="currentCard.question" id="cardQuestion" name="cardQuestion" class="fieldTextArea field"></textarea>
+  </div>
+  <div class="fieldContainer">
+    <label for="cardQAudio">Question audio:</label>
+    <div class="fieldFile field">
+      <input type="file" id="cardQAudio" name="cardQAudio" #qAudio (change)="changeQuestionFile(qAudio)" class="inputFile">
+      <audio #qMp3 controls class="inlineBlock">
+        <source src="" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+  <div class="fieldContainer">
+    <label for="cardQInfo" class="show-link" (click)="showQInfoField()">Question Info:</label>
+    <textarea *ngIf="isShowFieldQInfo" [(ngModel)]="currentCard.qInfo" id="cardQInfo" name="cardQInfo" class="fieldTextArea field"></textarea>
+  </div>
+  <div class="fieldContainer">
+    <label for="cardAnswer">Answer</label>
+    <textarea [(ngModel)]="currentCard.answer" id="cardAnswer" name="cardAnswer" class="fieldTextArea field"></textarea>
+  </div>
+  <div class="fieldContainer">
+    <label for="cardAAudio">Answer audio:</label>
+    <div class="fieldFile field">
+      <input type="file" id="cardAAudio" name="cardAAudio" #aAudio (change)="changeAnswerFile(aAudio)" class="inputFile">
+      <audio #aMp3 controls class="inlineBlock">
+        <source src="" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+  <div class="fieldContainer">
+    <label for="cardAInfo" class="show-link" (click)="showAInfoField()">Answer Info:</label>
+    <textarea *ngIf="isShowFieldAInfo" [(ngModel)]="currentCard.aInfo" id="cardAInfo" name="cardAInfo" class="fieldTextArea field"></textarea>
+  </div>
+  <div class="fieldContainer">
+    <label for="cardImage" class="show-link" (click)="showImageField()">Card Image:</label>
+    <div class="fieldFile field" *ngIf="isShowFieldImage">
+      <input type="file" id="cardImage" name="cardImage" #cImage (change)="changeCardImage(cImage)" class="inputFile">
+    </div>
+  </div>
+  <div class="cardTags">
+    <label for="tags">Tags:</label>
+    <div *ngFor="let cardtag of currentCard.tags" id="tags" class="divInlineBlock marginTags">
+      <div class="divInlineBlock bottomAlign">{{cardtag.name}}</div>
+      <div class="closeImage bottomAlign" (click)="deleteTagFromCard(cardtag)"></div>
+    </div>
+  </div>
+  <div class="fieldContainer">
+    <button class="form-button card-button" (click)="saveCardForm()">Save</button>
+  </div>
+
+</div>

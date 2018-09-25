@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {AppHttpService} from "../../services/apphttp.service";
 import {Lesson} from "../../model/Lesson";
@@ -12,7 +12,7 @@ import {StateService} from "../../services/state.service";
   styleUrls: ['../../css/form.component.css'],
 })
 
-export class LessonFormComponent {
+export class LessonFormComponent implements OnInit{
 
   currentLesson: Lesson = new Lesson();
   subsLesson: Subscription;
@@ -25,7 +25,10 @@ export class LessonFormComponent {
         this.currentLesson = (data == null)? new Lesson() : data;
       }
     )
-    this.currentLesson = stateService.getCurrentLesson();
+  }
+
+  ngOnInit(): void {
+    this.currentLesson = this.stateService.getCurrentLesson();
   }
 
   executePostForm() : void {
