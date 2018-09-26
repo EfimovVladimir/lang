@@ -44,6 +44,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     if(lesson != null) {
       this.appHttpService.getLessonCardListToStartLesson(lesson).subscribe(
         (data) => {
+          console.log(data);
           this.lessonCardList = this.shuffleArray(data);
           this.nextCard();
         }

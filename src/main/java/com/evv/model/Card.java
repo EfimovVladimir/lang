@@ -22,6 +22,7 @@ public class Card implements Serializable {
   String question;
 
   @Column(name="Q_AUDIO")
+  @Lob
   byte[] qAudio;
 
   @Column(name="Q_INFO")
@@ -31,12 +32,14 @@ public class Card implements Serializable {
   String answer;
 
   @Column(name="A_AUDIO")
+  @Lob
   byte[] aAudio;
 
   @Column(name="A_INFO")
   String aInfo;
 
   @Column(name="CARD_IMAGE")
+  @Lob
   byte[] cardImage;
 
   @JoinColumn(updatable = false, name="SECTION_ID")

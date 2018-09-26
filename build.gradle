@@ -16,6 +16,7 @@ dependencies {
 
     compile 'org.hibernate:hibernate-core:4.3.11.Final'
     compile 'org.springframework:spring-orm:4.3.3.RELEASE'
+    compile 'org.postgresql:postgresql:9.4.1212'
 
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'javax.servlet:jstl:1.2'
