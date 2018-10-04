@@ -11,11 +11,11 @@ import {OnPaging} from "./OnPaging";
 
 export class PagerComponent {
 
-  private _pager: any = {};
+  _pager: any = {};
 
-  private _allItemsSize: number;
+  _allItemsSize: number;
 
-  private _parentComponent: OnPaging;
+  _parentComponent: OnPaging;
 
   constructor(private pagerService: PagerService){
 

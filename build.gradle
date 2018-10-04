@@ -25,3 +25,27 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+ext.angularDirName = "anglr"
+ext.angularDir = "${project.rootDir}/${angularDirName}"
+ext.os = System.properties['os.name'].toLowerCase()
+
+task buildAngular(type:Exec) {
+    workingDir angularDir
+    if (os.contains('windows')) {
+        commandLine 'ng.cmd', 'build', '--prod'
+    }
+    else {
+        commandLine 'ng', 'build', '--prod'
+    }
+}
+
+// 'gradle war' creates lang.war file in ./build/libs
+war {
+    from "${angularDir}/dist"
+}
+
+task fullBuild(type:GradleBuild){
+    dependsOn buildAngular
+    tasks = [ 'war' ]
+}
+
