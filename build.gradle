@@ -17,6 +17,7 @@ dependencies {
     compile 'org.hibernate:hibernate-core:4.3.11.Final'
     compile 'org.springframework:spring-orm:4.3.3.RELEASE'
     compile 'org.postgresql:postgresql:9.4.1212'
+    compile 'com.thetransactioncompany:cors-filter:2.6'
 
     compile 'javax.servlet:javax.servlet-api:3.1.0'
     compile 'javax.servlet:jstl:1.2'
@@ -28,6 +29,7 @@ dependencies {
 ext.angularDirName = "anglr"
 ext.angularDir = "${project.rootDir}/${angularDirName}"
 ext.os = System.properties['os.name'].toLowerCase()
+ext.tomcatHome = 'd:/soft/apache-tomcat-8.5.34'
 
 task buildAngular(type:Exec) {
     workingDir angularDir
@@ -48,4 +50,29 @@ task fullBuild(type:GradleBuild){
     dependsOn buildAngular
     tasks = [ 'war' ]
 }
+
+task deployBackToTomcat(type: Copy) {
+    from war.archivePath
+    into "${tomcatHome}/webapps"
+}
+
+task deployFrontToTomcat(type: Copy) {
+    finalizedBy "copyIndexHtml"
+    from "${angularDir}/dist"
+    exclude "${angularDir}/dist/index.html"
+    into "${tomcatHome}/webapps/drill"
+}
+
+task gg {
+    doLast {
+        println "tomcatHome = ${war.archivePath}"
+    }
+}
+
+task copyIndexHtml(type: Copy) {
+    from "${angularDir}/dist/index.html"
+    into "${tomcatHome}/webapps"
+    filter { line -> line.replaceAll('<base href="/">', '<base href=".">') }
+}
+
 
