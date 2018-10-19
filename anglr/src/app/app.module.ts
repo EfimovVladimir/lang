@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule }  from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { FormsModule } from '@angular/forms';
 
 import { SectionListComponent } from "./components/section/sectionlist.component";
@@ -31,6 +31,9 @@ import {StateService} from "./services/state.service";
 import {PagerService} from "./services/pager.service";
 import {PagerComponent} from "./components/pager/pager.component";
 import {CardComponent} from "./components/card/card.component";
+import {LoginComponent} from "./components/login/login.component";
+import {AuthService} from "./services/auth.service";
+import {Interceptor} from "./services/interceptor";
 
 @NgModule({
   declarations: [
@@ -55,7 +58,8 @@ import {CardComponent} from "./components/card/card.component";
     CardQuestionComponent,
     CardListForLessonComponent,
     PagerComponent,
-    CardComponent
+    CardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -91,10 +95,24 @@ import {CardComponent} from "./components/card/card.component";
         {
           path: 'cardComponent',
           component: CardComponent
+        },
+        {
+          path: 'loginComponent',
+          component: LoginComponent
         }
     ])
   ],
-  providers: [AppHttpService, InteractService, StateService, PagerService],
+  providers: [
+    AppHttpService,
+    InteractService,
+    StateService,
+    PagerService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

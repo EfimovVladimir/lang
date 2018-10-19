@@ -1,19 +1,18 @@
 package com.evv.controller;
 
 import com.evv.model.*;
-import com.evv.service.ICardService;
-import com.evv.service.ILessonService;
-import com.evv.service.ISectionService;
-import com.evv.service.ITagService;
+import com.evv.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/")
 public class MainController {
 
@@ -29,8 +28,10 @@ public class MainController {
   @Autowired
   private ITagService tagService;
 
+  @Autowired
+  private IUserService userService;
+
   @RequestMapping(value = "/section/{id}", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public Section getSectionById(@PathVariable Integer id) {
     Section result = sectionService.getSectionById(id);
@@ -38,7 +39,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/sections", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public List<Section> getAllSections() {
     List<Section> result = sectionService.findAllSections();
@@ -46,7 +46,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/save_section", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveSection(@RequestBody Section section) {
     Integer id = sectionService.save(section);
@@ -54,7 +53,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/delete_section", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer deleteSection(@RequestBody Section section) {
     sectionService.deleteSection(section);
@@ -62,7 +60,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/saveorupdate_section", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveOrUpdateSection(@RequestBody Section section) {
     sectionService.saveOrUpdateSection(section);
@@ -70,7 +67,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/save_card", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveCard(@RequestParam(value = "qAudioFile", required=false) MultipartFile fileQ,
                           @RequestParam(value = "aAudioFile", required=false) MultipartFile fileA,
@@ -85,7 +81,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/cards", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public List<Card> getAllCards() {
     List<Card> result = cardService.findAllCards();
@@ -93,7 +88,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/section_cards", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public List<Card> getAllSectionsCards(@RequestBody Section section) {
     List<Card> result = cardService.findAllSectionsCards(section);
@@ -101,7 +95,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/delete_card", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer deleteCard(@RequestBody Card card) {
     cardService.deleteCard(card);
@@ -109,7 +102,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/saveorupdate_card", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveOrUpdateCard(@RequestParam(value = "qAudioFile", required=false) MultipartFile fileQ,
                                   @RequestParam(value = "aAudioFile", required=false) MultipartFile fileA,
@@ -124,7 +116,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/tag/{id}", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public Tag getTagById(@PathVariable Integer id) {
     Tag result = tagService.getTagById(id);
@@ -132,7 +123,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/tags", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public List<Tag> getAllTags() {
     List<Tag> result = tagService.findAllTags();
@@ -140,7 +130,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/save_tag", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveTag(@RequestBody Tag tag) {
     Integer id = tagService.save(tag);
@@ -148,7 +137,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/delete_tag", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer deleteTag(@RequestBody Tag tag) {
     tagService.deleteTag(tag);
@@ -156,7 +144,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/saveorupdate_tag", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveOrUpdateTag(@RequestBody Tag tag) {
     tagService.saveOrUpdateTag(tag);
@@ -164,7 +151,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/lessons", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public List<Lesson> getAllLessons() {
     List<Lesson> result = lessonService.findAllLessons();
@@ -172,7 +158,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/save_lesson", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveLesson(@RequestBody Lesson lesson) {
     Integer id = lessonService.save(lesson);
@@ -180,7 +165,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/delete_lesson", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer deleteLesson(@RequestBody Lesson lesson) {
     lessonService.deleteLesson(lesson);
@@ -188,7 +172,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/saveorupdate_lesson", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveOrUpdateLesson(@RequestBody Lesson lesson) {
     lessonService.saveOrUpdateLesson(lesson);
@@ -196,7 +179,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/lessoncards", method = RequestMethod.GET)
-  @CrossOrigin
   @ResponseBody
   public List<LessonCard> getAllLessonCards() {
     List<LessonCard> result = lessonService.findAllLessonCard();
@@ -204,7 +186,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/saveorupdate_lessoncard", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer saveOrUpdateLessonCard(@RequestBody LessonCard lessonCard) {
     lessonService.saveOrUpdateLessonCard(lessonCard);
@@ -212,7 +193,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/delete_lessoncard", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Integer deleteLessonCard(@RequestBody LessonCard lessonCard) {
     lessonService.deleteLessonCard(lessonCard);
@@ -220,7 +200,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/cards_forlesson", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public List<Card> getAllCardsForLesson(@RequestBody Lesson lesson) {
     List<Card> result = cardService.findAllCardsForLesson(lesson);
@@ -228,7 +207,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/lessoncards_forlesson", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public List<LessonCard> getAllLessonCardsForLesson(@RequestBody Lesson lesson) {
     List<LessonCard> result = lessonService.findAllLessonCardsForLesson(lesson);
@@ -236,7 +214,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/lessoncards_startlesson", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public List<LessonCard> getAllLessonCardsToStartLesson(@RequestBody Lesson lesson) {
     List<LessonCard> result = lessonService.findAllLessonCardsToStartLesson(lesson);
@@ -244,7 +221,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/cards_byfilter", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public List<Card> getCardsByFilter(@RequestBody CardFilter cardFilter) {
     List<Card> result = cardService.findCardsByFilter(cardFilter);
@@ -252,7 +228,6 @@ public class MainController {
   }
 
   @RequestMapping(value = "/range_cards_byfilter", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public List<Card> getRangeCardsByFilter(@RequestBody CardFilter cardFilter) {
     List<Card> result = cardService.findRangeCardsByFilter(cardFilter, cardFilter.getFromPage(), cardFilter.getSizePage());
@@ -260,11 +235,26 @@ public class MainController {
   }
 
   @RequestMapping(value = "/count_cards_byfilter", method = RequestMethod.POST)
-  @CrossOrigin
   @ResponseBody
   public Long getCountCardsByFilter(@RequestBody CardFilter cardFilter) {
     Long result = cardService.rowCountCardsByFilter(cardFilter);
     return result;
+  }
+
+  @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
+  @ResponseBody
+  public User getUser(@RequestBody User user) {
+    user.setId(0);
+    List<User> users = userService.findEnabledUsers(user);
+    return users.size() > 0 ? users.get(0) : user;
+  }
+
+  @RequestMapping(value = "/auth/signUp", method = RequestMethod.POST)
+  @ResponseBody
+  public User createUser(@RequestBody User user) {
+    int id = userService.save(user);
+    user.setId(id);
+    return user;
   }
 
   public String convertLatin1ToUtf8(String str){

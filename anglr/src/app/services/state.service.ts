@@ -4,6 +4,7 @@ import {Lesson} from "../model/Lesson";
 import {Card} from "../model/Card";
 import {Section} from "../model/Section";
 import {CardFilter} from "../model/CardFilter";
+import {User} from "../model/User";
 
 @Injectable()
 export class StateService {
@@ -14,6 +15,8 @@ export class StateService {
   private cardFilter: CardFilter = new CardFilter();
   private displayLessonForm: boolean = false;
   private displayCardForm: boolean = false;
+  private authenticated: boolean = false;
+  private user: User = new User();
 
   constructor(){ }
 
@@ -63,5 +66,21 @@ export class StateService {
 
   isDisplayCardForm() {
     return this.displayCardForm;
+  }
+
+  setAuthenticated(value: boolean){
+    this.authenticated = value;
+  }
+
+  isAuthenticated(): boolean {
+    return this.authenticated;
+  }
+
+  setUser(user: User){
+    this.user = user;
+  }
+
+  getUser(): User{
+    return this.user;
   }
 }
