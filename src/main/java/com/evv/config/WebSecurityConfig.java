@@ -1,33 +1,38 @@
 package com.evv.config;
 
+import com.evv.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-
-import javax.sql.DataSource;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
-  private DataSource dataSource;
+  private UserDetailServiceImpl userDetailService;
 
   @Autowired
-  public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-//    auth.inMemoryAuthentication().withUser("joe").password("123").roles("ADMIN");
-//    auth.inMemoryAuthentication().withUser("tom").password("111").roles("USER");
-    auth
-      .jdbcAuthentication()
-      .dataSource(dataSource)
-      .usersByUsernameQuery("SELECT LOGIN, PASSWORD, ENABLED FROM USER WHERE USER.LOGIN = ?")
-      .authoritiesByUsernameQuery("SELECT LOGIN, USER_ROLE FROM USER WHERE USER.LOGIN = ?");
+  private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+  @Override
+  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    authenticationManagerBuilder.userDetailsService(userDetailService);
+  }
+
+  @Override
+  @Bean
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
   }
 
   @Override
@@ -39,8 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/auth/*").permitAll()
         .anyRequest().authenticated()
         .and()
-      .httpBasic()
-        .and()
+      .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); //We don't need sessions to be created
   }
 

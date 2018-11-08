@@ -34,6 +34,10 @@ import {CardComponent} from "./components/card/card.component";
 import {LoginComponent} from "./components/login/login.component";
 import {AuthService} from "./services/auth.service";
 import {Interceptor} from "./services/interceptor";
+import {TokenStorage} from "./services/token.storage";
+import {UserFormComponent} from "./components/user/userform.component";
+import {UserListComponent} from "./components/user/userlist.component";
+import {UserEditComponent} from "./components/user/useredit.component";
 
 @NgModule({
   declarations: [
@@ -59,7 +63,10 @@ import {Interceptor} from "./services/interceptor";
     CardListForLessonComponent,
     PagerComponent,
     CardComponent,
-    LoginComponent
+    LoginComponent,
+    UserFormComponent,
+    UserListComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +86,10 @@ import {Interceptor} from "./services/interceptor";
         {
           path: 'tagedit',
           component: TagEditComponent
+        },
+        {
+          path: 'useredit',
+          component: UserEditComponent
         },
         {
           path: 'lessonedit',
@@ -108,6 +119,7 @@ import {Interceptor} from "./services/interceptor";
     StateService,
     PagerService,
     AuthService,
+    TokenStorage,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

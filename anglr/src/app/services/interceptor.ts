@@ -6,6 +6,7 @@ import {
 import {Router} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {StateService} from "./state.service";
+import {TokenStorage} from "./token.storage";
 
 const TOKEN_HEADER_KEY = 'Authorization';
 
@@ -13,14 +14,24 @@ const TOKEN_HEADER_KEY = 'Authorization';
 export class Interceptor implements HttpInterceptor {
 
   constructor(private state: StateService,
-              private router: Router) { }
+              private router: Router,
+              private token: TokenStorage) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('intercept:' + this.state.isAuthenticated());
-    if (this.state.isAuthenticated()) {
+    // if (this.state.isAuthenticated()) {
+    //   req = req.clone({
+    //     setHeaders: {
+    //       Authorization: 'Basic ' + this.getBasicAuth()
+    //     }
+    //   });
+    // }
+
+    if (this.token.getToken() != null) {
+      console.log(TOKEN_HEADER_KEY + ': Bearer ' + this.token.getToken());
       req = req.clone({
         setHeaders: {
-          Authorization: 'Basic ' + this.getBasicAuth()
+          Authorization: 'Bearer ' + this.token.getToken()
         }
       });
     }

@@ -6,6 +6,7 @@ import {Card} from "../model/Card";
 import {Tag} from "../model/Tag";
 import {Lesson} from "../model/Lesson";
 import {LessonCard} from "../model/LessonCard";
+import {User} from "../model/User";
 
 @Injectable()
 export class InteractService {
@@ -16,12 +17,14 @@ export class InteractService {
   private updateLessonList = new Subject<boolean>();
   private updateLessonCardList = new Subject<boolean>();
   private updateCardsForLesson = new Subject<Lesson>();
+  private updateUserList = new Subject<boolean>();
   private saveLessonCard = new Subject<LessonCard>();
   private section = new Subject<Section>();
   private card = new Subject<Card>();
   private cardtag = new Subject<Tag>();
   private lesson = new Subject<Lesson>();
   private lessonCard = new Subject<LessonCard>();
+  private user = new Subject<User>();
 
   sendUpdateSectionList(flag: boolean){
     this.updateSectionList.next(flag);
@@ -47,6 +50,10 @@ export class InteractService {
     this.updateCardsForLesson.next(lesson);
   }
 
+  sendUpdateUserList(flag: boolean){
+    this.updateUserList.next(flag);
+  }
+
   sendSection(section: Section){
     this.section.next(section);
   }
@@ -65,6 +72,9 @@ export class InteractService {
 
   sendLessonCard(lessonCard: LessonCard){
     this.lessonCard.next(lessonCard);
+  }
+  sendUser(user: User){
+    this.user.next(user);
   }
 
   getObservableUpdateSectionList(): Observable<boolean>{
@@ -85,6 +95,10 @@ export class InteractService {
 
   getObservableUpdateLessonCardList(): Observable<boolean>{
     return this.updateLessonCardList.asObservable();
+  }
+
+  getObservableUpdateUserList(): Observable<boolean>{
+    return this.updateUserList.asObservable();
   }
 
   getObservableSection(): Observable<Section>{
@@ -113,6 +127,10 @@ export class InteractService {
 
   getObservableCardsForLesson(): Observable<Lesson> {
     return this.updateCardsForLesson.asObservable();
+  }
+
+  getObservableUser(): Observable<User>{
+    return this.user.asObservable();
   }
 
 }

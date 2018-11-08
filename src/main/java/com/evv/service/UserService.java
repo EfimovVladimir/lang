@@ -64,4 +64,14 @@ public class UserService implements IUserService {
     return getRepository().findByCriteria(criteria);
   }
 
+  @Override
+  @Transactional
+  public User findOneByUsername(String login) {
+    DetachedCriteria criteria = DetachedCriteria.forClass(User.class);
+    criteria.add(Restrictions.eq("login", login));
+    criteria.add(Restrictions.eq("enabled", true));
+    List<User> users = getRepository().findByCriteria(criteria);
+    return users.isEmpty() ? null : users.get(0);
+  }
+
 }

@@ -12,4 +12,5 @@ public interface IUserService {
   Integer save(User object);
   void deleteUser(User object);
   List<User> findEnabledUsers(User user);
+  User findOneByUsername(String login);
 }

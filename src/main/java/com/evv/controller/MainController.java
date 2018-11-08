@@ -150,6 +150,34 @@ public class MainController {
     return tag.getId();
   }
 
+  @RequestMapping(value = "/users", method = RequestMethod.GET)
+  @ResponseBody
+  public List<User> getAllUsers() {
+    List<User> result = userService.findAllUsers();
+    return result;
+  }
+
+  @RequestMapping(value = "/save_user", method = RequestMethod.POST)
+  @ResponseBody
+  public Integer saveUser(@RequestBody User user) {
+    Integer id = userService.save(user);
+    return id;
+  }
+
+  @RequestMapping(value = "/delete_user", method = RequestMethod.POST)
+  @ResponseBody
+  public Integer deleteUser(@RequestBody User user) {
+    userService.deleteUser(user);
+    return user.getId();
+  }
+
+  @RequestMapping(value = "/saveorupdate_user", method = RequestMethod.POST)
+  @ResponseBody
+  public Integer saveOrUpdateUser(@RequestBody User user) {
+    userService.saveOrUpdateUser(user);
+    return user.getId();
+  }
+
   @RequestMapping(value = "/lessons", method = RequestMethod.GET)
   @ResponseBody
   public List<Lesson> getAllLessons() {
@@ -239,22 +267,6 @@ public class MainController {
   public Long getCountCardsByFilter(@RequestBody CardFilter cardFilter) {
     Long result = cardService.rowCountCardsByFilter(cardFilter);
     return result;
-  }
-
-  @RequestMapping(value = "/auth/login", method = RequestMethod.POST)
-  @ResponseBody
-  public User getUser(@RequestBody User user) {
-    user.setId(0);
-    List<User> users = userService.findEnabledUsers(user);
-    return users.size() > 0 ? users.get(0) : user;
-  }
-
-  @RequestMapping(value = "/auth/signUp", method = RequestMethod.POST)
-  @ResponseBody
-  public User createUser(@RequestBody User user) {
-    int id = userService.save(user);
-    user.setId(id);
-    return user;
   }
 
   public String convertLatin1ToUtf8(String str){

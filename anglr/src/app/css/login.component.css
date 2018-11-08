@@ -1,0 +1,28 @@
+
+.loginBlock {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.form-control {
+  width: 200px;
+  padding: 8px;
+  vertical-align: middle;
+  border: 1px solid #B0CFE0;
+}
+
+.form-group label{
+  width: 100px;
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.button-group {
+  padding: 10px;
+}
+
+.button-group button {
+  margin-left: 30px;
+}

@@ -1,0 +1,22 @@
+<div>
+
+  <form (ngSubmit)="executePostForm()" #tagForm="ngForm" class="form-style-1">
+    <ul>
+      <li>
+        <label for="login">Login</label>
+        <input type="text" [(ngModel)]="currentUser.login" id="login" name="login" class="field-style">
+      </li>
+      <li>
+        <label for="password">Password</label>
+        <input type="text" [(ngModel)]="currentUser.password" id="password" name="password" class="field-style">
+      </li>
+      <li>
+        <label>UserRole</label>
+        <input type="radio" value="USER" name="userRole" [(ngModel)]="currentUser.userRole" required> USER
+        <input type="radio" value="ADMIN" name="userRole" [(ngModel)]="currentUser.userRole" required> ADMIN
+      </li>
+    </ul>
+    <button type="submit" class="submit-style">save</button>
+  </form>
+
+</div>

@@ -8,6 +8,7 @@ import {Lesson} from "../model/Lesson";
 import {LessonCard} from "../model/LessonCard";
 import {LessonCardId} from "../model/LessonCardId";
 import {CardFilter} from "../model/CardFilter";
+import {User} from "../model/User";
 
 @Injectable()
 export class AppHttpService {
@@ -64,6 +65,18 @@ export class AppHttpService {
 
   saveOrUpdateTagForm(tag): Observable<number> {
     return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_tag', tag);
+  }
+
+  saveOrUpdateUserForm(user): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/saveorupdate_user', user);
+  }
+
+  getUserList(): Observable<User[]>{
+    return this.http.get('http://127.0.0.1:8080/lang/users');
+  }
+
+  deleteUser(user): Observable<number> {
+    return this.http.post('http://127.0.0.1:8080/lang/delete_user', user);
   }
 
   getLessonList(): Observable<Lesson[]>{

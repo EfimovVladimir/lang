@@ -1,36 +1,43 @@
-<div class="alert alert-danger" [hidden]="!error">
-  There was a problem logging in. Please try again.
-</div>
-<div *ngIf="!isAuthenticated() && !isSignUp">
-  <p *ngIf="errorMsg.length > 0">{{errorMsg}}</p>
-  <form role="form" (submit)="login()">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.login"/>
+<div class="loginBlock">
+  <div class="alert alert-danger" [hidden]="!error">
+    There was a problem logging in. Please try again.
+  </div>
+  <div *ngIf="!isAuthenticated() && !isSignUp">
+    <p *ngIf="errorMsg.length > 0">{{errorMsg}}</p>
+    <form>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" class="form-control" id="username" name="username" [(ngModel)]="user.login"/>
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password"/>
+      </div>
+    </form>
+    <div class="button-group">
+      <button (click)="login()" type="submit" class="form-button">Login</button>
+      <button (click)="setSignUp(true)" class="form-button">Go to signUp</button>
     </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="user.password"/>
+  </div>
+  <div *ngIf="!isAuthenticated() && isSignUp">
+    <p *ngIf="warningMsg.length > 0">{{warningMsg}}</p>
+    <form>
+      <div class="form-group">
+        <label for="username2">Username:</label>
+        <input type="text" class="form-control" id="username2" name="username2" [(ngModel)]="user.login"/>
+      </div>
+      <div class="form-group">
+        <label for="password2">Password:</label>
+        <input type="password" class="form-control" id="password2" name="password2" [(ngModel)]="user.password"/>
+      </div>
+    </form>
+    <div class="button-group">
+      <button type="submit" (click)="signUp()" class="form-button">SignUp</button>
+      <button (click)="setSignUp(false)" class="form-button">Go to login</button>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-  </form>
-  <button (click)="setSignUp(true)">go to signUp</button>
-</div>
-<div *ngIf="!isAuthenticated() && isSignUp">
-  <form role="form" (submit)="signUp()">
-    <div class="form-group">
-      <label for="username2">Username:</label>
-      <input type="text" class="form-control" id="username2" name="username2" [(ngModel)]="user.login"/>
-    </div>
-    <div class="form-group">
-      <label for="password2">Password:</label>
-      <input type="password" class="form-control" id="password2" name="password2" [(ngModel)]="user.password"/>
-    </div>
-    <button type="submit" class="btn btn-primary">SignUp</button>
-  </form>
-  <button (click)="setSignUp(false)">go to login</button>
-</div>
-<div *ngIf="isAuthenticated()">
-  <button>Change password</button>
-  <button (click)="logout()">Logout</button>
+  </div>
+  <div *ngIf="isAuthenticated()" class="button-group">
+    <button class="form-button">Change password</button>
+    <button (click)="logout()" class="form-button">Logout</button>
+  </div>
 </div>
