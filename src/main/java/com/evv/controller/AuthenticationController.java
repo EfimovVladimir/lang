@@ -41,7 +41,7 @@ public class AuthenticationController {
     SecurityContextHolder.getContext().setAuthentication(authentication);
     User user = userService.findOneByUsername(loginUser.getLogin());
     String token = jwtTokenUtil.generateToken(user);
-    return ResponseEntity.ok(new AuthToken(token));
+    return ResponseEntity.ok(new AuthToken(token, user.getUserRole()));
   }
 
   @RequestMapping(value = "/auth/login", method = RequestMethod.POST)

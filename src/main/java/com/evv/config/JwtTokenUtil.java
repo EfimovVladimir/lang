@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Date;
 
 @Component
@@ -17,6 +16,8 @@ public class JwtTokenUtil implements Serializable {
 
   public static final long ACCESS_TOKEN_VALIDITY_SECONDS = 5*60*60;
   public static final String SIGNING_KEY = "devglan123r";
+  public static final String DEFAULT_ROLE_PREFIX = "ROLE_";
+  public static final String ROLE_KEY = "roleClaim";
 
   public Date getExpirationDateFromToken(String token) {
     Claims claims = getAllClaimsFromToken(token);
@@ -28,8 +29,9 @@ public class JwtTokenUtil implements Serializable {
     return claims.getSubject();
   }
 
-  public String generateToken(User user) {
-    return doGenerateToken(user.getLogin());
+  public String getAuthorityFromToken(String token){
+    Claims claims = getAllClaimsFromToken(token);
+    return (String) claims.get(ROLE_KEY);
   }
 
   public Boolean validateToken(String token, UserDetails userDetails){
@@ -37,10 +39,10 @@ public class JwtTokenUtil implements Serializable {
     return ( username.equals(userDetails.getUsername()) );
   }
 
-  private String doGenerateToken(String subject) {
-
+  public String generateToken(User user) {
+    String subject = user.getLogin();
     Claims claims = Jwts.claims().setSubject(subject);
-    claims.put("scopes", Arrays.asList(new SimpleGrantedAuthority("USER"), new SimpleGrantedAuthority("ADMIN")));
+    claims.put(ROLE_KEY, DEFAULT_ROLE_PREFIX + user.getUserRole().toString());
 
     return Jwts.builder()
         .setClaims(claims)

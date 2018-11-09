@@ -8,6 +8,8 @@ import {Lesson} from "./model/Lesson";
 import {HttpErrorResponse} from "@angular/common/http";
 import {CurrentStateHeaderComponent} from "./components/state/currentstateheader.component";
 import {Section} from "./model/Section";
+import {StateService} from "./services/state.service";
+import {User} from "./model/User";
 
 @Component({
   selector: 'app-root',
@@ -22,7 +24,9 @@ export class AppComponent {
   subsSection: Subscription;
   @ViewChild(CurrentStateHeaderComponent) stateHeader: CurrentStateHeaderComponent;
 
-  constructor(private appService: AppHttpService, private interactService: InteractService) {
+  constructor(private appService: AppHttpService,
+              private interactService: InteractService,
+              private state: StateService) {
     this.subsLesson = this.interactService.getObservableLesson().subscribe(
       data => {
         this.currentState.lesson = (data == null)? new Lesson() : data;
@@ -35,6 +39,11 @@ export class AppComponent {
         this.stateHeader.currentSection = this.currentState.section;
       }
     );
+  }
+
+  isUserAdmin() {
+    let user: User = this.state.getUser();
+    return user != null && user.userRole == 'ADMIN';
   }
 
 }

@@ -3,6 +3,7 @@ package com.evv.controller;
 import com.evv.model.*;
 import com.evv.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -150,6 +151,7 @@ public class MainController {
     return tag.getId();
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/users", method = RequestMethod.GET)
   @ResponseBody
   public List<User> getAllUsers() {
@@ -157,6 +159,7 @@ public class MainController {
     return result;
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/save_user", method = RequestMethod.POST)
   @ResponseBody
   public Integer saveUser(@RequestBody User user) {
@@ -164,6 +167,7 @@ public class MainController {
     return id;
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/delete_user", method = RequestMethod.POST)
   @ResponseBody
   public Integer deleteUser(@RequestBody User user) {
@@ -171,6 +175,7 @@ public class MainController {
     return user.getId();
   }
 
+  @PreAuthorize("hasRole('ADMIN')")
   @RequestMapping(value = "/saveorupdate_user", method = RequestMethod.POST)
   @ResponseBody
   public Integer saveOrUpdateUser(@RequestBody User user) {
