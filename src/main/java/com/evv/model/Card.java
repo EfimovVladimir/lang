@@ -54,6 +54,9 @@ public class Card implements Serializable {
   )
   List<Tag> tags = new ArrayList<Tag>();
 
+  @Column(name="USER_ID")
+  Integer userId;
+
   public Integer getId() {
     return id;
   }
@@ -132,5 +135,13 @@ public class Card implements Serializable {
 
   public void setTags(List<Tag> tags) {
     this.tags = tags;
+  }
+
+  public Integer getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 }

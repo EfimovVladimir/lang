@@ -21,9 +21,8 @@ public class Section implements Serializable {
   @Column(name="parent_id")
   Integer parentId;
 
-  @JoinColumn(updatable = false, name="USER_ID")
-  @ManyToOne(optional = false, fetch = FetchType.EAGER)
-  User user;
+  @Column(name="USER_ID")
+  Integer userId;
 
   public Integer getId() {
     return id;
@@ -57,11 +56,11 @@ public class Section implements Serializable {
     this.parentId = parentId;
   }
 
-  public User getUser() {
-    return user;
+  public Integer getUserId() {
+    return userId;
   }
 
-  public void setUser(User user) {
-    this.user = user;
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 }

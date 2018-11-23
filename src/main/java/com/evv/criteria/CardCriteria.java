@@ -19,6 +19,7 @@ public class CardCriteria implements ICriteriaProvider<CardFilter> {
     if(cardFilter.getSectionId() > 0){
       filter.add(Restrictions.eq("section.id", cardFilter.getSectionId()));
     }
+    filter.add(Restrictions.eq("userId", cardFilter.getUserId()));
     return filter;
   }
 }

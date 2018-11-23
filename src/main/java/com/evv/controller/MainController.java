@@ -4,6 +4,8 @@ import com.evv.model.*;
 import com.evv.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -42,7 +44,9 @@ public class MainController {
   @RequestMapping(value = "/sections", method = RequestMethod.GET)
   @ResponseBody
   public List<Section> getAllSections() {
-    List<Section> result = sectionService.findAllSections();
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    List<Section> result = sectionService.findAllSections(user);
     return result;
   }
 
@@ -63,6 +67,9 @@ public class MainController {
   @RequestMapping(value = "/saveorupdate_section", method = RequestMethod.POST)
   @ResponseBody
   public Integer saveOrUpdateSection(@RequestBody Section section) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    section.setUserId(user.getId());
     sectionService.saveOrUpdateSection(section);
     return section.getId();
   }
@@ -112,6 +119,10 @@ public class MainController {
     card.setqAudio((fileQ != null) ? fileQ.getBytes() : null);
     card.setaAudio((fileA != null) ? fileA.getBytes() : null);
     card.setCardImage((fileImg != null) ? fileImg.getBytes() : null);
+
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    card.setUserId(user.getId());
     cardService.saveOrUpdateCard(card);
     return card.getId();
   }
@@ -207,6 +218,9 @@ public class MainController {
   @RequestMapping(value = "/saveorupdate_lesson", method = RequestMethod.POST)
   @ResponseBody
   public Integer saveOrUpdateLesson(@RequestBody Lesson lesson) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    lesson.setUserId(user.getId());
     lessonService.saveOrUpdateLesson(lesson);
     return lesson.getId();
   }
@@ -256,6 +270,9 @@ public class MainController {
   @RequestMapping(value = "/cards_byfilter", method = RequestMethod.POST)
   @ResponseBody
   public List<Card> getCardsByFilter(@RequestBody CardFilter cardFilter) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    cardFilter.setUserId(user.getId());
     List<Card> result = cardService.findCardsByFilter(cardFilter);
     return result;
   }
@@ -263,6 +280,9 @@ public class MainController {
   @RequestMapping(value = "/range_cards_byfilter", method = RequestMethod.POST)
   @ResponseBody
   public List<Card> getRangeCardsByFilter(@RequestBody CardFilter cardFilter) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    cardFilter.setUserId(user.getId());
     List<Card> result = cardService.findRangeCardsByFilter(cardFilter, cardFilter.getFromPage(), cardFilter.getSizePage());
     return result;
   }
@@ -270,6 +290,9 @@ public class MainController {
   @RequestMapping(value = "/count_cards_byfilter", method = RequestMethod.POST)
   @ResponseBody
   public Long getCountCardsByFilter(@RequestBody CardFilter cardFilter) {
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    User user = userService.findOneByUsername(username);
+    cardFilter.setUserId(user.getId());
     Long result = cardService.rowCountCardsByFilter(cardFilter);
     return result;
   }

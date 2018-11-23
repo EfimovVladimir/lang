@@ -21,6 +21,9 @@ public class Lesson implements Serializable {
   @Column(name = "QUESTION_FIELD")
   Integer questionField;
 
+  @Column(name="USER_ID")
+  Integer userId;
+
   public Integer getId() {
     return id;
   }
@@ -51,5 +54,13 @@ public class Lesson implements Serializable {
 
   public void setQuestionField(Integer questionField) {
     this.questionField = questionField;
+  }
+
+  public Integer getUserId() {
+    return userId;
+  }
+
+  public void setUserId(Integer userId) {
+    this.userId = userId;
   }
 }

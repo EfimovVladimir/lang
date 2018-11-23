@@ -20,6 +20,8 @@ public class CardFilter implements Serializable{
 
   int sizePage;
 
+  int userId;
+
   public String getAnswer() {
     return answer;
   }
@@ -82,5 +84,13 @@ public class CardFilter implements Serializable{
 
   public void setSizePage(int sizePage) {
     this.sizePage = sizePage;
+  }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 }
