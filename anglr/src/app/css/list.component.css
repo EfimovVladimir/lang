@@ -13,7 +13,7 @@ tr:hover td{
 
 .listPageBlockSize {
   display: inline-block;
-  height: 320px;
+  /*height: 320px;*/
   width: 650px;
   vertical-align: top;
   margin-left: 20px;

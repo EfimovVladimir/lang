@@ -1,6 +1,8 @@
 import {Component} from "@angular/core";
 import {Lesson} from "../../model/Lesson";
 import {Section} from "../../model/Section";
+import {User} from "../../model/User";
+import {StateService} from "../../services/state.service";
 
 @Component({
   selector: 'currentstateheader',
@@ -13,7 +15,8 @@ export class CurrentStateHeaderComponent {
 
   currentLesson: Lesson = new Lesson();
   currentSection: Section = new Section();
+  currentUser: User = this.stateService.getUser();
 
-  constructor() {  }
+  constructor(private stateService : StateService) {  }
 
 }

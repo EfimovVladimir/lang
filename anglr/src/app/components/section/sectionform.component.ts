@@ -4,6 +4,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {AppHttpService} from "../../services/apphttp.service";
 import {InteractService} from "../../services/interact.service"
 import {Subscription} from "rxjs/Subscription";
+import {StateService} from "../../services/state.service";
 
 @Component({
   selector: 'sectionform',
@@ -16,7 +17,9 @@ export class SectionFormComponent {
   currentSection: Section = new Section();
   subsSection: Subscription;
 
-  constructor(private appService: AppHttpService, private interactService: InteractService) {
+  constructor(private appService: AppHttpService,
+              private interactService: InteractService,
+              private stateService: StateService) {
     this.subsSection = this.interactService.getObservableSection().subscribe(
       data => {
         this.currentSection = (data == null)? new Section() : data;
@@ -25,6 +28,7 @@ export class SectionFormComponent {
   }
 
   executePostForm() : void {
+    this.currentSection.userId = this.stateService.getUser().id;
     this.appService.saveOrUpdateSectionForm(this.currentSection)
       .subscribe(
         data => {

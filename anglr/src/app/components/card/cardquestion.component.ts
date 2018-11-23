@@ -23,6 +23,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
   isShowContext: boolean = false;
   @ViewChild("answerId", {read: ElementRef}) answerElement: ElementRef;
   @ViewChild("engMp3", {read: ElementRef}) currentEngMp3: ElementRef;
+  @ViewChild("engMp3A", {read: ElementRef}) currentEngMp3A: ElementRef;
   lessonCardList: LessonCard[];
 
   constructor(private stateService: StateService,
@@ -70,8 +71,10 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     this.currentLessonCard = this.lessonCardList[this.currentIndex];
     if(this.currentLessonCard.lesson.questionField == 0){
       this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.qAudio;
+      this.currentEngMp3A.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.aAudio;
     }
     else {
+      this.currentEngMp3A.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.qAudio;
       this.currentEngMp3.nativeElement.src = 'data:audio/mp3;base64,' + this.currentLessonCard.card.aAudio;
     }
     this.currentEngMp3.nativeElement.play();
@@ -103,6 +106,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
     }else{
       this.failCard();
     }
+    this.currentEngMp3A.nativeElement.play();
   }
 
   getSymbolsAnswer(){
@@ -142,7 +146,7 @@ export class CardQuestionComponent implements AfterViewInit, OnInit {
 
   failCard() : void {
     this.currentLessonCard.failedCount += 1;
-    this.lessonCardList[this.currentIndex].failedCount += this.currentLessonCard.failedCount;
+    this.lessonCardList[this.currentIndex].failedCount = this.currentLessonCard.failedCount;
     this.updateCardForm(this.lessonCardList[this.currentIndex]);
     this.currentStatus = 'FAILED';
   }

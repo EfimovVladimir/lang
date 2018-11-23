@@ -9,11 +9,15 @@
       <audio #engMp3 controls >
         <source src="" type="audio/mpeg">
       </audio>
-      <!--<button (click)="excutePlay(engMp3)">play</button>-->
     </div>
     <div *ngIf="currentLessonCard.lesson.questionField == 0"><span class="question-text">{{currentLessonCard.card.question}}</span></div>
     <div *ngIf="currentLessonCard.lesson.questionField == 1"><span class="question-text">{{currentLessonCard.card.answer}}</span></div>
     <div [style.visibility]="(currentStatus.length == 0) ? 'hidden' : 'visible' ">
+      <div>
+        <audio #engMp3A controls >
+          <source src="" type="audio/mpeg">
+        </audio>
+      </div>
       <span *ngIf="currentLessonCard.lesson.questionField == 0" class="question-text">{{currentLessonCard.card.answer}}</span>
       <span *ngIf="currentLessonCard.lesson.questionField == 1" class="question-text">{{currentLessonCard.card.question}}</span>
     </div>
