@@ -5,6 +5,7 @@ import {AuthService} from "../../services/auth.service";
 import {StateService} from "../../services/state.service";
 import {TokenStorage} from "../../services/token.storage";
 import {AppHttpService} from "../../services/apphttp.service";
+import {InteractService} from "../../services/interact.service";
 
 @Component({
   selector: 'loginComponent',
@@ -21,7 +22,7 @@ export class LoginComponent {
   warningMsg: string = "";
 
   constructor(private auth: AuthService,
-              private appHttpService : AppHttpService,
+              private interactService: InteractService,
               private state: StateService,
               private router: Router,
               private token: TokenStorage) {
@@ -37,7 +38,8 @@ export class LoginComponent {
           this.state.setAuthenticated(true);
           this.user.userRole = data.userRole;
           this.state.setUser(this.user);
-          this.router.navigateByUrl('/sectionedit');
+          this.interactService.sendUser(this.user);
+          this.router.navigateByUrl('/cardedit');
         } else {
           this.state.setAuthenticated(false);
           this.errorMsg = "Wrong login or password. Try again";
@@ -66,6 +68,7 @@ export class LoginComponent {
     this.state.setUser(new User());
     this.state.setAuthenticated(false);
     this.token.signOut();
+    this.interactService.sendUser(new User());
     this.errorMsg = "";
     this.warningMsg = "";
   }

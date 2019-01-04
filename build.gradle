@@ -34,6 +34,7 @@ ext.angularDir = "${project.rootDir}/${angularDirName}"
 ext.os = System.properties['os.name'].toLowerCase()
 ext.tomcatHome = System.env['CATALINA_HOME']
 ext.webContext = 'drill'
+ext.servContext = 'lang'
 
 task buildAngular(type:Exec) {
     workingDir angularDir
@@ -46,31 +47,36 @@ task buildAngular(type:Exec) {
 }
 
 // 'gradle war' creates lang.war file in ./build/libs
-war {
-    from "${angularDir}/dist"
-}
+//war {
+//    from "${angularDir}/dist"
+//}
 
+// build back and front
 task fullBuild(type:GradleBuild){
     dependsOn buildAngular
     tasks = [ 'war' ]
 }
 
+// deploy back
 task deployBackToTomcat(type: Copy) {
-    from war.archivePath
-    into "${tomcatHome}/webapps"
+    from zipTree(war.archivePath)
+    into "${tomcatHome}/webapps/${servContext}"
 }
 
+// deploy front
 task deployFrontToTomcat(type: Copy) {
     finalizedBy "copyIndexHtml"
     from "${angularDir}/dist"
-    exclude "${angularDir}/dist/index.html"
     into "${tomcatHome}/webapps/${webContext}"
+    exclude "**/index.html"
 }
+task cleanFrontDir(type: Delete) {
+    delete fileTree(dir: "${tomcatHome}/webapps/${webContext}")
+}
+deployFrontToTomcat.dependsOn cleanFrontDir
 
 task copyIndexHtml(type: Copy) {
     from "${angularDir}/dist/index.html"
-    into "${tomcatHome}/webapps"
+    into "${tomcatHome}/webapps/${webContext}"
     filter { line -> line.replaceAll('<base href="/">', '<base href=".">') }
 }
-
-

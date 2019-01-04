@@ -22,6 +22,7 @@ export class AppComponent {
   currentState: CurrentState = new CurrentState();
   subsLesson: Subscription;
   subsSection: Subscription;
+  subsUser: Subscription;
   @ViewChild(CurrentStateHeaderComponent) stateHeader: CurrentStateHeaderComponent;
 
   constructor(private appService: AppHttpService,
@@ -37,6 +38,11 @@ export class AppComponent {
       data => {
         this.currentState.section = (data == null)? new Section() : data;
         this.stateHeader.currentSection = this.currentState.section;
+      }
+    );
+    this.subsUser = this.interactService.getObservableUser().subscribe(
+      data => {
+        this.stateHeader.currentUser = this.state.getUser();
       }
     );
   }

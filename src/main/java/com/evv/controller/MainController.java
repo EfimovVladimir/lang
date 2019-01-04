@@ -15,7 +15,6 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping(value = "/")
 public class MainController {
 

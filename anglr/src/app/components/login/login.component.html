@@ -1,7 +1,7 @@
 <div class="loginBlock">
-  <div class="alert alert-danger" [hidden]="!error">
-    There was a problem logging in. Please try again.
-  </div>
+  <!--<div class="alert alert-danger" [hidden]="message">-->
+    <!--There was a problem logging in. Please try again.-->
+  <!--</div>-->
   <div *ngIf="!isAuthenticated() && !isSignUp">
     <p *ngIf="errorMsg.length > 0">{{errorMsg}}</p>
     <form>

@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.sql.DataSource;
@@ -64,6 +65,12 @@ public class RootConfig extends WebMvcConfigurerAdapter {
     commonsMultipartResolver.setMaxUploadSize(20971520); // 20 MB
     commonsMultipartResolver.setMaxInMemorySize(1048576); // 1 MB
     return commonsMultipartResolver;
+  }
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**")
+        .allowedMethods("GET", "POST");
   }
 
 }
