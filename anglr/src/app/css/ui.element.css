@@ -123,6 +123,21 @@ textarea {
   padding: 3px;
 }
 
+.col_3 {
+  width: 30px;
+  padding: 1px;
+}
+
+.col_5 {
+  width: 50px;
+  padding: 1px;
+}
+
+.col_7 {
+  width: 70px;
+  padding: 2px;
+}
+
 .col50 {
   width: 500px;
   padding: 3px;

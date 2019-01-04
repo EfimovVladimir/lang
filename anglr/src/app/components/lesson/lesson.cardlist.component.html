@@ -3,15 +3,29 @@
     <span class="captionText">Cards:</span>
     <button class="form-button" (click)="startLesson()">start lesson</button>
   </div>
-  <table>
-    <tr *ngFor="let lessonCard of lessonCardList">
-      <td><button (click)="deleteCardFromLesson(lessonCard)" class="listButton buttonDelete"></button></td>
-      <td>{{lessonCard.card.id}}</td>
-      <td class="col30">{{lessonCard.card.question.substr(0, 30)}}</td>
-      <td class="col30">{{lessonCard.card.answer.substr(0, 30)}}</td>
-      <td [ngClass]="{'learnt': lessonCard.successCount >= lessonCard.targetCount,
-                    'learning': lessonCard.successCount < lessonCard.targetCount }">{{lessonCard.successCount}} of {{lessonCard.targetCount}}</td>
-      <td *ngIf="lessonCard.successCount >= lessonCard.targetCount"><button (click)="toLearnAgain(lessonCard)" class="listButton buttonCheck" title="to Learn Again"></button></td>
-    </tr>
+  <table class="fixed_header">
+    <thead>
+      <tr>
+        <th class="col_3">del</th>
+        <th class="col_3">id</th>
+        <th class="col30">question</th>
+        <th class="col30">answer</th>
+        <th class="col_7">learned</th>
+        <th class="col_5">again</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let lessonCard of lessonCardList">
+        <td class="col_3"><button (click)="deleteCardFromLesson(lessonCard)" class="listButton buttonDelete"></button></td>
+        <td class="col_3">{{lessonCard.card.id}}</td>
+        <td class="col30">{{lessonCard.card.question.substr(0, 30)}}</td>
+        <td class="col30">{{lessonCard.card.answer.substr(0, 30)}}</td>
+        <td [ngClass]="{'learnt': lessonCard.successCount >= lessonCard.targetCount,
+                      'learning': lessonCard.successCount < lessonCard.targetCount }" class="col_7">{{lessonCard.successCount}} of {{lessonCard.targetCount}}</td>
+        <td *ngIf="lessonCard.successCount >= lessonCard.targetCount" class="col_5">
+          <button (click)="toLearnAgain(lessonCard)" class="listButton buttonCheck" title="to Learn Again"></button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
